@@ -15,7 +15,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
-    
 
 
 class Project(models.Model):
@@ -28,6 +27,7 @@ class Project(models.Model):
         ("archived", "Archived"),
     )
     title = models.CharField(max_length=100)
+    creator = models.OneToOneField(User, on_delete=models.CASCADE, related_name='creator')
     users = models.ManyToManyField(User)
     description = models.TextField()
     start_date = models.DateTimeField()
@@ -37,6 +37,7 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -45,4 +46,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.user.username
-    

@@ -12,9 +12,17 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ["title", "description", "start_date", "end_date", "status"]
+    list_display = [
+        "title",
+        "creator",
+        "description",
+        "start_date",
+        "end_date",
+        "status",
+    ]
     filter_horizontal = ("users",)
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['user','project','comment']
+    list_display = ["user", "project", "comment"]
