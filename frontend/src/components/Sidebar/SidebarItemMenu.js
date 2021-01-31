@@ -32,7 +32,7 @@ const DropdownItem = styled.div`
 `;
 
 const DropIconDiv = styled.div`
-    margin-left:10px;
+    margin-left:auto;
 `;
 const SidebarTypography = styled.span`
     margin-left:16px;
@@ -48,7 +48,7 @@ const SidebarItemMenu = ({ item }) => {
             <SidebarItem onClick={item.dropItem && showItemDropdown}>
                 {item.icon}
                 <SidebarTypography>
-                    <Typography variant='h5'>{item.title}</Typography>  
+                    <Typography variant='h6'>{item.title}</Typography>  
                 </SidebarTypography>
                      
             <DropIconDiv>

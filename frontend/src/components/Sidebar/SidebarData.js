@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 export const SidebarData = [
     {
-        title: 'Testowy',
+        title: 'Overview',
         icon: <LocalLibraryIcon/>,
         iconClosed: <ExpandMoreIcon/>,
         iconOpened: <ExpandLessIcon/>,
@@ -22,19 +22,19 @@ export const SidebarData = [
         ]
     },
     {
-        title: 'Testowy',
+        title: 'Projects',
         icon: <LocalLibraryIcon/>
     },
     {
-        title: 'Testowy',
+        title: 'Archive',
         icon: <LocalLibraryIcon/>
     },
     {
-        title: 'Testowy',
+        title: 'Raports',
         icon: <LocalLibraryIcon/>
     },
     {
-        title: 'Testowy',
+        title: 'Mail',
         icon: <LocalLibraryIcon/>,
         iconOpened: <ExpandLessIcon/>,
         iconClosed: <ExpandMoreIcon/>,
