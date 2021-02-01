@@ -19,6 +19,15 @@ def create_profile(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+def create_project(request):
+    serializers = ProjectSerializer(data=request.data)
+    if serializers.is_valid():
+        serializers.save()
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 def get_user_from_token(request):
     token = request.headers['Authorization']
     user_id = Token.objects.get(key=token).user_id

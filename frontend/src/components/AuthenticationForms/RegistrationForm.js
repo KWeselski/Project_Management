@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import FormPassword from './FormPassword'
 import FormPersonalInfo from './FormPersonalInfo'
+import {connect} from 'react-redux';
 
 class RegistrationForm extends Component {
      
@@ -61,4 +62,6 @@ class RegistrationForm extends Component {
 
 }
 
-export default RegistrationForm
+
+
+export default (RegistrationForm)

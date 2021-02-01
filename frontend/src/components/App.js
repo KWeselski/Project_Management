@@ -4,11 +4,13 @@ import {BrowserRouter as Router, Switch, Route} from
 'react-router-dom'
 import Sidebar from './Sidebar/Sidebar'
 import Overview from './Overview';
-import RegistrationForm from './AuthenticationForms/RegistrationForm'
-import LoginForm from './LoginForm'
+import RegistrationForm from './AuthenticationForms/RegistrationForm';
+import LoginForm from './AuthenticationForms/LoginForm';
 import Grid from '@material-ui/core/Grid';
+import {connect} from 'react-redux';
 
-export default class App extends Component {
+
+class App extends Component {
     constructor(props) {
         super(props);
     }
@@ -22,9 +24,9 @@ export default class App extends Component {
                         </Grid>
                         <Grid container md={10}>
                             <Switch>
+                                <Route exact path="/" component={LoginForm}/>
                                 <Route exact path="/register" component={RegistrationForm}/>
-                                <Route exact path="/login" component={LoginForm}/>
-                                <Route exact path='' component={Overview}/>
+                                <Route exact path='/overview' component={Overview}/>
                             </Switch>
                         </Grid>                    
                     </Grid>               
@@ -34,5 +36,10 @@ export default class App extends Component {
     }
 }
 
-const appDiv = document.getElementById('app')
-render(<App/>, appDiv)
+const mapStateToProps = state => {
+    return {
+      isAuthenticated: state.token !== null
+    };
+  };
+
+export default connect(mapStateToProps)(App)

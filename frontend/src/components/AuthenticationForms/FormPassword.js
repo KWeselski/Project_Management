@@ -13,22 +13,6 @@ class FormPassword extends Component{
         this.props.returnStep();
     }
 
-    createProfile = (firstName, lastName, sex, age, phone) => {
-        try {
-           axios.post(("/api/create_profile/"),{
-              firstname:firstName,
-              lastname:lastName,
-              sex:sex,
-              age:age,
-              phone:phone},{
-              headers: {Authorization: `${localStorage.getItem("token")}`}
-          })}       
-          catch(error){
-            console.log(error)
-          };
-          return 'done';
-    };
-
     handleSubmit = async e => {
         const { values } = this.props;
         e.preventDefault();
@@ -153,9 +137,9 @@ class FormPassword extends Component{
 
 const mapStateToProps = state => {
     return {
-        loading: state.auth.loading,
-        error: state.auth.error,
-        token: state.auth.token
+        loading: state.loading,
+        error: state.error,
+        token: state.token
     };
 };
 
