@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import {Button, Grid, TextField , Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {authSignup, createProfile} from '../actions/authActions.js'
-import axios from 'axios'
 
 
 class FormPassword extends Component{
-       
+      
+    state={
+        redirectToLogin:false,
+    }
+
     return = e => {
         e.preventDefault();
         this.props.returnStep();
@@ -16,7 +19,9 @@ class FormPassword extends Component{
     handleSubmit = async e => {
         const { values } = this.props;
         e.preventDefault();
+        const username = values.firstName + "_" + values.lastName;
         await this.props.signup(
+            username,
             values.email,
             values.password1,
             values.password2,  
@@ -27,8 +32,8 @@ class FormPassword extends Component{
             values.sex,
             values.age, 
             values.phone,
-        )      
-        
+        )
+        this.setState({redirectToLogin:true})       
     };
 
     handleChange = e => {
@@ -37,7 +42,12 @@ class FormPassword extends Component{
 
     render() {
         const { values, handleChange, error } = this.props;
+        const {redirectToLogin} = this.state;
         let errorMessage;
+
+        if(redirectToLogin){
+            return <Redirect to="/overview"></Redirect>  
+        }
         if(error){
             errorMessage = (<Grid container xs={12}>
                 {Object.keys(error).map(function(key) {
@@ -147,8 +157,8 @@ const mapDispatchToProps = dispatch => {
     return {
         createProfile: (firstName, lastName, age, sex, phone)=>
         dispatch(createProfile(firstName, lastName, age, sex, phone)),
-        signup: (email, password1, password2) =>
-        dispatch(authSignup(email, password1, password2))
+        signup: (username, email, password1, password2) =>
+        dispatch(authSignup(username, email, password1, password2))
     };
 };
 

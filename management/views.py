@@ -28,6 +28,14 @@ def create_project(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view()
+def get_users_list(request):
+    profiles = Profile.objects.all()
+    serializer = ProfileSerializer(profiles, context={'request':
+                                   request}, many=True)
+    return Response(serializer.data)
+
+
 def get_user_from_token(request):
     token = request.headers['Authorization']
     user_id = Token.objects.get(key=token).user_id

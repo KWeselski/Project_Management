@@ -76,7 +76,7 @@ export const checkAuthTimeout = expirationTime => {
     }
 }
 
-export const authLogin = (email, password) => {
+export const authLogin = (firstName, lastName,email, password) => {
     return dispatch => {
       dispatch(authStart());
       axios
@@ -98,10 +98,11 @@ export const authLogin = (email, password) => {
     };
   };
   
-  export const authSignup = (email, password1, password2) => {
+  export const authSignup = (username, email, password1, password2) => {
     return async dispatch => {
       dispatch(authStart());
         await axios.post("/auth/registration/", {
+          username: username,
           email: email,
           password1: password1,
           password2: password2})

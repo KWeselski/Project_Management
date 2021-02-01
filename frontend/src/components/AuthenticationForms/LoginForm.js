@@ -14,13 +14,13 @@ class LoginForm extends React.Component {
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
-      };
+    };
     
     handleSubmit = e => {
         e.preventDefault();
         const { email, password } = this.state;
         this.props.login(email, password);
-      };
+    };
 
     render() {
         const {token} = this.props;
@@ -35,7 +35,7 @@ class LoginForm extends React.Component {
             <Grid item xs={1} md={3}></Grid>
             <Grid item xs={10} md={4}>
             <Typography align='center' variant="h4">Login to your account</Typography>
-            <form onSubmit={this.handleSubmit} >
+            <form onSubmit={this.handleSubmit}>
                 <Grid container spacing={2} textAlign="center" style={{ height: "100%"}}
                 verticalAlign="middle">         
                     <Grid item xs={12} md={12}>
