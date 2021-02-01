@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {Link,} from "react-router-dom"
+import {Link} from "react-router-dom"
 import {Button, Grid, TextField , Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
-import {authSignup} from '../actions/authActions.js'
+import {authSignup, createProfile} from '../actions/authActions.js'
+import axios from 'axios'
+
 
 class FormPassword extends Component{
        
@@ -11,19 +13,38 @@ class FormPassword extends Component{
         this.props.returnStep();
     }
 
-    handleSubmit = e => {
+    createProfile = (firstName, lastName, sex, age, phone) => {
+        try {
+           axios.post(("/api/create_profile/"),{
+              firstname:firstName,
+              lastname:lastName,
+              sex:sex,
+              age:age,
+              phone:phone},{
+              headers: {Authorization: `${localStorage.getItem("token")}`}
+          })}       
+          catch(error){
+            console.log(error)
+          };
+          return 'done';
+    };
+
+    handleSubmit = async e => {
         const { values } = this.props;
         e.preventDefault();
-        this.props.signup(
-            values.firstName,
-            values.lastName,
-            values.age,
-            values.sex,
-            values.phone,
+        await this.props.signup(
             values.email,
             values.password1,
-            values.password2
-            )
+            values.password2,  
+        )
+        await this.props.createProfile(
+            values.firstName,
+            values.lastName,
+            values.sex,
+            values.age, 
+            values.phone,
+        )      
+        
     };
 
     handleChange = e => {
@@ -40,7 +61,6 @@ class FormPassword extends Component{
                 })
               }</Grid>);
         }
-        console.log(errorMessage)
         return(
             <Grid container xs={12} style={{height:'100%'}}>
             <Grid item xs={1} md={3}></Grid>
@@ -141,8 +161,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signup: (firstName, lastName, age, sex, phone, email, password1, password2) =>
-        dispatch(authSignup(firstName, lastName, age, sex, phone, email, password1, password2))
+        createProfile: (firstName, lastName, age, sex, phone)=>
+        dispatch(createProfile(firstName, lastName, age, sex, phone)),
+        signup: (email, password1, password2) =>
+        dispatch(authSignup(email, password1, password2))
     };
 };
 

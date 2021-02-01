@@ -2,19 +2,23 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 # Create your models here.
 class Profile(models.Model):
     SEX_CHOICES = (("male", "Male"), ("female", "Female"))
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    surname = models.CharField(max_length=100)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
     sex = models.CharField(max_length=100, choices=SEX_CHOICES)
-    phone = PhoneNumberField(null=True, blank=True)
+    age = models.IntegerField(default=18, validators=[MinValueValidator(18),
+                              MaxValueValidator(80)])
+    phone = models.CharField(max_length=9)
 
     def __str__(self):
-        return self.name
+        return self.firstname
 
 
 class Project(models.Model):
@@ -27,12 +31,14 @@ class Project(models.Model):
         ("archived", "Archived"),
     )
     title = models.CharField(max_length=100)
-    creator = models.OneToOneField(User, on_delete=models.CASCADE, related_name='creator')
+    creator = models.OneToOneField(User, on_delete=models.CASCADE,
+                                   related_name='creator')
     users = models.ManyToManyField(User)
     description = models.TextField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="new")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES,
+                              default="new")
 
     def __str__(self):
         return self.title

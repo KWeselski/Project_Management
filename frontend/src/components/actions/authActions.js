@@ -9,11 +9,29 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token,username) => {
+export const profileStart = () => {
+  return {
+      type: actionTypes.PROFILE_START
+  };
+};
+
+export const profileFail = error => {
+  return {
+      type: actionTypes.PROFILE_FAIL,
+      error:error
+  };
+};
+
+export const profileSuccess = () => {
+  return {
+      type: actionTypes.PROFILE_SUCCESS
+  };
+};
+
+export const authSuccess = (token) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token,
-        username: username
     };
 };
 
@@ -58,12 +76,12 @@ export const checkAuthTimeout = expirationTime => {
     }
 }
 
-export const authLogin = (username, password) => {
+export const authLogin = (email, password) => {
     return dispatch => {
       dispatch(authStart());
       axios
         .post("/auth/login/", {
-          username: username,
+          email: email,
           password: password,
         })
         .then(res => {
@@ -71,7 +89,7 @@ export const authLogin = (username, password) => {
           const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
           localStorage.setItem("token", token);
           localStorage.setItem("expirationDate", expirationDate);
-          dispatch(authSuccess(token,username));
+          dispatch(authSuccess(token));
           dispatch(checkAuthTimeout(3600));
         })
         .catch(err => {
@@ -80,28 +98,43 @@ export const authLogin = (username, password) => {
     };
   };
   
-  export const authSignup = (fisrtName, lastName, sex, age, phone, email, password1, password2) => {
-    return dispatch => {
+  export const authSignup = (email, password1, password2) => {
+    return async dispatch => {
       dispatch(authStart());
-      axios
-        .post("/auth/registration/", {
+        await axios.post("/auth/registration/", {
           email: email,
           password1: password1,
-          password2: password2
-        })
-        .then(res => {
+          password2: password2})
+      .then(res => {
           const token = res.data.key;
           const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
           localStorage.setItem("token", token);
           localStorage.setItem("expirationDate", expirationDate);
-          dispatch(authSuccess(token,username));
-          dispatch(checkAuthTimeout(3600));
-        })
-        .catch(error => {
+          dispatch(authSuccess(token));
+          dispatch(checkAuthTimeout(3600));          
+      }).catch(error => {
           dispatch(authFail(error.response.data));
-        });
+      });
     };
   };
+
+export const createProfile = (firstName, lastName, sex, age, phone) => {
+    return async dispatch => {
+      dispatch(profileStart());
+       await axios.post(("/api/create_profile/"),{
+          firstname:firstName,
+          lastname:lastName,
+          sex:sex,
+          age:age,
+          phone:phone},{
+          headers: {Authorization: `${localStorage.getItem("token")}`}
+      }).then(()=> {
+        dispatch(profileSuccess());
+      }).catch(error => {
+        dispatch(profileFail(error))
+      })
+  };
+};
 
 export const authCheckState = () => {
     return dispatch => {
@@ -152,3 +185,4 @@ export const authResetPasswordConfirm = (uid,token,password1, password2) => {
   });
   }
 };
+

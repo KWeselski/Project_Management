@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from
 import Sidebar from './Sidebar/Sidebar'
 import Overview from './Overview';
 import RegistrationForm from './AuthenticationForms/RegistrationForm'
+import LoginForm from './LoginForm'
 import Grid from '@material-ui/core/Grid';
 
 export default class App extends Component {
@@ -17,15 +18,15 @@ export default class App extends Component {
             <Router>
                     <Sidebar/> 
                     <Grid container md={12}>
-                        <Grid item md={2}>
-                            
+                        <Grid item md={2}>                      
                         </Grid>
                         <Grid container md={10}>
                             <Switch>
-                                <Route exact path="/" component={RegistrationForm}/>
+                                <Route exact path="/register" component={RegistrationForm}/>
+                                <Route exact path="/login" component={LoginForm}/>
+                                <Route exact path='' component={Overview}/>
                             </Switch>
-                        </Grid>
-                        
+                        </Grid>                    
                     </Grid>               
             </Router>
                    

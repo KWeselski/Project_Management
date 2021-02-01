@@ -32,7 +32,7 @@ class FormPersonalInfo extends Component {
                             id="firstName"
                             label="First Name"
                             autoFocus
-                            inputProps={{pattern:"[a-Z]{1-50}"}}
+                            inputProps={{pattern:"[A-Za-z]{1,50}"}}
                             value={values.firstName}
                             onChange={handleChange}
                             />
@@ -45,14 +45,15 @@ class FormPersonalInfo extends Component {
                             name="lastName"
                             label="Last Name"
                             id="lastName"
-                            inputProps={{pattern:"[a-z]{1-50}"}}
+                            inputProps={{pattern:"[A-Za-z]{1,50}"}}
                             value={values.lastName}
                             onChange={handleChange}
                             />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Select
+                        <TextField
                             variant="outlined"
+                            select
                             required
                             fullWidth
                             name="sex"
@@ -61,9 +62,12 @@ class FormPersonalInfo extends Component {
                             value={values.sex}
                             onChange={handleChange}
                         >
+                        <MenuItem value="none" disabled>
+                            Sex
+                         </MenuItem>
                          <MenuItem value={'male'}>Male</MenuItem>
                          <MenuItem value={'female'}>Female</MenuItem>
-                        </Select>
+                        </TextField>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
@@ -73,7 +77,7 @@ class FormPersonalInfo extends Component {
                             name="age"
                             label="Age"
                             id="age"
-                            inputProps={{pattern:"[0-9]{2}"}}
+                            inputProps={{pattern:"[0-9]{2}", maxLength:2}}
                             maxLength="2"
                             value={values.age}
                             onChange={handleChange}
@@ -86,8 +90,7 @@ class FormPersonalInfo extends Component {
                             name="phone"
                             label="Phone Number"
                             id="phone"
-                            inputProps={{pattern:"[0-9]{9}"}}
-                            maxLength="9"
+                            inputProps={{pattern:"[0-9]{9}", maxLength:9}}
                             value={values.phone}
                             onChange={handleChange}
                         />
