@@ -39,13 +39,11 @@ class AddUserForm extends Component {
     render(){
         const {profiles} = this.state;
         const {users} = this.props;
-        console.log(profiles)
         return(
             <Paper style={{maxHeight:'100%', overflow:'auto'}}>
             <Typography align='center' variant='h5'>Add users to project</Typography>
             <List dense style={{maxHeight:'50vh',width: '100%', maxWidth:600}}>
                 {profiles.map((value) => {
-                    console.log(value)
                     const labelId = `checkbox-list-secondary-label-${value.id}`;
                     return (
                       <ListItem key={value.id} button>

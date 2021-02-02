@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import axios from 'axios'
 
 class FormConfirm extends Component {
 
@@ -20,6 +21,20 @@ class FormConfirm extends Component {
         return `${day}${separator}${month<10?`0${month}`:`${month}`}${separator}${year} Time: ${hour}:${minutes}`
     }
 
+    confirmProject = () => {
+        const {values} = this.props;
+        let users = values.users.map(a => a.user);
+        axios.post('/api/create_project/',{
+            title:values.title,
+            description:values.description,
+            start_date: values.startDate,
+            end_date: values.endDate,
+            users: users
+        },{
+            headers: {Authorization: `${localStorage.getItem("token")}`}
+        })
+    }
+
     render(){
         const {values, returnToOverview, returnStep} = this.props;
         if(values.returnToOverview){
@@ -31,11 +46,15 @@ class FormConfirm extends Component {
                         <Typography align='center' variant='h3' style={{padding:40}}>Confirm new project</Typography>
                         </Grid>                 
                         <Paper> 
-                            <Grid container xs={12} md={8} textAlign="center" style={{ height: "100%" , marginTop: 20}}>
-                                <Grid item xs={12} md={12} style={{padding:20}}>
-                                    <Typography style={{fontSize: '1.4rem'}}>Title: {values.title}</Typography>
+                            <Grid container xs={12} md={12} textAlign="center" style={{ height: "100%"}}>
+                                <Grid item xs={8} md={8} style={{padding:20}}>
+                                    <TextField
+                                    readonly
+                                    fullWidth
+                                    value={values.title}
+                                    inputProps={{ style: {fontSize: '1.4rem'}, maxLength: 100}}/>
                                 </Grid>
-                                <Grid container xs={12} md={8}>                  
+                                <Grid container xs={12} md={9}>                  
                                     <Grid item xs={12} md={12} style={{padding:20}}>
                                         <TextField
                                             readonly
@@ -52,7 +71,7 @@ class FormConfirm extends Component {
                                         />
                                     </Grid>
                                 </Grid>               
-                                <Grid container xs={12} md={4} style={{padding:20}}>
+                                <Grid container xs={12} md={3} style={{padding:20}}>
                                     <span>                   
                                     <Typography variant='h6'>Start Date: {this.getCurrentDate(values.startDate)}</Typography>       
                                     <Typography variant='h6'>End Date: {this.getCurrentDate(values.endDate)}</Typography>
@@ -85,19 +104,20 @@ class FormConfirm extends Component {
                                                 fullWidth
                                                 type="submit"                      
                                                 variant="contained"
-                                                color="primary">
-                                                Next
+                                                color="primary"
+                                                onClick={this.confirmProject}>
+                                                Confirm
                                             </Button>
                                         </Grid>                              
                                 </Grid>                                
                             </Grid>   
                             </Grid>                 
                         </Paper>
-                        <Paper>
-                            <Grid container xs={12} md={4}>
-                                <Grid item>
+                            <Grid container xs={12} md={2}>
+                                <Grid item xs={12} md={12} style={{marginLeft:10}}>
+                                    <Paper style={{maxHeight:'100%', overflow:'auto'}}>
                                     <Typography align='center' variant='h5'>Added users</Typography>
-                                    <List dense style={{maxHeight:'50vh', width: '100', maxWidth:600}}>
+                                    <List dense style={{maxHeight:'50vh', width: '100%', maxWidth:350}}>
                                         {values.users.map((user) => {
                                             const labelId = `checkbox-list-secondary-label-${user.id}`;
                                             return(       
@@ -110,9 +130,9 @@ class FormConfirm extends Component {
                                             )})
                                     }
                                     </List>
+                                    </Paper> 
                                 </Grid>
-                            </Grid>
-                        </Paper>                                     
+                            </Grid>                                             
                 </Grid>           
         )
     }
