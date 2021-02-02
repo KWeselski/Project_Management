@@ -46,7 +46,7 @@ class Sidebar extends Component {
     constructor(props){
         super(props);
         this.state = {
-            hide:false
+            hide:true
         }
     }
 

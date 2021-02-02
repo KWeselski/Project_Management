@@ -5,6 +5,7 @@ class FormConfirm extends Component {
 
     render(){
         const {values} = this.props;
+        console.log(values)
         return(
             <Grid container xs={12} md={10}>
                 <Typography variant='h6'>{values.title}</Typography>
@@ -13,7 +14,7 @@ class FormConfirm extends Component {
                 <Typography variant='h6'>{values.endDate.getDate()}</Typography>
                 {values.users.map(user => {
                     return (
-                        <Typography variant='h7'>{user}</Typography>
+                        <Typography variant='h7'>{user.firstname}</Typography>
                     )
                 })}              
             </Grid>

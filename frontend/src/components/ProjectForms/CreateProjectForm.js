@@ -24,7 +24,7 @@ class CreateProjectForm extends Component {
         this.setState({ step : step - 1})
     };
 
-    return = e => {
+    returnToOverview = e => {
         e.preventDefault();
         this.setState({returnToOverview:true})
     }
@@ -43,7 +43,7 @@ class CreateProjectForm extends Component {
 
     handleToogle = (value) => () => {
         const {users} = this.state;
-        const currentIndex = users.indexOf(value);
+        const currentIndex = users.map((v) => {return v.id}).indexOf(value.id);
         const newChecked = [...users];
 
         if (currentIndex === -1) {
@@ -56,13 +56,14 @@ class CreateProjectForm extends Component {
     
     render() {
         const {step} = this.state;
-        const {title, description, startDate, endDate, users} = this.state;
-        const values = {title, description, startDate, endDate, users}
+        const {title, description, startDate, endDate, users, returnToOverview} = this.state;
+        const values = {title, description, startDate, endDate, users, returnToOverview}
         switch(step){
             case 1:
                 return(
                     <FormCreate
                         nextStep={this.nextStep}
+                        returnToOverview = {this.returnToOverview}
                         handleChange={this.handleChange}
                         handleStartDateChange={this.handleStartDateChange}
                         handleEndDateChange={this.handleEndDateChange}

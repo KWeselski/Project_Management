@@ -34,9 +34,9 @@ class AddUserForm extends Component {
         const {profiles} = this.state;
         const {users} = this.props;
         return(
-            <Paper style={{maxHeight:'80%', overflow:'auto'}}>
+            <Paper style={{maxHeight:'100%', overflow:'auto'}}>
             <Typography align='center' variant='h5'>Add users to project</Typography>
-            <List dense style={{width: '100%', maxWidth:600}}>
+            <List dense style={{maxHeight:'50vh',width: '100%', maxWidth:600}}>
                 {profiles.map((value) => {
                     const labelId = `checkbox-list-secondary-label-${value.id}`;
                     return (
@@ -48,8 +48,8 @@ class AddUserForm extends Component {
                         <ListItemSecondaryAction>
                             <Checkbox
                                 edge='end'
-                                onChange={this.props.handleToogle(value.id)}
-                                checked={users.indexOf(value.id) !== -1}
+                                onChange={this.props.handleToogle(value)}
+                                checked={users.map((v) => {return v.id}).indexOf(value.id) !== -1}
                                 inputProps={{ 'aria-labelledby': labelId }}
                             />
                         </ListItemSecondaryAction>

@@ -56,10 +56,7 @@ class RegistrationForm extends Component {
             default:
                 console.log()
         }
-        
-
     }
-
 }
 
 
