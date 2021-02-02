@@ -23,7 +23,13 @@ class AddUserForm extends Component {
         axios.get('/api/get_users_list/'   
         ).then(res => {
             this.setState({profiles : res.data})
-        }).catch(error => console.log(error.message) )
+        }).then(this.sortProfiles)
+        .catch(error => console.log(error.message) )
+    }
+
+    sortProfiles = () => {
+        const {profiles} = this.state;
+        profiles.sort((a,b) => (a.firstname > b.firstname) ? 1 : ((b.firstname > a.firstname) ? -1 : 0))
     }
 
     componentDidMount () {
@@ -33,11 +39,13 @@ class AddUserForm extends Component {
     render(){
         const {profiles} = this.state;
         const {users} = this.props;
+        console.log(profiles)
         return(
             <Paper style={{maxHeight:'100%', overflow:'auto'}}>
             <Typography align='center' variant='h5'>Add users to project</Typography>
             <List dense style={{maxHeight:'50vh',width: '100%', maxWidth:600}}>
                 {profiles.map((value) => {
+                    console.log(value)
                     const labelId = `checkbox-list-secondary-label-${value.id}`;
                     return (
                       <ListItem key={value.id} button>

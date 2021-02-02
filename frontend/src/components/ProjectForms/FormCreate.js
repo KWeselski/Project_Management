@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Grid, TextField, Typography} from '@material-ui/core';
 import {Redirect} from "react-router-dom"
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import { KeyboardDatePicker, TimePicker } from "@material-ui/pickers";
 import AddUsersForm from './AddUsersForm'
 import Paper from '@material-ui/core/Paper';
 
@@ -20,19 +20,20 @@ class FormCreate extends Component{
                     <form onSubmit={this.props.nextStep} style={{display: 'flex'}}>  
                         <Paper> 
                         <Grid container xs={12} md={12} textAlign="center" style={{ height: "100%" , marginTop: 20}}>
-                            <Grid item xs={12} md={12} style={{padding:20}}>
+                            <Grid item xs={8} md={8} style={{padding:20}}>
                                 <TextField
                                 name="title"
-                                variant="outlined"
+                                variant="standard"
                                 required
                                 fullWidth
                                 id="title"
                                 label="Title"
                                 value={values.title}
                                 onChange={handleChange}
+                                inputProps={{ style: {fontSize: '1.4rem'}}}
                                 />
                                 </Grid>
-                        <Grid container xs={12} md={8}>                  
+                        <Grid container xs={12} md={9}>                  
                                 <Grid item xs={12} md={12} style={{padding:20}}>
                                     <TextField
                                         name="description"
@@ -49,11 +50,14 @@ class FormCreate extends Component{
                                     />
                                 </Grid>
                             </Grid>               
-                        <Grid container xs={12} md={4} style={{padding:20}}>
+                        <Grid container xs={12} md={3} style={{padding:20}}>
                             <Grid container xs={12} md={12} justify='space-between'>
                                 <Grid item>
                                     <Typography varaint='h6'>Add start date</Typography>
                                     <KeyboardDatePicker
+                                        error={!values.validate}
+                                        
+                                        helperText={!values.validate ? "Invalid date" : ''}
                                         value={values.startDate}
                                         placeholder="10/10/2018"
                                         onChange={date => handleStartDateChange(date)}
@@ -62,14 +66,11 @@ class FormCreate extends Component{
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Typography varaint='h6'>Time</Typography>
-                                    <TextField
+                                    <Typography varaint='h6'>Start time</Typography>
+                                    <TimePicker
                                         id="startTime"
-                                        type="time"
-                                        defaultValue="07:30"
-                                        inputProps={{
-                                            step: 300, // 5 min
-                                        }}
+                                        value={values.startDate}
+                                        onChange={date => handleStartDateChange(date)}
                                     />
                                 </Grid>        
                             </Grid>
@@ -86,14 +87,11 @@ class FormCreate extends Component{
                                         />
                                     </Grid>
                                     <Grid item>
-                                        <Typography varaint='h6'>Time</Typography>
-                                        <TextField
+                                        <Typography varaint='h6'>End time</Typography>
+                                        <TimePicker
                                             id="endTime"
-                                            type="time"
-                                            defaultValue="07:30"
-                                            inputProps={{
-                                                step: 300, // 5 min
-                                            }}
+                                            value={values.endDate}
+                                            onChange={date => handleEndDateChange(date)}
                                         />
                                     </Grid>                           
                                 </Grid>

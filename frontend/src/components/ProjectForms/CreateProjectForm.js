@@ -11,11 +11,13 @@ class CreateProjectForm extends Component {
         startDate: new Date(),
         endDate: new Date(),
         users: [],
-        returnToOverview:false,      
+        returnToOverview:false,
+        validate:false
+         
     };
 
     nextStep = () => {
-        const { step } = this.state;
+        const { step }= this.state;
         this.setState({ step : step + 1})
     };
 
@@ -33,12 +35,28 @@ class CreateProjectForm extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
+    checkDate = () => {
+        const {startDate, endDate, validate} = this.state;
+        if(startDate > endDate){
+            this.setState({validate: false})
+        }
+        else
+        {
+            this.setState({validate: true})
+        }
+    }
+
     handleStartDateChange = (date) => {
-        this.setState({ startDate: date})
+        this.setState({ startDate: date},() => {
+            this.checkDate()
+        })
+        
     }
     
     handleEndDateChange = (date) => {
-        this.setState({ endDate: date})
+        this.setState({ endDate: date},() => {
+            this.checkDate()
+        })
     }
 
     handleToogle = (value) => () => {
@@ -56,8 +74,8 @@ class CreateProjectForm extends Component {
     
     render() {
         const {step} = this.state;
-        const {title, description, startDate, endDate, users, returnToOverview} = this.state;
-        const values = {title, description, startDate, endDate, users, returnToOverview}
+        const {title, description, startDate, endDate, users, returnToOverview, validate} = this.state;
+        const values = {title, description, startDate, endDate, users, returnToOverview, validate}
         switch(step){
             case 1:
                 return(
@@ -75,6 +93,7 @@ class CreateProjectForm extends Component {
                 return(
                     <FormConfirm
                         returnStep={this.returnStep}
+                        returnToOverview = {this.returnToOverview}
                         values={values}                  
                     />
                 )
