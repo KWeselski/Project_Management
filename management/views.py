@@ -23,12 +23,20 @@ def create_profile(request):
 def create_project(request):
     user = get_user_from_token(request)
     request.data['creator'] = user.id
-    print(request.data)
     serializers = ProjectSerializer(data=request.data)
     if serializers.is_valid():
         serializers.save()
         return Response(status=status.HTTP_201_CREATED)
     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view()
+def get_project_list(request):
+    user = get_user_from_token(request)
+    projects = Project.objects.filter(users=user.id)
+    serializer = ProjectSerializer(projects, context={'request': request},
+                                   many=True)
+    return Response(serializer.data)
 
 
 @api_view()

@@ -76,7 +76,7 @@ export const checkAuthTimeout = expirationTime => {
     }
 }
 
-export const authLogin = (firstName, lastName,email, password) => {
+export const authLogin = (email, password) => {
     return dispatch => {
       dispatch(authStart());
       axios
