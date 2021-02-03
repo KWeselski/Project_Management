@@ -15,7 +15,7 @@ class AddUserForm extends Component {
         super(props)
         this.state = {
             profiles: [],
-            users: []
+            loaded: false
         }      
     }
     
@@ -32,13 +32,40 @@ class AddUserForm extends Component {
         profiles.sort((a,b) => (a.firstname > b.firstname) ? 1 : ((b.firstname > a.firstname) ? -1 : 0))
     }
 
+
     componentDidMount () {
-        this.getUsers()
+        this.getUsers()      
+    }
+    changeUsersData = () => {
+        if(this.props.update){
+            const {profiles} = this.state;
+            const {users} = this.props;
+            const users_in_project = []
+            console.log("USERS", profiles)
+            users.map((user) => {
+                console.log(user)
+                let index = profiles.findIndex(x => x.user == user)
+                console.log(index)
+                users_in_project.push(profiles[index])
+                }
+            )
+            console.log(users_in_project)
+            users.length = 0;
+            this.props.users = [...users_in_project];
+            this.setState({loaded:true})
+        }
     }
 
     render(){
-        const {profiles} = this.state;
+        const {profiles,loaded} = this.state;
         const {users} = this.props;
+        
+        if(users.length > 0 && loaded==false && profiles.length > 0){
+            console.log('Użytkownicy', users)
+            console.log('Wykonało')
+            this.changeUsersData()
+        }
+        console.log('user', users)
         return(
             <Paper style={{maxHeight:'100%', overflow:'auto'}}>
             <Typography align='center' variant='h5'>Add users to project</Typography>

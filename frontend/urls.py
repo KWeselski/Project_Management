@@ -6,4 +6,5 @@ urlpatterns = [
     path('overview/', index),
     path('register/', index),
     path('create_project/', index),
+    path('edit_project/', index),
 ]

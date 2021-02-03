@@ -9,17 +9,6 @@ export const SidebarData = [
         icon: <LocalLibraryIcon/>,
         iconClosed: <ExpandMoreIcon/>,
         iconOpened: <ExpandLessIcon/>,
-
-        dropItem: [
-            {
-                title: 'Test 1',
-                icon: <MenuBookIcon/>,
-            },
-            {
-                title: 'Test 2',
-                icon: <MenuBookIcon/>,
-            }
-        ]
     },
     {
         title: 'Projects',

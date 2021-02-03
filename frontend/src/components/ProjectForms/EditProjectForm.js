@@ -3,7 +3,7 @@ import FormConfirm from './FormConfirm';
 import FormCreate from './FormCreate';
 
 
-class CreateProjectForm extends Component {
+class EditProjectForm extends Component {
     state = {
         step:1,
         title: '',
@@ -11,9 +11,10 @@ class CreateProjectForm extends Component {
         startDate: new Date(),
         endDate: new Date(),
         users: [],
+        status: '',
+        project_id:null,
         returnToOverview:false,
-        validate:false
-         
+        validate:false        
     };
 
     nextStep = () => {
@@ -71,11 +72,25 @@ class CreateProjectForm extends Component {
         }
         this.setState({users: newChecked})
     }
+
+    componentDidMount() {
+        const { data } = this.props.location.data;
+        this.setState({
+            title: data.title,
+            description: data.description,
+            startDate: new Date(data.start_date),
+            endDate: new Date(data.end_date),
+            users: data.users,
+            status: data.status,
+            project_id : data.id,
+            creator: data.creator
+        })
+    }
     
     render() {
         const {step} = this.state;
-        const {title, description, startDate, endDate, users, returnToOverview, validate} = this.state;
-        const values = {title, description, startDate, endDate, users, returnToOverview, validate}
+        const {title, description, startDate, endDate, users, returnToOverview, status, validate, project_id, creator} = this.state;
+        const values = {title, description, startDate, endDate, users, returnToOverview, status, validate, project_id, creator}
         switch(step){
             case 1:
                 return(
@@ -87,7 +102,7 @@ class CreateProjectForm extends Component {
                         handleEndDateChange={this.handleEndDateChange}
                         handleToogle={this.handleToogle}
                         values={values}
-                        
+                        update={true}
                     />
                 )
             case 2:
@@ -95,11 +110,11 @@ class CreateProjectForm extends Component {
                     <FormConfirm
                         returnStep={this.returnStep}
                         returnToOverview = {this.returnToOverview}
-                        values={values}  
-                        create={true}                
+                        values={values} 
+                        update={true}                 
                     />
                 )
         }
     }
 }
-export default CreateProjectForm
+export default EditProjectForm

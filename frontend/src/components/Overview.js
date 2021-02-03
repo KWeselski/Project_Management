@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import Grid from '@material-ui/core/Grid'
 import {connect} from 'react-redux';
+import {Link, Redirect} from "react-router-dom"
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
 import styled from 'styled-components';
-import { Select, MenuItem } from '@material-ui/core';
+import { Button, Select, MenuItem } from '@material-ui/core';
 
 
 const StatusCell = styled(TableCell)`
@@ -20,10 +21,10 @@ const StatusCell = styled(TableCell)`
 `;
 
 const Status = styled.div `
-    background-color: ${props =>
-        (props.type === 'new' && 'blue') || 
-        (props.type === 'active' && 'yellow') ||
-        (props.type === 'canceled' && 'red')
+    background: ${props =>
+        (props.type === 'new' && 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)') || 
+        (props.type === 'active' && 'linear-gradient(45deg, rgba(198,245,130,1) 30%, rgba(255,244,0,0.9612045501794468) 90%)') ||
+        (props.type === 'canceled' && 'linear-gradient(45deg, rgba(228,7,38,1) 30%, rgba(245,87,96,1) 90%)')
     };  
     text-align: center;
     border-radius: 30px;
@@ -120,7 +121,7 @@ class Overview extends Component {
                                     </StyledCell>
                                     <StyledCell>{this.getCurrentDate(project.start_date)}</StyledCell>
                                     <StyledCell>{this.getCurrentDate(project.end_date)}</StyledCell>
-                                    <StyledCell><Status type="active">{project.status}</Status></StyledCell>
+                                    <StyledCell><Status type={project.status}>{project.status}</Status></StyledCell>
                                     <TableCell style={{width:100}}>
                                     <Select value={operation}      
                                     onChange={this.handleChange}
@@ -139,6 +140,27 @@ class Overview extends Component {
                             )}
                         </TableBody>
                     </Table>
+                    <Link to="/create_project">
+                        <Button
+                        type="submit"
+                        variant='contained'
+                        color="primary">
+                        Create project
+                        </Button>
+                    </Link>
+                    <Link to={{
+                        pathname:"/edit_project",
+                        data:{
+                            data: this.state.projects[2]                          
+                        }
+                    }}>
+                        <Button 
+                        type="submit"
+                        variant='contained'
+                        color="primary">
+                        Edit project
+                        </Button>
+                    </Link>
                 </Paper>
             </Grid>
         )

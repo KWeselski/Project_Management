@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Grid, TextField, Typography} from '@material-ui/core';
+import {Button, Grid, TextField, Typography, MenuItem} from '@material-ui/core';
 import {Redirect} from "react-router-dom"
 import { KeyboardDatePicker, TimePicker } from "@material-ui/pickers";
 import AddUsersForm from './AddUsersForm'
@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 class FormCreate extends Component{
  
     render() {
-        const {values, handleChange, handleStartDateChange, handleEndDateChange, handleToogle, returnToOverview} = this.props;
+        const {values,update, handleChange, handleStartDateChange, handleEndDateChange, handleToogle, returnToOverview} = this.props;
         if(values.returnToOverview){
             return <Redirect to='/overview'></Redirect>
         }
@@ -115,13 +115,34 @@ class FormCreate extends Component{
                                             Next
                                         </Button>
                                     </Grid>                              
-                            </Grid>                                
+                            </Grid>
+                            {update ?
+                            <Grid item>
+                                    <TextField
+                                        variant="outlined"
+                                        select
+                                        required
+                                        fullWidth
+                                        name="status"
+                                        label="status"
+                                        id="status"
+                                        value={values.status}
+                                        onChange={handleChange}
+                                    >
+                                    <MenuItem value="new" disabled>
+                                        New
+                                    </MenuItem>
+                                    <MenuItem value={'active'}>Active</MenuItem>
+                                    <MenuItem value={'canceled'}>Canceled</MenuItem>
+                                    </TextField>
+                            </Grid> : <React.Fragment/>
+                            }                              
                         </Grid>   
                         </Grid>                 
                         </Paper>    
                         <Grid container xs={12} md={4}>
                             <Grid item xs={12} md={12} style={{marginLeft:30}}>
-                                <AddUsersForm users={values.users} handleToogle={handleToogle}/>
+                                <AddUsersForm update={update} users={values.users} handleToogle={handleToogle}/>
                             </Grid>  
                         </Grid>
                     </form>                                    

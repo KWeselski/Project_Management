@@ -7,6 +7,7 @@ import Overview from './Overview';
 import RegistrationForm from './AuthenticationForms/RegistrationForm';
 import LoginForm from './AuthenticationForms/LoginForm';
 import CreateProjectForm from './ProjectForms/CreateProjectForm';
+import EditProjectForm from './ProjectForms/EditProjectForm';
 import Grid from '@material-ui/core/Grid';
 import {connect} from 'react-redux';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -28,10 +29,11 @@ class App extends Component {
                         </Grid>
                         <Grid container md={10}>
                             <Switch>
-                                <Route exact path="/" component={LoginForm}/>
+                                <Route exact path="/" component={Overview}/>
                                 <Route exact path="/register" component={RegistrationForm}/>
-                                <Route exact path='/overview' component={Overview}/>
+                                <Route exact path='/overview' component={LoginForm}/>
                                 <Route exact path="/create_project" component={CreateProjectForm}/>
+                                <Route exact path="/edit_project" component={EditProjectForm}/>
                             </Switch>
                         </Grid>                    
                     </Grid>               

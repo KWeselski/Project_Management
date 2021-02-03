@@ -13,6 +13,7 @@ class ProfileAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = [
+        "id",
         "title",
         "creator",
         "description",

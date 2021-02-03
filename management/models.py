@@ -31,8 +31,8 @@ class Project(models.Model):
         ("archived", "Archived"),
     )
     title = models.CharField(max_length=100)
-    creator = models.OneToOneField(User, on_delete=models.CASCADE,
-                                   related_name='creator')
+    creator = models.ForeignKey(User, on_delete=models.CASCADE,
+                                related_name='creator')
     users = models.ManyToManyField(User)
     description = models.TextField()
     start_date = models.DateTimeField()

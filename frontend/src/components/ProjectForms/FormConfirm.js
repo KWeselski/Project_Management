@@ -11,6 +11,7 @@ import axios from 'axios'
 
 class FormConfirm extends Component {
 
+
     getCurrentDate = date => {
         let separator = '/'
         let day = date.getDate();
@@ -22,21 +23,37 @@ class FormConfirm extends Component {
     }
 
     confirmProject = () => {
-        const {values} = this.props;
+        const {values, create, update} = this.props;
         let users = values.users.map(a => a.user);
-        axios.post('/api/create_project/',{
-            title:values.title,
-            description:values.description,
-            start_date: values.startDate,
-            end_date: values.endDate,
-            users: users
-        },{
-            headers: {Authorization: `${localStorage.getItem("token")}`}
-        })
+        if(create){
+            axios.post('/api/create_project/',{
+                title:values.title,
+                description:values.description,
+                start_date: values.startDate,
+                end_date: values.endDate,
+                users: users
+            },{
+                headers: {Authorization: `${localStorage.getItem("token")}`}
+            })
+        }
+        if(update){
+            axios.put('api/create_project/',{
+                title:values.title,
+                description:values.description,
+                start_date: values.startDate,
+                end_date: values.endDate,
+                users: users,
+                status: values.status,
+                id: values.project_id,
+                creator: values.creator,
+            },{
+                headers: {Authorization: `${localStorage.getItem("token")}`}
+            })
+        }
+        this.setState({returnToOverview:true})       
     }
-
     render(){
-        const {values, returnToOverview, returnStep} = this.props;
+        const {values, returnToOverview,create,update, returnStep} = this.props;
         if(values.returnToOverview){
             return <Redirect to='/overview'></Redirect>
         }
@@ -75,6 +92,7 @@ class FormConfirm extends Component {
                                     <span>                   
                                     <Typography variant='h6'>Start Date: {this.getCurrentDate(values.startDate)}</Typography>       
                                     <Typography variant='h6'>End Date: {this.getCurrentDate(values.endDate)}</Typography>
+                                    {update ? <Typography variant='h6'>Status: {values.status} </Typography> : <React.Fragment/>}
                                     </span>    
                                 <Grid container justify='space-between' xs={12} md={12}>
                                 <Grid item>
