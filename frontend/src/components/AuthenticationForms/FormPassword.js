@@ -147,9 +147,9 @@ class FormPassword extends Component{
 
 const mapStateToProps = state => {
     return {
-        loading: state.loading,
-        error: state.error,
-        token: state.token
+        loading: state.auth.loading,
+        error: state.auth.error,
+        token: state.auth.token
     };
 };
 

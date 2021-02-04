@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {BrowserRouter as Router, Switch, Route} from
+import {BrowserRouter as Router, Switch, Route, Redirect} from
 'react-router-dom'
 import Sidebar from './Sidebar/Sidebar'
 import Overview from './Overview';
@@ -12,13 +12,12 @@ import {connect} from 'react-redux';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import DetailsPage from './DetailsPage'
-
+import {getProjects} from './actions/projectActions';
 
 class App extends Component {
     constructor(props) {
         super(props);
     }
-
     render() {
         const {isAuthenticated} = this.props;
         
@@ -31,9 +30,9 @@ class App extends Component {
                         </Grid>
                         <Grid container md={10}>
                             <Switch>
-                                <Route exact path="/" component={Overview}/>
+                                <Route exact path="/" component={LoginForm}/>
                                 <Route exact path="/register" component={RegistrationForm}/>
-                                <Route exact path='/overview' component={LoginForm}/>
+                                <Route exact path='/overview' component={Overview}/>
                                 <Route exact path="/create_project" component={CreateProjectForm}/>
                                 <Route exact path="/edit_project" component={EditProjectForm}/>
                                 <Route exact path="/details" component={DetailsPage}/>
@@ -50,6 +49,11 @@ const mapStateToProps = state => {
     return {
       isAuthenticated: state.token !== null
     };
-  };
+};
+const mapDispatchToProps = (dispatch) => {
+    return{
+        getProjects: () => {dispatch(getProjects())},
+    }
+}
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps,mapDispatchToProps)(App)

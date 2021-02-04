@@ -19,14 +19,12 @@ class LoginForm extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const { email, password } = this.state;
-        console.log(email, password)
         this.props.login(email, password);
     };
 
     render() {
         const {token} = this.props;
         const {email, password} = this.props;
-
         if(token) {
             return <Redirect to="/overview"></Redirect>
         }
@@ -99,9 +97,9 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => {
     return {
-      loading: state.loading,
-      error: state.error,
-      token: state.token
+      loading: state.auth.loading,
+      error: state.auth.error,
+      token: state.auth.token
     };
   };
   

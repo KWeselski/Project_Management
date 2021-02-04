@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
 import styled from 'styled-components';
 import { Button, Select, MenuItem } from '@material-ui/core';
-
+import {deleteProject, getProjects} from './actions/projectActions';
 
 const StatusCell = styled(TableCell)`
     padding: "0px 16px";
@@ -61,24 +61,12 @@ const StyledTableHead = styled(TableHead)`
     
 `;
 
-
-
-
 class Overview extends Component {
     constructor(props){
         super(props);
         this.state = {
-            projects : [],
             operation : ''
         };
-    }
-
-    getProjects = () => {
-        axios.get('/api/get_projects_list/',
-        { headers: {Authorization: `${localStorage.getItem("token")}`}}
-        ).then(res => {
-            this.setState({projects: res.data})
-        })
     }
 
     deleteProject(project){
@@ -100,8 +88,8 @@ class Overview extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-    componentDidMount() {
-        this.getProjects()
+    componentDidMount(){
+        this.props.getProjects()
     }
 
     getCurrentDate = d => {
@@ -115,8 +103,10 @@ class Overview extends Component {
         return `${day}${separator}${month<10?`0${month}`:`${month}`}${separator}${year} - ${hour}:${minutes}`
     }
 
-    render() {
-        const {projects,operation} = this.state;
+
+    render() {  
+        const {operation} = this.state;
+        const {projects} = this.props
         return(
             <Grid container xs={12} md={12} style={{marginTop:50}}>
                 <Paper>
@@ -160,7 +150,7 @@ class Overview extends Component {
                                             data: projects[projects.findIndex(x => x.id === project.id)]                       
                                         }
                                     }}>Details</Link></MenuItem>
-                                    <MenuItem onClick={() => this.deleteProject(project)} value="delete"><Button fullWidth variant='contained' color='primary'>Delete</Button></MenuItem>
+                                    <MenuItem onClick={() => this.props.deleteProject(project)} value="delete"><Button fullWidth variant='contained' color='primary'>Delete</Button></MenuItem>
                                     </Select>
                                     </TableCell>
                                 </TableRow>    
@@ -181,4 +171,17 @@ class Overview extends Component {
     }
 }
 
-export default (Overview);
+const mapStateToProps = (state) => {
+    return{
+      projects: state.project.projects,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        getProjects: () => {dispatch(getProjects())},
+        deleteProject: (project) => {dispatch(deleteProject(project))}
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Overview)

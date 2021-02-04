@@ -7,10 +7,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import axios from 'axios'
+import {connect} from 'react-redux';
+import {createProject, updateProject} from '../actions/projectActions';
 
 class FormConfirm extends Component {
 
+    state={
+        returnToOverview: false
+    }
 
     getCurrentDate = date => {
         let separator = '/'
@@ -22,40 +26,22 @@ class FormConfirm extends Component {
         return `${day}${separator}${month<10?`0${month}`:`${month}`}${separator}${year} Time: ${hour}:${minutes}`
     }
 
-    confirmProject = () => {
+    confirmProject = async () => {
         const {values, create, update} = this.props;
         let users = values.users.map(a => a.user);
         if(create){
-            axios.post('/api/create_project/',{
-                title:values.title,
-                description:values.description,
-                start_date: values.startDate,
-                end_date: values.endDate,
-                users: users
-            },{
-                headers: {Authorization: `${localStorage.getItem("token")}`}
-            })
+            await this.props.createProject(values,users)
         }
         if(update){
-            axios.put('api/create_project/',{
-                title:values.title,
-                description:values.description,
-                start_date: values.startDate,
-                end_date: values.endDate,
-                users: users,
-                status: values.status,
-                id: values.project_id,
-                creator: values.creator,
-            },{
-                headers: {Authorization: `${localStorage.getItem("token")}`}
-            })
+            await this.props.updateProject(values,users)
         }
-        this.props.values.returnToOverview = true;       
+        this.setState({returnToOverview: true})
     }
     render(){
-        const {values, returnToOverview,create,update, returnStep} = this.props;
-        if(values.returnToOverview){
-            return <Redirect to='/overview'></Redirect>
+        const {values, update, returnStep} = this.props;
+        const {returnToOverview} = this.state;
+        if(returnToOverview){
+            return <Redirect to='/overview'></Redirect> 
         }
         return(      
                 <Grid container xs={12}>   
@@ -156,4 +142,11 @@ class FormConfirm extends Component {
     }
 }
 
-export default FormConfirm
+const mapDispatchToProps = (dispatch) => {
+    return{
+        createProject: (values,users) => {dispatch(createProject(values,users))},
+        updateProject: (values,users) => {dispatch(updateProject(values,users))}
+    }
+}
+
+export default connect(null,mapDispatchToProps)(FormConfirm)

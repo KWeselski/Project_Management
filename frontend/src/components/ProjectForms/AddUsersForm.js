@@ -23,15 +23,14 @@ class AddUserForm extends Component {
             const {profiles} = this.props;
             const {users} = this.props;
             const users_in_project = []
-            console.log("USERS", profiles)
             users.map((user) => {
-                console.log(user)
+                
                 let index = profiles.findIndex(x => x.user == user)
-                console.log(index)
+                
                 users_in_project.push(profiles[index])
                 }
             )
-            console.log(users_in_project)
+            
             users.length = 0;
             this.props.users = [...users_in_project];
             this.setState({loaded:true})
@@ -41,7 +40,6 @@ class AddUserForm extends Component {
     render(){
         const {loaded} = this.state;
         const {users, profiles} = this.props;
-        console.log(profiles)
         if(users.length > 0 && loaded==false && profiles.length > 0){
             this.changeUsersData()
         }
