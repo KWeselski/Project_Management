@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
 import styled from 'styled-components';
@@ -22,9 +23,9 @@ const StatusCell = styled(TableCell)`
 
 const Status = styled.div `
     background: ${props =>
-        (props.type === 'new' && 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)') || 
-        (props.type === 'active' && 'linear-gradient(45deg, rgba(198,245,130,1) 30%, rgba(255,244,0,0.9612045501794468) 90%)') ||
-        (props.type === 'canceled' && 'linear-gradient(45deg, rgba(228,7,38,1) 30%, rgba(245,87,96,1) 90%)')
+        (props.type === 'new' && 'lightblue') || 
+        (props.type === 'active' && 'yellow') ||
+        (props.type === 'canceled' && 'red')
     };  
     text-align: center;
     border-radius: 30px;
@@ -32,6 +33,7 @@ const Status = styled.div `
     margin: 0 auto;
     font-weight: bold;
     text-transform: capitalize;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 `;
 
 const StyledCell = styled(TableCell)`
@@ -76,6 +78,21 @@ class Overview extends Component {
         { headers: {Authorization: `${localStorage.getItem("token")}`}}
         ).then(res => {
             this.setState({projects: res.data})
+        })
+    }
+
+    deleteProject(project){
+        const {projects} = this.state;
+        axios.delete('/api/delete_project',{
+            data: {id: project.id}
+        },
+        { headers: {Authorization: `${localStorage.getItem("token")}`}})
+        .then(()=>{
+            const index = projects.indexOf(project);
+            if (index > -1) {
+                projects.splice(index, 1);
+            }
+            this.setState({projects: projects} )
         })
     }
 
@@ -130,10 +147,20 @@ class Overview extends Component {
                                     displayEmpty
                                     >
                                     <MenuItem value='' disabled>Operations</MenuItem>
-                                    <MenuItem value="edit">Edit</MenuItem>
-                                    <MenuItem value="add_comment">Add Comment</MenuItem>
-                                    <MenuItem value="details">Details</MenuItem>
-                                    <MenuItem value="delete">Delete</MenuItem>
+                                    <MenuItem value="edit"><Link to={{
+                                        pathname:"/edit_project",
+                                        data:{
+                                            data: projects[projects.findIndex(x => x.id === project.id)]                       
+                                        }
+                                    }}>Edit</Link></MenuItem>
+                                    <MenuItem value="add_comment"><Button fullWidth variant='contained' color='primary'>Add Comment</Button></MenuItem>
+                                    <MenuItem value="details"><Link to={{
+                                        pathname:"/details",
+                                        data:{
+                                            data: projects[projects.findIndex(x => x.id === project.id)]                       
+                                        }
+                                    }}>Details</Link></MenuItem>
+                                    <MenuItem onClick={() => this.deleteProject(project)} value="delete"><Button fullWidth variant='contained' color='primary'>Delete</Button></MenuItem>
                                     </Select>
                                     </TableCell>
                                 </TableRow>    
@@ -146,19 +173,6 @@ class Overview extends Component {
                         variant='contained'
                         color="primary">
                         Create project
-                        </Button>
-                    </Link>
-                    <Link to={{
-                        pathname:"/edit_project",
-                        data:{
-                            data: this.state.projects[2]                          
-                        }
-                    }}>
-                        <Button 
-                        type="submit"
-                        variant='contained'
-                        color="primary">
-                        Edit project
                         </Button>
                     </Link>
                 </Paper>

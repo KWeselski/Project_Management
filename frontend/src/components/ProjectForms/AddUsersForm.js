@@ -1,5 +1,4 @@
 import React, { Component} from 'react'
-import axios from 'axios'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -9,36 +8,19 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import { Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
+import {connect} from 'react-redux';
 
 class AddUserForm extends Component {
     constructor(props){
         super(props)
         this.state = {
-            profiles: [],
             loaded: false
         }      
     }
-    
-    getUsers = () => {
-        axios.get('/api/get_users_list/'   
-        ).then(res => {
-            this.setState({profiles : res.data})
-        }).then(this.sortProfiles)
-        .catch(error => console.log(error.message) )
-    }
 
-    sortProfiles = () => {
-        const {profiles} = this.state;
-        profiles.sort((a,b) => (a.firstname > b.firstname) ? 1 : ((b.firstname > a.firstname) ? -1 : 0))
-    }
-
-
-    componentDidMount () {
-        this.getUsers()      
-    }
     changeUsersData = () => {
         if(this.props.update){
-            const {profiles} = this.state;
+            const {profiles} = this.props;
             const {users} = this.props;
             const users_in_project = []
             console.log("USERS", profiles)
@@ -57,15 +39,12 @@ class AddUserForm extends Component {
     }
 
     render(){
-        const {profiles,loaded} = this.state;
-        const {users} = this.props;
-        
+        const {loaded} = this.state;
+        const {users, profiles} = this.props;
+        console.log(profiles)
         if(users.length > 0 && loaded==false && profiles.length > 0){
-            console.log('Użytkownicy', users)
-            console.log('Wykonało')
             this.changeUsersData()
         }
-        console.log('user', users)
         return(
             <Paper style={{maxHeight:'100%', overflow:'auto'}}>
             <Typography align='center' variant='h5'>Add users to project</Typography>
@@ -95,4 +74,10 @@ class AddUserForm extends Component {
     }
 }
 
-export default AddUserForm
+const mapStateToProps = state => ({
+    profiles: state.project.profiles,
+    loading: state.project.loading,
+    error: state.project.error
+});
+
+export default connect(mapStateToProps)(AddUserForm)

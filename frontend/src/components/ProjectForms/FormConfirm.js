@@ -50,7 +50,7 @@ class FormConfirm extends Component {
                 headers: {Authorization: `${localStorage.getItem("token")}`}
             })
         }
-        this.setState({returnToOverview:true})       
+        this.props.values.returnToOverview = true;       
     }
     render(){
         const {values, returnToOverview,create,update, returnStep} = this.props;

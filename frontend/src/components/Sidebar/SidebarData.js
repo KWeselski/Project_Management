@@ -5,13 +5,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 export const SidebarData = [
     {
-        title: 'Overview',
+        title: 'Overvie',
         icon: <LocalLibraryIcon/>,
         iconClosed: <ExpandMoreIcon/>,
         iconOpened: <ExpandLessIcon/>,
     },
     {
-        title: 'Projects',
+        title: 'Profile',
         icon: <LocalLibraryIcon/>
     },
     {

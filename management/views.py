@@ -30,18 +30,27 @@ def create_project(request):
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     if request.method == 'PUT':
-        print(request.data)
         try:
             project = Project.objects.get(id=request.data['id'])
         except Project.DoesNotExist:
             return Response('Project not exist',
                             status=status.HTTP_404_NOT_FOUND)
         serializers = ProjectSerializer(project, data=request.data)
-        print(serializers)
         if serializers.is_valid():
             serializers.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def delete_project(request):
+    try:
+        project = Project.objects.get(id=request.data['id'])
+    except Project.DoesNotExist:
+        return Response('Project not exist',
+                        status=status.HTTP_404_NOT_FOUND)
+    project.delete()
+    return Response('Deleted sucessfully', status=status.HTTP_201_CREATED)
 
 
 @api_view()

@@ -1,7 +1,6 @@
 import * as actionTypes from './action-types/auth-actions';
 import axios from 'axios'
-import { Redirect } from 'react-router-dom';
-import React from 'react';
+
 
 export const authStart = () => {
     return {
