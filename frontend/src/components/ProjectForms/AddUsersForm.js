@@ -1,20 +1,16 @@
 import React, { Component} from 'react'
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
-import Avatar from '@material-ui/core/Avatar';
 import { Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import {connect} from 'react-redux';
+import UserForm from './UserForm';
+
 
 class AddUserForm extends Component {
     constructor(props){
         super(props)
         this.state = {
-            loaded: false
+            loaded: false,
         }      
     }
 
@@ -23,14 +19,11 @@ class AddUserForm extends Component {
             const {profiles} = this.props;
             const {users} = this.props;
             const users_in_project = []
-            users.map((user) => {
-                
-                let index = profiles.findIndex(x => x.user == user)
-                
+            users.map((user) => {               
+                let index = profiles.findIndex(x => x.user == user)           
                 users_in_project.push(profiles[index])
                 }
-            )
-            
+            )         
             users.length = 0;
             this.props.users = [...users_in_project];
             this.setState({loaded:true})
@@ -39,7 +32,7 @@ class AddUserForm extends Component {
 
     render(){
         const {loaded} = this.state;
-        const {users, profiles} = this.props;
+        const {users, profiles, handleToogle} = this.props;
         if(users.length > 0 && loaded==false && profiles.length > 0){
             this.changeUsersData()
         }
@@ -47,24 +40,8 @@ class AddUserForm extends Component {
             <Paper style={{maxHeight:'100%', overflow:'auto'}}>
             <Typography align='center' variant='h5'>Add users to project</Typography>
             <List dense style={{maxHeight:'50vh',width: '100%', maxWidth:600}}>
-                {profiles.map((value) => {
-                    const labelId = `checkbox-list-secondary-label-${value.id}`;
-                    return (
-                      <ListItem key={value.id} button>
-                        <ListItemAvatar>
-                            <Avatar style={{backgroundColor:'green'}}>{value.firstname[0]+value.lastname[0]}</Avatar>
-                        </ListItemAvatar>
-                        <ListItemText id={labelId} primary={value.firstname +` ` + value.lastname}/>
-                        <ListItemSecondaryAction>
-                            <Checkbox
-                                edge='end'
-                                onChange={this.props.handleToogle(value)}
-                                checked={users.map((v) => {return v.id}).indexOf(value.id) !== -1}
-                                inputProps={{ 'aria-labelledby': labelId }}
-                            />
-                        </ListItemSecondaryAction>
-                      </ListItem>    
-                    )
+                {profiles.map((user) => {
+                    return(<UserForm value={user} users={users} handleToogle={handleToogle}/>)
                 })}
             </List>
             </Paper>

@@ -143,7 +143,10 @@ class Overview extends Component {
                                             data: projects[projects.findIndex(x => x.id === project.id)]                       
                                         }
                                     }}>Edit</Link></MenuItem>
-                                    <MenuItem value="add_comment"><Button fullWidth variant='contained' color='primary'>Add Comment</Button></MenuItem>
+                                    <MenuItem value="add_comment"><Link to={{
+                                        pathname:'/add_comment',
+                                        data:{id: project.id}    
+                                    }}>Add Comment</Link></MenuItem>
                                     <MenuItem value="details"><Link to={{
                                         pathname:"/details",
                                         data:{

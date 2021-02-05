@@ -16,6 +16,8 @@ class Profile(models.Model):
     age = models.IntegerField(default=18, validators=[MinValueValidator(18),
                               MaxValueValidator(80)])
     phone = models.CharField(max_length=9)
+    description = models.CharField(max_length=100, blank=True)
+    avatar = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.firstname

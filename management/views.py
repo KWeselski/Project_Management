@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import Profile, Project
+from .models import Profile, Project, Comment
 from .serializers import *
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
@@ -51,6 +51,28 @@ def delete_project(request):
                         status=status.HTTP_404_NOT_FOUND)
     project.delete()
     return Response('Deleted sucessfully', status=status.HTTP_201_CREATED)
+
+
+@api_view(['POST'])
+def create_comment(request):
+    user = get_user_from_token(request)
+    request.data['user'] = user.id
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view()
+def get_project_comments(request, pk):
+    try:
+        comments = Comment.objects.filter(project=pk)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = CommentSerializer(comments, context={'request': request},
+                                   many=True)
+    return Response(serializer.data)
 
 
 @api_view()

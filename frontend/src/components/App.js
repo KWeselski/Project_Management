@@ -13,13 +13,13 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import DetailsPage from './DetailsPage'
 import {getProjects} from './actions/projectActions';
+import CommentForm from './ProjectForms/CommentForm';
 
 class App extends Component {
     constructor(props) {
         super(props);
     }
     render() {
-        const {isAuthenticated} = this.props;
         
         return(
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -36,6 +36,7 @@ class App extends Component {
                                 <Route exact path="/create_project" component={CreateProjectForm}/>
                                 <Route exact path="/edit_project" component={EditProjectForm}/>
                                 <Route exact path="/details" component={DetailsPage}/>
+                                <Route exact path="/add_comment" component={CommentForm}/>
                             </Switch>
                         </Grid>                    
                     </Grid>               
