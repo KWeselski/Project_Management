@@ -26,9 +26,6 @@ class App extends Component {
             <Router>
                     <Sidebar/> 
                     <Grid container md={12}>
-                        <Grid item md={2}>                      
-                        </Grid>
-                        <Grid container md={10}>
                             <Switch>
                                 <Route exact path="/" component={LoginForm}/>
                                 <Route exact path="/register" component={RegistrationForm}/>
@@ -37,8 +34,7 @@ class App extends Component {
                                 <Route exact path="/edit_project" component={EditProjectForm}/>
                                 <Route exact path="/details" component={DetailsPage}/>
                                 <Route exact path="/add_comment" component={CommentForm}/>
-                            </Switch>
-                        </Grid>                    
+                            </Switch>                  
                     </Grid>               
             </Router>
         </MuiPickersUtilsProvider>           

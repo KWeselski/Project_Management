@@ -10,18 +10,32 @@ import ProfileDialog from './ProfileDialog'
 export default function UserForm(props){
 
     const [openDialog, setOpenDialog] = useState(false)
-    const {value, users, handleToogle} = props;
+    const {value, users, handleToogle, confirmedUsers} = props;
     const labelId = `checkbox-list-secondary-label-${value.id}`;
 
     const open = () => {
         setOpenDialog(true)
     }
-    
+
+    if(confirmedUsers){
+        return(
+            <React.Fragment>
+            <ListItem key={value.id} button onClick={open}>
+                <ListItemAvatar>
+                    <Avatar src={value.avatar} style={{backgroundColor:'green'}}></Avatar>
+                 </ListItemAvatar>
+                <ListItemText id={labelId} primary={value.firstname +` ` + value.lastname}/>
+            </ListItem>
+            <ProfileDialog openDialog={openDialog} setOpenDialog={setOpenDialog} data={value}/> 
+            </React.Fragment>
+        )
+    } 
+    else{
     return(
             <React.Fragment>
                 <ListItem key={value.id} button onClick={open}>
                     <ListItemAvatar>
-                        <Avatar style={{backgroundColor:'green'}}  alt={value.firstname} src={value.avatar} ></Avatar>
+                        <Avatar style={{backgroundColor:'green'}} alt={value.firstname} src={value.avatar}></Avatar>
                     </ListItemAvatar>
                     <ListItemText id={labelId} primary={value.firstname +` ` + value.lastname}/>
                         <ListItemSecondaryAction>
@@ -36,4 +50,5 @@ export default function UserForm(props){
                 <ProfileDialog openDialog={openDialog} setOpenDialog={setOpenDialog} data={value}/>   
             </React.Fragment>
         )
+    }
 }

@@ -3,12 +3,9 @@ import {Button, Grid, TextField , Typography} from '@material-ui/core';
 import {Redirect} from "react-router-dom"
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 import {connect} from 'react-redux';
 import {createProject, updateProject} from '../actions/projectActions';
+import UserForm from './UserForm';
 
 class FormConfirm extends Component {
 
@@ -123,14 +120,8 @@ class FormConfirm extends Component {
                                     <Typography align='center' variant='h5'>Added users</Typography>
                                     <List dense style={{maxHeight:'50vh', width: '100%', maxWidth:350}}>
                                         {values.users.map((user) => {
-                                            const labelId = `checkbox-list-secondary-label-${user.id}`;
                                             return(       
-                                                <ListItem key={user.id} button>
-                                                    <ListItemAvatar>
-                                                        <Avatar alt={user.firstname[0]+user.lastname[0]} style={{backgroundColor:'green'}}></Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText id={labelId} primary={user.firstname +` ` + user.lastname}/>
-                                                </ListItem>
+                                                <UserForm value={user} confirmedUsers={true}/>
                                             )})
                                     }
                                     </List>

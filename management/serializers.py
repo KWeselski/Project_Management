@@ -28,5 +28,8 @@ class CommentSerializer(serializers.ModelSerializer):
         profile_ = Profile.objects.get(user=obj.user)
         profile['firstname'] = profile_.firstname
         profile['lastname'] = profile_.lastname
-        profile['avatar'] = profile_.avatar.url
+        if profile_.avatar and hasattr(profile_.avatar, 'url'):
+            profile['avatar'] = profile_.avatar.url
+        else:
+            profile['avatar'] = ""
         return profile

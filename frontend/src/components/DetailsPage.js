@@ -9,6 +9,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import {connect} from 'react-redux';
 import axios from 'axios'
+import UserForm from './ProjectForms/UserForm';
 
 const Status = styled.div `
     background: ${props =>
@@ -29,7 +30,8 @@ class DetailsPage extends Component {
 
     state = {
         loaded:false,
-        comments:[]
+        comments:[],
+        data:[]
     }
 
     getCurrentDate = date => {
@@ -42,9 +44,8 @@ class DetailsPage extends Component {
         return `${day}${separator}${month<10?`0${month}`:`${month}`}${separator}${year} Time: ${hour}:${minutes}`
     }
 
-    changeUsersData = () => {
+    changeUsersData = (data) => {
         const {profiles} = this.props;
-        const {data} = this.props.location.data;
         const users_in_project = []
         data.users.map((user) => {
             let index = profiles.findIndex(x => x.user == user)
@@ -52,30 +53,32 @@ class DetailsPage extends Component {
             }
         )
         data.users.length = 0;
-        this.props.location.data.data.users = [...users_in_project];
-        this.setState({loaded:true})      
+        data.users = [...users_in_project];
+            
     }
 
-    getComments = (id) => {
-        axios.get(`/api/get_comments/${id}`)
+    getData = () => {
+        let data = JSON.parse(localStorage.getItem('/details'));
+        axios.get(`/api/get_comments/${data.id}`)
         .then(res => {
+            this.changeUsersData(data)
             this.setState({ 
-                comments: res.data
+                comments: res.data,
+                data: data,
+                loaded: true
              })
         })
     }
 
-    componentDidMount() {
-        const { data } = this.props.location.data;
-        this.getComments(data.id)
+    componentDidMount() {      
+        this.getData()
     }
 
     render(){
-    const {loaded,comments} = this.state;
-    const {profiles} = this.props;
-    const { data } = this.props.location.data;
-    if(data.users.length > 0 && loaded==false && profiles.length > 0){
-        this.changeUsersData()
+    const {loaded,comments,data} = this.state;
+    console.log(data)
+    if(!loaded){
+        return <h1>Loading</h1>
     }
     return(   
         <Grid container xs={12}>
@@ -116,17 +119,10 @@ class DetailsPage extends Component {
                      <Typography align='center' variant='h5'>Users</Typography>
                      <List dense style={{maxHeight:'50vh', width: '100%', maxWidth:350}}>
                      {data.users.map((user) => {
-                    const labelId = `checkbox-list-secondary-label-${user.id}`;
-                    console.log(user)
-                    return(       
-                            <ListItem key={user.id} button>
-                                <ListItemAvatar>
-                                    <Avatar src={user.avatar} style={{backgroundColor:'green'}} ></Avatar>
-                                </ListItemAvatar>
-                                <ListItemText id={labelId} primary={user.firstname +` ` + user.lastname}/>
-                            </ListItem>
-                )})
-               }
+                            return(       
+                            <UserForm value={user} confirmedUsers={true}/>
+                        )})
+                    }
                      </List>
                     </Paper> 
                     </Grid>
@@ -135,7 +131,7 @@ class DetailsPage extends Component {
                      <Grid item xs={12} md={12} style={{marginLeft:10}}>
                      <Paper style={{maxHeight:'100%', overflow:'auto', }}>
                      <Typography align='center' variant='h5'>Comments</Typography>
-                     <List dense style={{maxHeight:'50vh', width: '100%', maxWidth:350}}>
+                     <List dense style={{maxHeight:'50vh', width: '100%'}}>
                         {comments.map((comment) => {
                             console.log(comment)
                             const labelId = `checkbox-list-secondary-label-${comment.id}`;
@@ -147,13 +143,13 @@ class DetailsPage extends Component {
                                     <ListItemText id={labelId} 
                                     primary={
                                         <React.Fragment>
-                                        <Typography variant='h6'>{comment.profile.firstname+' '+comment.profile.lastname}</Typography>
+                                        <Typography variant='h7'><b>{comment.profile.firstname+' '+comment.profile.lastname}</b></Typography>
                                         {data.creator == comment.user ? <Typography variant='h7'>Creator</Typography>: <React.Fragment></React.Fragment>}
                                         </React.Fragment>           
                                     }
                                     secondary={
                                         <React.Fragment>
-                                            <Typography variant='h7'>{comment.comment}</Typography>
+                                            <Typography variant='h6'>{comment.comment}</Typography>
                                         </React.Fragment>   
                                     }/>
                                 </ListItem>

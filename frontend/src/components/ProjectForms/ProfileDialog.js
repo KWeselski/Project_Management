@@ -39,7 +39,7 @@ export default function ProfileDialog(props) {
                         </Grid>
                         <Grid container xs={12} style={{marginTop:10, height:200}}>
                                 <Grid item xs={12}>
-                                    <Typography variant='h6'><b>Sex:</b> {values.sex}</Typography>
+                                    <Typography variant='h6'><b>Sex:</b> {values.sex}</Typography>                                  
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Typography display="inline" variant='h6'><b>Age:</b> {values.age}</Typography>

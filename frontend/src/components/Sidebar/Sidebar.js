@@ -46,7 +46,7 @@ class Sidebar extends Component {
     constructor(props){
         super(props);
         this.state = {
-            hide:true
+            hide:false
         }
     }
 
@@ -60,7 +60,7 @@ class Sidebar extends Component {
             <React.Fragment>
             <Side>
                 <NavIcon>
-                    <MenuSharpIcon color='primary' onClick={this.showSidebar}/>
+                    <MenuSharpIcon color='primary'/>
                 </NavIcon>   
             </Side>
                 <SidebarNav hide={this.state.hide}>

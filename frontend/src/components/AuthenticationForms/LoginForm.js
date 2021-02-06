@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link, NavLink, Redirect} from "react-router-dom"
 import {authLogin} from '../actions/authActions';
 import {Button, Grid, TextField,Typography } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 
 
 class LoginForm extends React.Component {
@@ -30,14 +31,14 @@ class LoginForm extends React.Component {
         }
 
         return(
-            <Grid container xs={12} style={{height:'100%'}}>
-            <Grid item xs={1} md={3}></Grid>
-            <Grid item xs={10} md={4}>
-            <Typography align='center' variant="h4">Login to your account</Typography>
+            <Grid container direction='column' alignItems="center" justify="center" style={{minHeight:'70vh'}}>
+            <Grid item xs={12} md={3}>
+            <Paper variant="outlined" square>
+            <Typography align='center' style={{marginTop:'5vh'}} variant="h4">Sign in</Typography>
             <form onSubmit={this.handleSubmit}>
-                <Grid container spacing={2} textAlign="center" style={{ height: "100%"}}
+                <Grid container spacing={2} justify="center" style={{marginTop:'2vh', padding:20, height: "100%"}}
                 verticalAlign="middle">         
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={10}>
                         <TextField
                             autoComplete='email'
                             name="email"
@@ -48,10 +49,11 @@ class LoginForm extends React.Component {
                             label="Email"
                             autoFocus
                             value={email}
+                            style={{backgroundColor:'lightgray'}}
                             onChange={this.handleChange}
                             />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={10}>
                     <TextField
                         variant="outlined"
                         required
@@ -62,34 +64,36 @@ class LoginForm extends React.Component {
                         id="password"
                         autoComplete="current-password"
                         value={password}
+                        style={{backgroundColor:'lightgray'}}
                         onChange={this.handleChange}
                     />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={12} align='center' >
                         <Button
                         type="submit"
-                        fullWidth
+                        style={{width:'50%'}}
                         variant="contained"
                         color="primary">
                         Login
                         </Button>
                     </Grid>
                  </Grid>               
-                <Grid container justify="space-around">
-                    <Grid item>
-                            <Link to="/register" variant="body2">
-                                Create account
-                            </Link>
-                    </Grid>
-                    <Grid item>
-                            <Link to="/reset_password/" variant="body2">
-                                Reset password
-                            </Link>
-                    </Grid>
-                </Grid>               
+                <Grid item align='center'>
+                    <Link style={{textDecoration:'none'}} to="/reset_password/" >
+                        You don't remeber password?
+                        </Link>
+                </Grid>
+                               
                 </form>
-                </Grid> 
-                <Grid item xs={1} md={3}></Grid>                
+                </Paper>
+                <Paper variant="outlined" square style={{marginTop:20}}>
+                <Grid container style={{padding:20}} justify='center'>
+                    <Link style={{textDecoration:'none'}} to="/register" >
+                        Create account
+                    </Link>
+                 </Grid>
+                </Paper>
+                </Grid>                       
             </Grid>
         )
     }

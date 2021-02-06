@@ -74,7 +74,7 @@ class EditProjectForm extends Component {
     }
 
     componentDidMount() {
-        const { data } = this.props.location.data;
+        const data = JSON.parse(localStorage.getItem('/edit_project/'));
         this.setState({
             title: data.title,
             description: data.description,

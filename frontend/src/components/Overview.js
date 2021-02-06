@@ -5,10 +5,8 @@ import {Link, Redirect} from "react-router-dom"
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
 import styled from 'styled-components';
@@ -103,10 +101,16 @@ class Overview extends Component {
         return `${day}${separator}${month<10?`0${month}`:`${month}`}${separator}${year} - ${hour}:${minutes}`
     }
 
+    linkToPath = (pathname,data) => {
+        let savedData = JSON.stringify(data)
+        localStorage.setItem(`${pathname}`,savedData)
+    }
+
 
     render() {  
         const {operation} = this.state;
         const {projects} = this.props
+        
         return(
             <Grid container xs={12} md={12} style={{marginTop:50}}>
                 <Paper>
@@ -137,22 +141,14 @@ class Overview extends Component {
                                     displayEmpty
                                     >
                                     <MenuItem value='' disabled>Operations</MenuItem>
-                                    <MenuItem value="edit"><Link to={{
-                                        pathname:"/edit_project",
-                                        data:{
-                                            data: projects[projects.findIndex(x => x.id === project.id)]                       
-                                        }
-                                    }}>Edit</Link></MenuItem>
+                                    <MenuItem value="edit"><Button component={Link} to='/edit_project/' onClick={() => {this.linkToPath('/edit_project/',projects[projects.findIndex(x => x.id === project.id)] )}}
+                                    >Edit</Button></MenuItem>
                                     <MenuItem value="add_comment"><Link to={{
                                         pathname:'/add_comment',
                                         data:{id: project.id}    
                                     }}>Add Comment</Link></MenuItem>
-                                    <MenuItem value="details"><Link to={{
-                                        pathname:"/details",
-                                        data:{
-                                            data: projects[projects.findIndex(x => x.id === project.id)]                       
-                                        }
-                                    }}>Details</Link></MenuItem>
+                                    <MenuItem value="details"><Button component={Link} to='/details/' onClick={() => {this.linkToPath('/details',projects[projects.findIndex(x => x.id === project.id)] )}}
+                                    >Details</Button></MenuItem>
                                     <MenuItem onClick={() => this.props.deleteProject(project)} value="delete"><Button fullWidth variant='contained' color='primary'>Delete</Button></MenuItem>
                                     </Select>
                                     </TableCell>
