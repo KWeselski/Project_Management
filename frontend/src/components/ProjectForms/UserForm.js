@@ -31,6 +31,7 @@ export default function UserForm(props){
         )
     } 
     else{
+        console.log(users)
     return(
             <React.Fragment>
                 <ListItem key={value.id} button onClick={open}>
@@ -42,7 +43,8 @@ export default function UserForm(props){
                                 <Checkbox
                                     edge='end'
                                     onChange={handleToogle(value)}
-                                    checked={users.map((v) => {return v.id}).indexOf(value.id) !== -1}
+                                    checked={users.map((v) => {
+                                        return (v.id)}).indexOf(value.id) !== -1}
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
                         </ListItemSecondaryAction>

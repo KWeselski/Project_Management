@@ -12,6 +12,11 @@ import axios from 'axios'
 import styled from 'styled-components';
 import { Button, Select, MenuItem } from '@material-ui/core';
 import {deleteProject, getProjects} from './actions/projectActions';
+import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
+import ChatSharpIcon from '@material-ui/icons/ChatSharp';
+import EditSharpIcon from '@material-ui/icons/EditSharp';
+import AssessmentSharpIcon from '@material-ui/icons/AssessmentSharp';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const StatusCell = styled(TableCell)`
     padding: "0px 16px";
@@ -23,6 +28,8 @@ const Status = styled.div `
     background: ${props =>
         (props.type === 'new' && 'lightblue') || 
         (props.type === 'active' && 'yellow') ||
+        (props.type === 'hold' && 'pink') || 
+        (props.type === 'completed' && 'lightgreen') || 
         (props.type === 'canceled' && 'red')
     };  
     text-align: center;
@@ -40,7 +47,8 @@ const StyledCell = styled(TableCell)`
     }
     height: "30px";
     padding: "0px 16px";
-    width: "200px";  
+    max-width: 100px;
+    
 `;
 
 const StyledTableHeadCell = styled(TableCell)` 
@@ -63,7 +71,7 @@ class Overview extends Component {
     constructor(props){
         super(props);
         this.state = {
-            operation : ''
+            status : ['new', 'hold', 'completed', 'canceled', 'active']
         };
     }
 
@@ -108,12 +116,12 @@ class Overview extends Component {
 
 
     render() {  
-        const {operation} = this.state;
         const {projects} = this.props
         
         return(
-            <Grid container xs={12} md={12} style={{marginTop:50}}>
-                <Paper>
+            <Grid container xs={12} md={12} style={{marginLeft:220, marginTop:50}}>
+                <Grid container xs={7}> 
+                <Paper variant="outlined" square>
                     <Table style={{minWidth:700}}>
                         <StyledTableHead>
                             <TableRow>
@@ -127,44 +135,49 @@ class Overview extends Component {
                         <TableBody>
                             {projects.map(project =>
                                 <TableRow key={project.id}>
-                                    <StyledCell component='th' scope="row">
-                                        {project.title}
+                                    <StyledCell style={{whiteSpace: 'normal',
+                                    wordWrap: 'break-word'}} component='th' scope="row">
+                                        <b>{project.title}</b>
                                     </StyledCell>
-                                    <StyledCell>{this.getCurrentDate(project.start_date)}</StyledCell>
-                                    <StyledCell>{this.getCurrentDate(project.end_date)}</StyledCell>
+                                    <StyledCell align='center'>{this.getCurrentDate(project.start_date)}</StyledCell>
+                                    <StyledCell align='center'>{this.getCurrentDate(project.end_date)}</StyledCell>
                                     <StyledCell><Status type={project.status}>{project.status}</Status></StyledCell>
                                     <TableCell style={{width:100}}>
-                                    <Select value={operation}      
-                                    onChange={this.handleChange}
-                                    name="operations"
-                                    fullWidth
-                                    displayEmpty
-                                    >
-                                    <MenuItem value='' disabled>Operations</MenuItem>
-                                    <MenuItem value="edit"><Button component={Link} to='/edit_project/' onClick={() => {this.linkToPath('/edit_project/',projects[projects.findIndex(x => x.id === project.id)] )}}
-                                    >Edit</Button></MenuItem>
-                                    <MenuItem value="add_comment"><Link to={{
-                                        pathname:'/add_comment',
-                                        data:{id: project.id}    
-                                    }}>Add Comment</Link></MenuItem>
-                                    <MenuItem value="details"><Button component={Link} to='/details/' onClick={() => {this.linkToPath('/details',projects[projects.findIndex(x => x.id === project.id)] )}}
-                                    >Details</Button></MenuItem>
-                                    <MenuItem onClick={() => this.props.deleteProject(project)} value="delete"><Button fullWidth variant='contained' color='primary'>Delete</Button></MenuItem>
-                                    </Select>
+                                        <Grid container xs={12} justify="space-between">
+                                            <Tooltip title="Detials" aria-label="details"><Link to ="/details/"><i onClick={() => {this.linkToPath('/details',projects[projects.findIndex(x => x.id === project.id)])}}><AssessmentSharpIcon>Details</AssessmentSharpIcon></i></Link></Tooltip>
+                                            <Tooltip title="Edit" aria-label="edit"><Link to ="/edit_project/"><i onClick={() => {this.linkToPath('/edit_project/',projects[projects.findIndex(x => x.id === project.id)] )}}><EditSharpIcon/></i></Link></Tooltip>
+                                            <Tooltip title="Add Comment" aria-label="comment"><Link to ="/add_comment/"><i onClick={() => {this.linkToPath('/add_comment/',project.id )}}><ChatSharpIcon/></i></Link></Tooltip>
+                                            <Tooltip title="Delete" aria-label="delete"><Link><i onClick={() => this.props.deleteProject(project)}><DeleteSharpIcon/></i></Link></Tooltip>                    
+                                        </Grid>
                                     </TableCell>
                                 </TableRow>    
                             )}
                         </TableBody>
                     </Table>
-                    <Link to="/create_project">
-                        <Button
-                        type="submit"
-                        variant='contained'
-                        color="primary">
-                        Create project
-                        </Button>
-                    </Link>
                 </Paper>
+                </Grid>
+                <Grid container xs={2} style={{marginLeft:15, width:'100%', maxHeight:200}}>
+                    <Paper variant="outlined" square>
+                        <Table style={{minWidth:60}}>
+                                <StyledTableHead>
+                                    <TableRow>
+                                        <StyledTableHeadCell>Status</StyledTableHeadCell>
+                                        <StyledTableHeadCell>Total</StyledTableHeadCell>
+                                    </TableRow>
+                                </StyledTableHead>
+                                <TableBody>
+                                    {this.state.status.map(status => {
+                                        return(
+                                        <TableRow key={status}>     
+                                            <StyledCell component='th' scope="row"><Status type={status}>{status}</Status></StyledCell>
+                                            <StyledCell style={{textAlign:'center'}}>0</StyledCell>
+                                        </TableRow>)
+                                    })}    
+                                </TableBody>
+                        </Table>
+                       
+                    </Paper>
+                </Grid>
             </Grid>
         )
     }

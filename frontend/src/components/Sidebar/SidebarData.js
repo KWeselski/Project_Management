@@ -3,20 +3,23 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import PersonSharpIcon from '@material-ui/icons/PersonSharp';
+import AddToQueueSharpIcon from '@material-ui/icons/AddToQueueSharp';
 export const SidebarData = [
     {
-        title: 'Overvie',
+        title: 'Overview',
         icon: <LocalLibraryIcon/>,
-        iconClosed: <ExpandMoreIcon/>,
-        iconOpened: <ExpandLessIcon/>,
+        link: "/overview",
+        
     },
     {
         title: 'Profile',
-        icon: <LocalLibraryIcon/>
+        icon: <PersonSharpIcon/>
     },
     {
-        title: 'Archive',
-        icon: <LocalLibraryIcon/>
+        title: 'New Project',
+        icon: <AddToQueueSharpIcon/>,
+        link: "/create_project",
     },
     {
         title: 'Raports',

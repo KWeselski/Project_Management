@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import {connect} from 'react-redux';
 import axios from 'axios'
 import UserForm from './ProjectForms/UserForm';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Status = styled.div `
     background: ${props =>
@@ -76,20 +77,24 @@ class DetailsPage extends Component {
 
     render(){
     const {loaded,comments,data} = this.state;
-    console.log(data)
+    const {profiles} = this.props;
+    
     if(!loaded){
-        return <h1>Loading</h1>
+        return <CircularProgress/>
     }
+    const creator = profiles[profiles.findIndex(x=> x.user === data.creator)]   
     return(   
-        <Grid container xs={12}>
+        <Grid container xs={12} style={{marginLeft:220}}>
             <Grid container xs={6}>
-            <Paper style={{marginTop:20}}>
-            <Grid item xs={10} style={{padding:20}}>
-                <span>
+            <Paper variant="outlined" square style={{marginTop:20}}>
+            <Grid item xs={10} style={{padding:20}}>          
                 <Typography variant='h5'>{data.title}</Typography>
-                <Typography variant='h5'>{data.creator}</Typography>
-                </span>
-            </Grid>
+                <div style={{display:'flex',marginTop:10}}>
+                <Typography variant='h6' style={{marginRight:10}}>Created by: </Typography>
+                <Avatar src={creator.avatar} style={{backgroundColor:'green'}}></Avatar>
+                <Typography variant='h6' style={{marginLeft:10}}>{creator.firstname + ' ' + creator.lastname}</Typography>
+                </div>
+                </Grid>
             <Grid item xs={2} style={{padding:20}}>
                 <Status type={data.status}>{data.status}</Status>
             </Grid>
@@ -115,7 +120,7 @@ class DetailsPage extends Component {
             </Grid>  
             <Grid container xs={12} md={2}>
                 <Grid item xs={12} md={12} style={{marginLeft:10}}>
-                     <Paper style={{maxHeight:'100%', overflow:'auto', marginTop:20}}>
+                     <Paper variant="outlined" square style={{maxHeight:'100%', overflow:'auto', marginTop:20}}>
                      <Typography align='center' variant='h5'>Users</Typography>
                      <List dense style={{maxHeight:'50vh', width: '100%', maxWidth:350}}>
                      {data.users.map((user) => {
@@ -129,7 +134,7 @@ class DetailsPage extends Component {
             </Grid>
             <Grid container xs={12} md={4} style={{padding:20}}>
                      <Grid item xs={12} md={12} style={{marginLeft:10}}>
-                     <Paper style={{maxHeight:'100%', overflow:'auto', }}>
+                     <Paper variant="outlined" square style={{maxHeight:'100%', overflow:'auto', }}>
                      <Typography align='center' variant='h5'>Comments</Typography>
                      <List dense style={{maxHeight:'50vh', width: '100%'}}>
                         {comments.map((comment) => {

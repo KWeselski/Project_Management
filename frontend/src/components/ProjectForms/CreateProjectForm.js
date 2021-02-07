@@ -26,8 +26,7 @@ class CreateProjectForm extends Component {
         this.setState({ step : step - 1})
     };
 
-    returnToOverview = e => {
-        e.preventDefault();
+    returnToOverview = () => {
         this.setState({returnToOverview:true})
     }
 
@@ -86,8 +85,7 @@ class CreateProjectForm extends Component {
                         handleStartDateChange={this.handleStartDateChange}
                         handleEndDateChange={this.handleEndDateChange}
                         handleToogle={this.handleToogle}
-                        values={values}
-                        
+                        values={values}                     
                     />
                 )
             case 2:

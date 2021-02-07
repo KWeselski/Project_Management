@@ -6,16 +6,21 @@ import AddUsersForm from './AddUsersForm'
 import Paper from '@material-ui/core/Paper';
 
 class FormCreate extends Component{
+
+
+    
  
     render() {
-        const {values,update, handleChange, handleStartDateChange, handleEndDateChange, handleToogle, returnToOverview} = this.props;
+        const {values,update, handleChange, handleStartDateChange, handleEndDateChange, handleToogle, returnToOverview, changeUsersData} = this.props;
         if(values.returnToOverview){
             return <Redirect to='/overview'></Redirect>
         }
         return(       
-            <Grid container xs={12}>   
-                    <Grid item xs={12} md={8}> 
+            <Grid container xs={12} style={{marginLeft: 220}}>   
+                    <Grid item xs={12} md={8}>
+                    {update ? <Typography align='center' variant='h3' style={{padding:40}}>Edit project</Typography> :
                     <Typography align='center' variant='h3' style={{padding:40}}>Add new project</Typography>
+                    } 
                     </Grid>                 
                     <form onSubmit={this.props.nextStep} style={{display: 'flex'}}>  
                         <Paper> 
@@ -30,7 +35,8 @@ class FormCreate extends Component{
                                 label="Title"
                                 value={values.title}
                                 onChange={handleChange}
-                                inputProps={{ style: {fontSize: '1.4rem'}}}
+
+                                inputProps={{maxLength: 100, style: {fontSize: '1.4rem'}}}
                                 />
                                 </Grid>
                         <Grid container xs={12} md={9}>                  
@@ -133,7 +139,9 @@ class FormCreate extends Component{
                                         New
                                     </MenuItem>
                                     <MenuItem value={'active'}>Active</MenuItem>
+                                    <MenuItem value={'hold'}>On Hold</MenuItem>
                                     <MenuItem value={'canceled'}>Canceled</MenuItem>
+                                    <MenuItem value={'completed'}>Completed</MenuItem>
                                     </TextField>
                             </Grid> : <React.Fragment/>
                             }                              
@@ -142,7 +150,7 @@ class FormCreate extends Component{
                         </Paper>    
                         <Grid container xs={12} md={4}>
                             <Grid item xs={12} md={12} style={{marginLeft:30}}>
-                                <AddUsersForm update={update} users={values.users} handleToogle={handleToogle}/>
+                                <AddUsersForm update={update} users={values.users} changeUsersData={changeUsersData} handleToogle={handleToogle}/>
                             </Grid>  
                         </Grid>
                     </form>                                    

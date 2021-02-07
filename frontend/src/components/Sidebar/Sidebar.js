@@ -46,7 +46,7 @@ class Sidebar extends Component {
     constructor(props){
         super(props);
         this.state = {
-            hide:false
+            hide:true
         }
     }
 
@@ -59,13 +59,10 @@ class Sidebar extends Component {
         return(
             <React.Fragment>
             <Side>
-                <NavIcon>
-                    <MenuSharpIcon color='primary'/>
-                </NavIcon>   
+                
             </Side>
                 <SidebarNav hide={this.state.hide}>
-                    <SidebarWrap>
-                        
+                    <SidebarWrap>              
                         {SidebarData.map((item,index) => {
                             return <SidebarItemMenu item={item} key={index} />;
                         })}

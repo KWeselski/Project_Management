@@ -1,7 +1,8 @@
+import { CodeSharp } from '@material-ui/icons';
 import React, {Component} from 'react';
 import FormConfirm from './FormConfirm';
 import FormCreate from './FormCreate';
-
+import {connect} from 'react-redux';
 
 class EditProjectForm extends Component {
     state = {
@@ -73,8 +74,22 @@ class EditProjectForm extends Component {
         this.setState({users: newChecked})
     }
 
+    changeUsersData = () => {
+        if(!this.state.users.some(i => !Number.isInteger(i))){
+        const {profiles} = this.props;
+        const users_in_project = []
+            this.state.users.map((user) => {               
+                let index = profiles.findIndex(x => x.user == user)           
+                users_in_project.push(profiles[index])
+                }
+            )            
+        this.setState({users : [...users_in_project]});
+        }
+    }
+
     componentDidMount() {
         const data = JSON.parse(localStorage.getItem('/edit_project/'));
+        console.log(data)
         this.setState({
             title: data.title,
             description: data.description,
@@ -91,6 +106,7 @@ class EditProjectForm extends Component {
         const {step} = this.state;
         const {title, description, startDate, endDate, users, returnToOverview, status, validate, project_id, creator} = this.state;
         const values = {title, description, startDate, endDate, users, returnToOverview, status, validate, project_id, creator}
+        
         switch(step){
             case 1:
                 return(
@@ -101,6 +117,7 @@ class EditProjectForm extends Component {
                         handleStartDateChange={this.handleStartDateChange}
                         handleEndDateChange={this.handleEndDateChange}
                         handleToogle={this.handleToogle}
+                        changeUsersData={this.changeUsersData}
                         values={values}
                         update={true}
                     />
@@ -117,4 +134,11 @@ class EditProjectForm extends Component {
         }
     }
 }
-export default EditProjectForm
+
+const mapStateToProps = state => ({
+    profiles: state.project.profiles,
+    loading: state.project.loading,
+    error: state.project.error
+});
+
+export default connect(mapStateToProps)(EditProjectForm)

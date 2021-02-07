@@ -9,10 +9,6 @@ import UserForm from './UserForm';
 
 class FormConfirm extends Component {
 
-    state={
-        returnToOverview: false
-    }
-
     getCurrentDate = date => {
         let separator = '/'
         let day = date.getDate();
@@ -32,16 +28,16 @@ class FormConfirm extends Component {
         if(update){
             await this.props.updateProject(values,users)
         }
-        this.setState({returnToOverview: true})
+        this.props.returnToOverview();
     }
     render(){
-        const {values, update, returnStep} = this.props;
-        const {returnToOverview} = this.state;
-        if(returnToOverview){
+        const {values, update, returnStep, returnToOverview} = this.props;
+        
+        if(values.returnToOverview){
             return <Redirect to='/overview'></Redirect> 
         }
         return(      
-                <Grid container xs={12}>   
+                <Grid container xs={12} style={{marginLeft:220}}>   
                         <Grid item xs={12} md={8}> 
                         <Typography align='center' variant='h3' style={{padding:40}}>Confirm new project</Typography>
                         </Grid>                 

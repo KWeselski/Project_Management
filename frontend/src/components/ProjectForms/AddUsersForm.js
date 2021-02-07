@@ -13,28 +13,12 @@ class AddUserForm extends Component {
             loaded: false,
         }      
     }
-
-    changeUsersData = () => {
-        if(this.props.update){
-            const {profiles} = this.props;
-            const {users} = this.props;
-            const users_in_project = []
-            users.map((user) => {               
-                let index = profiles.findIndex(x => x.user == user)           
-                users_in_project.push(profiles[index])
-                }
-            )         
-            users.length = 0;
-            this.props.users = [...users_in_project];
-            this.setState({loaded:true})
-        }
-    }
-
     render(){
         const {loaded} = this.state;
         const {users, profiles, handleToogle} = this.props;
         if(users.length > 0 && loaded==false && profiles.length > 0){
-            this.changeUsersData()
+            this.props.changeUsersData()
+            this.setState({loaded: true})
         }
         return(
             <Paper style={{maxHeight:'100%', overflow:'auto'}}>
