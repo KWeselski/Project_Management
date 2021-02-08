@@ -85,7 +85,7 @@ class DetailsPage extends Component {
     const creator = profiles[profiles.findIndex(x=> x.user === data.creator)]   
     return(   
         <Grid container xs={12} style={{marginLeft:220}}>
-            <Grid container xs={6}>
+            <Grid container xs={6} md={6}>
             <Paper variant="outlined" square style={{marginTop:20}}>
             <Grid item xs={10} style={{padding:20}}>          
                 <Typography variant='h5'>{data.title}</Typography>
@@ -99,7 +99,7 @@ class DetailsPage extends Component {
                 <Status type={data.status}>{data.status}</Status>
             </Grid>
             
-            <Grid item xs={12} md={12} style={{padding:20}}>
+            <Grid item xs={12} md={6} style={{padding:20}}>
                 <TextField
                 readonly
                 name="description"

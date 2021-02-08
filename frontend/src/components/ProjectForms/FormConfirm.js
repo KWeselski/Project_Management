@@ -40,9 +40,9 @@ class FormConfirm extends Component {
                 <Grid container xs={12} style={{marginLeft:220}}>   
                         <Grid item xs={12} md={8}> 
                         <Typography align='center' variant='h3' style={{padding:40}}>Confirm new project</Typography>
-                        </Grid>                 
+                        </Grid>                                  
                         <Paper> 
-                            <Grid container xs={12} md={12} textAlign="center" style={{ height: "100%"}}>
+                        <Grid container xs={12} md={12} textAlign="center" style={{ height: "100%"}}>                              
                                 <Grid item xs={8} md={8} style={{padding:20}}>
                                     <TextField
                                     readonly
@@ -107,23 +107,23 @@ class FormConfirm extends Component {
                                             </Button>
                                         </Grid>                              
                                 </Grid>                                
-                            </Grid>   
-                            </Grid>                 
-                        </Paper>
-                            <Grid container xs={12} md={2}>
-                                <Grid item xs={12} md={12} style={{marginLeft:10}}>
-                                    <Paper style={{maxHeight:'100%', overflow:'auto'}}>
-                                    <Typography align='center' variant='h5'>Added users</Typography>
-                                    <List dense style={{maxHeight:'50vh', width: '100%', maxWidth:350}}>
-                                        {values.users.map((user) => {
-                                            return(       
-                                                <UserForm value={user} confirmedUsers={true}/>
-                                            )})
-                                    }
-                                    </List>
-                                    </Paper> 
-                                </Grid>
-                            </Grid>                                             
+                            </Grid>                
+                        </Grid> 
+                        </Paper>                      
+                        <Grid container xs={12} md={2}>
+                            <Grid item xs={12} md={12} style={{marginLeft:30}}>
+                                <Paper style={{maxHeight:'100%', overflow:'auto'}}>
+                                <Typography align='center' variant='h5'>Added users</Typography>
+                                <List dense style={{maxHeight:'50vh', width: '100%', maxWidth:350}}>
+                                    {values.users.map((user) => {
+                                        return(       
+                                            <UserForm value={user} confirmedUsers={true}/>
+                                        )})
+                                }
+                                </List>
+                                </Paper> 
+                             </Grid>
+                        </Grid>                                             
                 </Grid>           
         )
     }

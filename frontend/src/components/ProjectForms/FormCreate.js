@@ -4,12 +4,11 @@ import {Redirect} from "react-router-dom"
 import { KeyboardDatePicker, TimePicker } from "@material-ui/pickers";
 import AddUsersForm from './AddUsersForm'
 import Paper from '@material-ui/core/Paper';
+import NativeSelect from '@material-ui/core/NativeSelect';
+
 
 class FormCreate extends Component{
 
-
-    
- 
     render() {
         const {values,update, handleChange, handleStartDateChange, handleEndDateChange, handleToogle, returnToOverview, changeUsersData} = this.props;
         if(values.returnToOverview){
@@ -24,7 +23,7 @@ class FormCreate extends Component{
                     </Grid>                 
                     <form onSubmit={this.props.nextStep} style={{display: 'flex'}}>  
                         <Paper> 
-                        <Grid container xs={12} md={12} textAlign="center" style={{ height: "100%" , marginTop: 20}}>
+                        <Grid container xs={12} md={12} textAlign="center" justify='space-between' style={{ height: "100%" , marginTop: 20}}>
                             <Grid item xs={8} md={8} style={{padding:20}}>
                                 <TextField
                                 name="title"
@@ -35,10 +34,36 @@ class FormCreate extends Component{
                                 label="Title"
                                 value={values.title}
                                 onChange={handleChange}
-
                                 inputProps={{maxLength: 100, style: {fontSize: '1.4rem'}}}
                                 />
-                                </Grid>
+                            </Grid>
+                                {update ?
+                                    <Grid container xs={3} style={{padding:40}}>
+                                        <Grid item xs={4}>
+                                            <Typography variant='h6'>Status:</Typography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <NativeSelect
+                                            variant="outlined"
+                                            select
+                                            fullWidth
+                                            name="status"
+                                            label="status"
+                                            id="status"
+                                            value={values.status}
+                                            onChange={handleChange}
+                                        >
+                                            <option value="new">
+                                                New
+                                            </option>
+                                            <option value={'active'}>Active</option>
+                                            <option value={'hold'}>On Hold</option>
+                                            <option value={'canceled'}>Canceled</option>
+                                            <option value={'completed'}>Completed</option>
+                                            </NativeSelect>  
+                                            </Grid>                                        
+                                    </Grid> : <React.Fragment/>                                                             
+                                } 
                         <Grid container xs={12} md={9}>                  
                                 <Grid item xs={12} md={12} style={{padding:20}}>
                                     <TextField
@@ -62,7 +87,6 @@ class FormCreate extends Component{
                                     <Typography varaint='h6'>Add start date</Typography>
                                     <KeyboardDatePicker
                                         error={!values.validate}
-                                        
                                         helperText={!values.validate ? "Invalid date" : ''}
                                         value={values.startDate}
                                         placeholder="10/10/2018"
@@ -121,33 +145,10 @@ class FormCreate extends Component{
                                             Next
                                         </Button>
                                     </Grid>                              
-                            </Grid>
-                            {update ?
-                            <Grid item>
-                                    <TextField
-                                        variant="outlined"
-                                        select
-                                        required
-                                        fullWidth
-                                        name="status"
-                                        label="status"
-                                        id="status"
-                                        value={values.status}
-                                        onChange={handleChange}
-                                    >
-                                    <MenuItem value="new" disabled>
-                                        New
-                                    </MenuItem>
-                                    <MenuItem value={'active'}>Active</MenuItem>
-                                    <MenuItem value={'hold'}>On Hold</MenuItem>
-                                    <MenuItem value={'canceled'}>Canceled</MenuItem>
-                                    <MenuItem value={'completed'}>Completed</MenuItem>
-                                    </TextField>
-                            </Grid> : <React.Fragment/>
-                            }                              
+                            </Grid>                             
                         </Grid>   
                         </Grid>                 
-                        </Paper>    
+                        </Paper>
                         <Grid container xs={12} md={4}>
                             <Grid item xs={12} md={12} style={{marginLeft:30}}>
                                 <AddUsersForm update={update} users={values.users} changeUsersData={changeUsersData} handleToogle={handleToogle}/>

@@ -58,6 +58,19 @@ class CreateProjectForm extends Component {
         })
     }
 
+    changeUsersData = () => {
+        if(!this.state.users.some(i => !Number.isInteger(i))){
+        const {profiles} = this.props;
+        const users_in_project = []
+            this.state.users.map((user) => {               
+                let index = profiles.findIndex(x => x.user == user)           
+                users_in_project.push(profiles[index])
+                }
+            )            
+        this.setState({users : [...users_in_project]});
+        }
+    }
+
     handleToogle = (value) => () => {
         const {users} = this.state;
         const currentIndex = users.map((v) => {return v.id}).indexOf(value.id);
@@ -85,6 +98,7 @@ class CreateProjectForm extends Component {
                         handleStartDateChange={this.handleStartDateChange}
                         handleEndDateChange={this.handleEndDateChange}
                         handleToogle={this.handleToogle}
+                        changeUsersData={this.changeUsersData}
                         values={values}                     
                     />
                 )

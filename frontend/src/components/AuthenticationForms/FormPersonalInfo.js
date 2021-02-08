@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link,} from "react-router-dom"
 import {Button, Grid, TextField , Typography, MenuItem} from '@material-ui/core';
-
+import Paper from '@material-ui/core/Paper';
 
 class FormPersonalInfo extends Component {
 
@@ -14,15 +14,14 @@ class FormPersonalInfo extends Component {
         const { values, handleChange } = this.props;
 
         return(
-            <Grid container xs={12} style={{height:'100%'}}>
-            <Grid item xs={1} md={3}></Grid>
-            <Grid item xs={10} md={4}>
-            <Typography align='center' variant="h4">Type your personal info</Typography>
+            <Grid container direction='column' alignItems="center" justify="center" style={{minHeight:'80vh'}}>   
+            <Grid item xs={10} md={3}>
+            <Paper variant="outlined" square>
+            <Typography align='center' style={{marginTop:'5vh'}}  variant="h4">Type your personal info</Typography>
             <form onSubmit={this.handleSubmit}>
-                <Grid container spacing={2} textAlign="center"
-                style={{ height: "100%" }}
+                <Grid container justify="center" spacing={2} style={{marginTop:'2vh', padding:20, height: "100%"}}
                 verticalAlign="middle">
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={10}>
                         <TextField
                             autoComplete='firstName'
                             name="firstName"
@@ -34,10 +33,11 @@ class FormPersonalInfo extends Component {
                             autoFocus
                             inputProps={{pattern:"[A-Za-z]{1,50}"}}
                             value={values.firstName}
+                            style={{backgroundColor:'lightgray'}}
                             onChange={handleChange}
                             />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={10}>
                         <TextField
                             variant="outlined"
                             required
@@ -47,10 +47,11 @@ class FormPersonalInfo extends Component {
                             id="lastName"
                             inputProps={{pattern:"[A-Za-z]{1,50}"}}
                             value={values.lastName}
+                            style={{backgroundColor:'lightgray'}}
                             onChange={handleChange}
                             />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={5}>
                         <TextField
                             variant="outlined"
                             select
@@ -60,6 +61,7 @@ class FormPersonalInfo extends Component {
                             label="Sex"
                             id="sex"
                             value={values.sex}
+                            style={{backgroundColor:'lightgray'}}
                             onChange={handleChange}
                         >
                         <MenuItem value="none" disabled>
@@ -69,7 +71,7 @@ class FormPersonalInfo extends Component {
                          <MenuItem value={'female'}>Female</MenuItem>
                         </TextField>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={5}>
                         <TextField
                             variant="outlined"
                             required
@@ -80,10 +82,11 @@ class FormPersonalInfo extends Component {
                             inputProps={{pattern:"[0-9]{2}", maxLength:2}}
                             maxLength="2"
                             value={values.age}
+                            style={{backgroundColor:'lightgray'}}
                             onChange={handleChange}
                         />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={10}>
                         <TextField
                             variant="outlined"
                             fullWidth
@@ -92,29 +95,31 @@ class FormPersonalInfo extends Component {
                             id="phone"
                             inputProps={{pattern:"[0-9]{9}", maxLength:9}}
                             value={values.phone}
+                            style={{backgroundColor:'lightgray'}}
                             onChange={handleChange}
                         />
                     </Grid>  
-                </Grid>
-                <Grid item xs={12} md={12}>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary">
-                        Continue
-                    </Button>
-                </Grid>
-                <Grid container justify="center">
-                    <Grid item>
-                        <Link to="/login" variant="body2">
-                            Already have an account?
-                        </Link>
+                    <Grid item xs={12} md={12} align="center">
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            style={{width:'50%'}}
+                            color="primary">
+                            Continue
+                        </Button>
                     </Grid>
-                </Grid>
+                </Grid>         
             </form>
+            </Paper>
+            <Paper variant="outlined" square style={{marginTop:20}}>
+                <Grid container style={{padding:20}} justify='center'>
+                    <Link style={{textDecoration:'none'}} to="/login" >
+                        Already have an account?
+                    </Link>
+                 </Grid>
+            </Paper>
             </Grid>
-            <Grid item xs={1} md={3}></Grid>
         </Grid>
         )
     }

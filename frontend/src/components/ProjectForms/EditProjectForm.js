@@ -28,8 +28,7 @@ class EditProjectForm extends Component {
         this.setState({ step : step - 1})
     };
 
-    returnToOverview = e => {
-        e.preventDefault();
+    returnToOverview = () => {
         this.setState({returnToOverview:true})
     }
 

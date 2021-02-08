@@ -53,7 +53,7 @@ const StyledCell = styled(TableCell)`
 
 const StyledTableHeadCell = styled(TableCell)` 
     background-color: #15171c; 
-    width: 200px;
+    
        
 `;
 
@@ -71,7 +71,7 @@ class Overview extends Component {
     constructor(props){
         super(props);
         this.state = {
-            status : ['new', 'hold', 'completed', 'canceled', 'active']
+            status : ['new', 'active', 'hold',  'canceled','completed']
         };
     }
 
@@ -109,6 +109,16 @@ class Overview extends Component {
         return `${day}${separator}${month<10?`0${month}`:`${month}`}${separator}${year} - ${hour}:${minutes}`
     }
 
+    getTotals = (data, key) => {
+        let total = 0;
+        data.forEach(item => {
+          if(item["status"] == key){
+            total += 1;
+          }
+        });
+        return total;
+      };
+
     linkToPath = (pathname,data) => {
         let savedData = JSON.stringify(data)
         localStorage.setItem(`${pathname}`,savedData)
@@ -119,16 +129,16 @@ class Overview extends Component {
         const {projects} = this.props
         
         return(
-            <Grid container xs={12} md={12} style={{marginLeft:220, marginTop:50}}>
-                <Grid container xs={7}> 
+            <Grid container xs={12} md={12} style={{marginLeft:220, marginTop:25}}>
+                <Grid container xs={9}> 
                 <Paper variant="outlined" square>
-                    <Table style={{minWidth:700}}>
+                    <Table style={{minWidth:1200}}>
                         <StyledTableHead>
                             <TableRow>
                                 <StyledTableHeadCell>Title</StyledTableHeadCell>
-                                <StyledTableHeadCell>Start Date</StyledTableHeadCell>
-                                <StyledTableHeadCell>End Date</StyledTableHeadCell>
-                                <StyledTableHeadCell>Status</StyledTableHeadCell>
+                                <StyledTableHeadCell style={{width:130}}>Start Date</StyledTableHeadCell>
+                                <StyledTableHeadCell style={{width:130}}>End Date</StyledTableHeadCell>
+                                <StyledTableHeadCell style={{width:120}}>Status</StyledTableHeadCell>
                                 <StyledTableHeadCell>Operations</StyledTableHeadCell>
                             </TableRow>
                         </StyledTableHead>
@@ -161,16 +171,16 @@ class Overview extends Component {
                         <Table style={{minWidth:60}}>
                                 <StyledTableHead>
                                     <TableRow>
-                                        <StyledTableHeadCell>Status</StyledTableHeadCell>
+                                        <StyledTableHeadCell style={{width:120}}>Status</StyledTableHeadCell>
                                         <StyledTableHeadCell>Total</StyledTableHeadCell>
                                     </TableRow>
                                 </StyledTableHead>
-                                <TableBody>
+                                <TableBody>                    
                                     {this.state.status.map(status => {
                                         return(
                                         <TableRow key={status}>     
                                             <StyledCell component='th' scope="row"><Status type={status}>{status}</Status></StyledCell>
-                                            <StyledCell style={{textAlign:'center'}}>0</StyledCell>
+                                            <StyledCell style={{textAlign:'center'}}>{this.getTotals(projects,status)}</StyledCell>
                                         </TableRow>)
                                     })}    
                                 </TableBody>

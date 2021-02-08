@@ -46,6 +46,31 @@ class Project(models.Model):
         return self.title
 
 
+class Task(models.Model):
+    STATUS_CHOICES = (
+        ("new", "New"),
+        ("active", "Active"),
+        ("hold", "On Hold"),
+        ("completed", "Completed"),
+        ("canceled", "Canceled"),
+        ("archived", "Archived"),
+    )
+    title = models.CharField(max_length=100)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,
+                                related_name='task_project')
+    creator = models.ForeignKey(User, on_delete=models.CASCADE,
+                                related_name='task_creator')
+    users = models.ManyToManyField(User)
+    description = models.TextField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES,
+                              default="new")
+
+    def __str__(self):
+        return self.title
+
+
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

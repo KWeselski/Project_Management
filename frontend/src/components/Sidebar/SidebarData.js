@@ -22,32 +22,7 @@ export const SidebarData = [
         link: "/create_project",
     },
     {
-        title: 'Raports',
-        icon: <LocalLibraryIcon/>
-    },
-    {
-        title: 'Mail',
-        icon: <LocalLibraryIcon/>,
-        iconOpened: <ExpandLessIcon/>,
-        iconClosed: <ExpandMoreIcon/>,
-
-        dropItem: [
-            {
-                title: 'Test 1',
-                icon: <MenuBookIcon/>,
-            },
-            {
-                title: 'Test 2',
-                icon: <MenuBookIcon/>,
-            }
-        ]
-    },
-    {
-        title: 'Testowy',
-        icon: <LocalLibraryIcon/>
-    },
-    {
-        title: 'Testowy Expand',
+        title: 'Test',
         icon: <LocalLibraryIcon/>,
         iconOpened: <ExpandLessIcon/>,
         iconClosed: <ExpandMoreIcon/>,

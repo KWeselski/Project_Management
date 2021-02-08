@@ -3,7 +3,7 @@ import {Link, Redirect} from "react-router-dom"
 import {Button, Grid, TextField , Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {authSignup, createProfile} from '../actions/authActions.js'
-
+import Paper from '@material-ui/core/Paper';
 
 class FormPassword extends Component{
       
@@ -56,15 +56,14 @@ class FormPassword extends Component{
               }</Grid>);
         }
         return(
-            <Grid container xs={12} style={{height:'100%'}}>
-            <Grid item xs={1} md={3}></Grid>
-            <Grid item xs={10} md={4}>
-            <Typography align='center' variant="h4">Register your account</Typography>
+            <Grid container direction='column' alignItems="center" justify="center" style={{minHeight:'70vh'}}>
+            <Grid item xs={10} md={3}>
+            <Paper variant="outlined" square>
+            <Typography align='center' style={{marginTop:'5vh'}} variant="h4">Register your account</Typography>
             <form onSubmit={this.handleSubmit}>
-                <Grid container spacing={2} textAlign="center"
-                style={{ height: "100%" }}
+                <Grid container spacing={2} justify="center" style={{marginTop:'2vh', padding:20, height: "100%"}}
                 verticalAlign="middle">
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={10}>
                         <TextField
                             autoComplete='email'
                             name="email"
@@ -75,10 +74,11 @@ class FormPassword extends Component{
                             label="Email Address"
                             autoFocus
                             value={values.email}
+                            style={{backgroundColor:'lightgray'}}
                             onChange={handleChange}
                             />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={10}>
                     <TextField
                         variant="outlined"
                         required
@@ -89,10 +89,11 @@ class FormPassword extends Component{
                         id="password1"
                         autoComplete="current-password"
                         value={values.password1}
+                        style={{backgroundColor:'lightgray'}}
                         onChange={handleChange}
                     />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={10}>
                     <TextField
                         variant="outlined"
                         required
@@ -103,6 +104,7 @@ class FormPassword extends Component{
                         id="password2"
                         autoComplete="current-password"
                         value={values.password2}
+                        style={{backgroundColor:'lightgray'}}
                         onChange={handleChange}
                     />
                     </Grid>
@@ -131,15 +133,17 @@ class FormPassword extends Component{
                         {errorMessage}
                         </Grid>                      
                     ):(<React.Fragment/>)}   
-                    <Grid item>
-                        <Link to="/login" variant="body2">
-                            Already have an account?
-                        </Link>
-                    </Grid>
                 </Grid>
             </form>
+            </Paper>
+            <Paper variant="outlined" square style={{marginTop:20}}>
+                <Grid container style={{padding:20}} justify='center'>
+                    <Link style={{textDecoration:'none'}} to="/login" >
+                        Already have an account?
+                    </Link>
+                 </Grid>
+            </Paper>
             </Grid>
-            <Grid item xs={1} md={3}></Grid>
         </Grid>
         )
     }
