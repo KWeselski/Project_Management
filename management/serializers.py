@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from .models import Profile, Project, Comment
+from rest_framework.serializers import FileField
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    avatar = FileField()
+
     class Meta:
         model = Profile
         fields = ('id', 'user', 'firstname', 'lastname', 'age', 'sex', 'phone',

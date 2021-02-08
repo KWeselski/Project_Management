@@ -9,5 +9,6 @@ urlpatterns = [
     path('get_projects_list/', get_project_list),
     path('delete_project/', delete_project),
     path('create_comment/', create_comment),
-    path('get_comments/<int:pk>', get_project_comments)
+    path('get_comments/<int:pk>', get_project_comments),
+    path('profile_data', profile_data)
 ]

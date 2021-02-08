@@ -92,6 +92,25 @@ def get_users_list(request):
     return Response(serializer.data)
 
 
+@api_view(['GET', 'PUT'])
+def profile_data(request):
+    user = get_user_from_token(request)
+    try:
+        profile = Profile.objects.get(user=user.id)
+    except Profile.DoesNotExist:
+        return Response('Profile not exist',
+                        status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = ProfileSerializer(profile, context={'request': request})
+        return Response(serializer.data)
+    if request.method == "PUT":
+        serializer = ProfileSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 def get_user_from_token(request):
     token = request.headers['Authorization']
     user_id = Token.objects.get(key=token).user_id

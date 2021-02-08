@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import {
   Button,
   Grid,
@@ -9,7 +8,7 @@ import {
 } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
-class FormPersonalInfo extends Component {
+class FormEditPersonalInfo extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.nextStep();
@@ -33,7 +32,7 @@ class FormPersonalInfo extends Component {
               style={{ marginTop: "5vh" }}
               variant="h4"
             >
-              Type your personal info
+              Edit your personal info
             </Typography>
             <form onSubmit={this.handleSubmit}>
               <Grid
@@ -135,17 +134,10 @@ class FormPersonalInfo extends Component {
               </Grid>
             </form>
           </Paper>
-          <Paper variant="outlined" square style={{ marginTop: 20 }}>
-            <Grid container style={{ padding: 20 }} justify="center">
-              <Link style={{ textDecoration: "none" }} to="/">
-                Already have an account?
-              </Link>
-            </Grid>
-          </Paper>
         </Grid>
       </Grid>
     );
   }
 }
 
-export default FormPersonalInfo;
+export default FormEditPersonalInfo
