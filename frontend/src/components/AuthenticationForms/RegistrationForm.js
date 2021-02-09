@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import FormPassword from "./FormPassword";
 import FormPersonalInfo from "./FormPersonalInfo";
-import { connect } from "react-redux";
 
 class RegistrationForm extends Component {
   state = {
@@ -32,33 +31,13 @@ class RegistrationForm extends Component {
 
   render() {
     const { step } = this.state;
-    const {
-      email,
-      password1,
-      password2,
-      firstName,
-      lastName,
-      sex,
-      age,
-      phone,
-    } = this.state;
-    const values = {
-      email,
-      password1,
-      password2,
-      firstName,
-      lastName,
-      sex,
-      age,
-      phone,
-    };
     switch (step) {
       case 1:
         return (
           <FormPersonalInfo
             nextStep={this.nextStep}
             handleChange={this.handleChange}
-            values={values}
+            values={this.state}
           />
         );
       case 2:
@@ -66,7 +45,7 @@ class RegistrationForm extends Component {
           <FormPassword
             returnStep={this.returnStep}
             handleChange={this.handleChange}
-            values={values}
+            values={this.state}
           />
         );
       default:

@@ -60,7 +60,7 @@ export default function ProfileDialog(props) {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="h6">
+              <Typography variant="h8">
                 <b>About me:</b> {values.description}
               </Typography>
             </Grid>

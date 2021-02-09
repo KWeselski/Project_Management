@@ -6,7 +6,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
-import Overview from "./Overview";
+import Overview from "./Overview/Overview";
 import RegistrationForm from "./AuthenticationForms/RegistrationForm";
 import LoginForm from "./AuthenticationForms/LoginForm";
 import CreateProjectForm from "./ProjectForms/CreateProjectForm";
@@ -17,7 +17,7 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import DetailsPage from "./DetailsPage";
+import DetailsPage from "./DetailsPage/DetailsPage";
 import { getProjects } from "./actions/projectActions";
 import { authCheckState } from "./actions/authActions";
 import CommentForm from "./ProjectForms/CommentForm";

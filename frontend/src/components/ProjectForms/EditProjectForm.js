@@ -87,7 +87,6 @@ class EditProjectForm extends Component {
 
   componentDidMount() {
     const data = JSON.parse(localStorage.getItem("/edit_project/"));
-    console.log(data);
     this.setState({
       title: data.title,
       description: data.description,
@@ -102,31 +101,7 @@ class EditProjectForm extends Component {
 
   render() {
     const { step } = this.state;
-    const {
-      title,
-      description,
-      startDate,
-      endDate,
-      users,
-      returnToOverview,
-      status,
-      validate,
-      project_id,
-      creator,
-    } = this.state;
-    const values = {
-      title,
-      description,
-      startDate,
-      endDate,
-      users,
-      returnToOverview,
-      status,
-      validate,
-      project_id,
-      creator,
-    };
-
+    
     switch (step) {
       case 1:
         return (
@@ -138,7 +113,7 @@ class EditProjectForm extends Component {
             handleEndDateChange={this.handleEndDateChange}
             handleToogle={this.handleToogle}
             changeUsersData={this.changeUsersData}
-            values={values}
+            values={this.state}
             update={true}
           />
         );
@@ -147,7 +122,7 @@ class EditProjectForm extends Component {
           <FormConfirm
             returnStep={this.returnStep}
             returnToOverview={this.returnToOverview}
-            values={values}
+            values={this.state}
             update={true}
           />
         );

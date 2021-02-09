@@ -4,7 +4,6 @@ import {
   Grid,
   TextField,
   Typography,
-  MenuItem,
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import { KeyboardDatePicker, TimePicker } from "@material-ui/pickers";
@@ -29,19 +28,14 @@ class FormCreate extends Component {
     }
     return (
       <Grid container xs={12} style={{ marginLeft: 220 }}>
-        <Grid item xs={12} md={8}>
-          {update ? (
+        <Grid item xs={12} md={4}>        
             <Typography align="center" variant="h3" style={{ padding: 40 }}>
-              Edit project
+                {update ? ('Edit project' ): 'Add new project'}
             </Typography>
-          ) : (
-            <Typography align="center" variant="h3" style={{ padding: 40 }}>
-              Add new project
-            </Typography>
-          )}
         </Grid>
+        <Grid item container md={12} spacing={1}>
         <form onSubmit={this.props.nextStep} style={{ display: "flex" }}>
-          <Paper>
+          <Paper variant="outlined" square>
             <Grid
               container
               xs={12}
@@ -50,7 +44,7 @@ class FormCreate extends Component {
               justify="space-between"
               style={{ height: "100%", marginTop: 20 }}
             >
-              <Grid item xs={8} md={8} style={{ padding: 20 }}>
+              <Grid item xs={8} md={12} style={{ padding: 20 }}>
                 <TextField
                   name="title"
                   variant="standard"
@@ -63,6 +57,26 @@ class FormCreate extends Component {
                   inputProps={{ maxLength: 100, style: { fontSize: "1.4rem" } }}
                 />
               </Grid>
+              <Grid item xs={12} md={12} style={{ padding: 20 }}>
+                  <TextField
+                    name="description"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="description"
+                    label="Description"
+                    value={values.description}
+                    rows={15}
+                    inputProps={{ maxLength: 1000 }}
+                    multiline={true}
+                    onChange={handleChange}
+                  />
+              
+              </Grid>          
+            </Grid>
+            </Paper>
+            <Paper variant="outlined" square>
+            <Grid container md={4} style={{ padding: 20 }}>
               {update ? (
                 <Grid container xs={3} style={{ padding: 40 }}>
                   <Grid item xs={4}>
@@ -90,24 +104,6 @@ class FormCreate extends Component {
               ) : (
                 <React.Fragment />
               )}
-              <Grid container xs={12} md={9}>
-                <Grid item xs={12} md={12} style={{ padding: 20 }}>
-                  <TextField
-                    name="description"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="description"
-                    label="Description"
-                    value={values.description}
-                    rows={15}
-                    inputProps={{ maxLength: 1000 }}
-                    multiline={true}
-                    onChange={handleChange}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container xs={12} md={3} style={{ padding: 20 }}>
                 <Grid container xs={12} md={12} justify="space-between">
                   <Grid item>
                     <Typography varaint="h6">Add start date</Typography>
@@ -151,7 +147,7 @@ class FormCreate extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid container justify="space-between" xs={12} md={12}>
+                <Grid container  xs={12} md={12} justify="space-between">
                   <Grid item>
                     <Button
                       fullWidth
@@ -175,7 +171,6 @@ class FormCreate extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
           </Paper>
           <Grid container xs={12} md={4}>
             <Grid item xs={12} md={12} style={{ marginLeft: 30 }}>
@@ -188,6 +183,7 @@ class FormCreate extends Component {
             </Grid>
           </Grid>
         </form>
+        </Grid>
       </Grid>
     );
   }

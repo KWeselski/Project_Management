@@ -49,13 +49,13 @@ class EditProfileForm extends Component {
     };
   };
 
-  updateProfile = async () => {
+  createFormData = () => {
     var image;
     if (this.state.selectedFile) {
       image = this.state.selectedFile;
     } else {
       image = this.state.avatar;
-    }
+    } 
     const form_data = new FormData();
     form_data.append("firstname", this.state.firstName);
     form_data.append("lastname", this.state.lastName);
@@ -65,7 +65,11 @@ class EditProfileForm extends Component {
     form_data.append("description", this.state.description);
     form_data.append("avatar", image);
     form_data.append("user", this.state.user_id);
-    console.log(form_data.get('firstname'));
+    return form_data
+  }
+
+  updateProfile = async () => {  
+    form_data = createFormData();
     await axios
       .put(
         "/api/profile_data",
@@ -91,33 +95,13 @@ class EditProfileForm extends Component {
 
   render() {
     const { step } = this.state;
-    const {
-      firstName,
-      lastName,
-      sex,
-      age,
-      phone,
-      avatar,
-      description,
-      user_id
-    } = this.state;
-    const values = {
-      firstName,
-      lastName,
-      sex,
-      age,
-      phone,
-      avatar,
-      description,
-      user_id,
-    };
     switch (step) {
       case 1:
         return (
           <FormEditProfileInfo
             nextStep={this.nextStep}
             handleChange={this.handleChange}
-            values={values}
+            values={this.state}
           />
         );
       case 2:
@@ -127,7 +111,7 @@ class EditProfileForm extends Component {
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             handleImageUpload={this.handleImageUpload}
-            values={values}
+            values={this.state}
           />
         );
       case 3:
@@ -137,7 +121,7 @@ class EditProfileForm extends Component {
             handleChange={this.handleChange}
             updateProfile={this.updateProfile}
             returnToProfile={this.returnToProfile}
-            values={values}
+            values={this.state}
           />
         );
       default:

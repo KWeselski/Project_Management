@@ -4,7 +4,6 @@ from rest_framework.serializers import FileField
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    avatar = FileField()
 
     class Meta:
         model = Profile

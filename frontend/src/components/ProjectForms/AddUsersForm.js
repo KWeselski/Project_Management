@@ -20,7 +20,7 @@ class AddUserForm extends Component {
       this.setState({ loaded: true });
     }
     return (
-      <Paper style={{ maxHeight: "100%", overflow: "auto" }}>
+      <Paper variant="outlined" square style={{ maxHeight: "100%", overflow: "auto" }}>
         <Typography align="center" variant="h5">
           Add users to project
         </Typography>

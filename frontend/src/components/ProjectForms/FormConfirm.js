@@ -44,7 +44,7 @@ class FormConfirm extends Component {
             Confirm new project
           </Typography>
         </Grid>
-        <Paper>
+        <Paper variant="outlined" square>
           <Grid
             container
             xs={12}
@@ -131,7 +131,7 @@ class FormConfirm extends Component {
         </Paper>
         <Grid container xs={12} md={2}>
           <Grid item xs={12} md={12} style={{ marginLeft: 30 }}>
-            <Paper style={{ maxHeight: "100%", overflow: "auto" }}>
+            <Paper variant="outlined" square style={{ maxHeight: "100%", overflow: "auto" }}>
               <Typography align="center" variant="h5">
                 Added users
               </Typography>

@@ -15,7 +15,6 @@ class FormEditAvatarAbout extends Component {
     this.props.nextStep();
   };
 
-  
   render() {
     const { values, handleChange } = this.props;
 

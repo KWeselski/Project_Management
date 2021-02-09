@@ -1,77 +1,36 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
-import styled from "styled-components";
 import { Button, Select, MenuItem } from "@material-ui/core";
-import { deleteProject, getProjects } from "./actions/projectActions";
+import StatusesTable from './StatusesTable'
+import { deleteProject, getProjects } from "../actions/projectActions";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
 import ChatSharpIcon from "@material-ui/icons/ChatSharp";
 import EditSharpIcon from "@material-ui/icons/EditSharp";
 import AssessmentSharpIcon from "@material-ui/icons/AssessmentSharp";
 import Tooltip from "@material-ui/core/Tooltip";
+import {
+  StyledTableHead,
+  StyledCell,
+  StyledTableHeadCell,
+  Status,
+} from "./styles";
 
-const StatusCell = styled(TableCell)`
-  padding: "0px 16px";
-  font-size: "1.5rem";
-`;
-
-const Status = styled.div`
-  background: ${(props) =>
-    (props.type === "new" && "lightblue") ||
-    (props.type === "active" && "yellow") ||
-    (props.type === "hold" && "pink") ||
-    (props.type === "completed" && "lightgreen") ||
-    (props.type === "canceled" && "red")};
-  text-align: center;
-  border-radius: 30px;
-  width: 75%;
-  margin: 0 auto;
-  font-weight: bold;
-  text-transform: capitalize;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-`;
-
-const StyledCell = styled(TableCell)`
-  & .MuiTableCell-root {
-    text-align: center;
-  }
-  height: "30px";
-  padding: "0px 16px";
-  max-width: 100px;
-`;
-
-const StyledTableHeadCell = styled(TableCell)`
-  background-color: #15171c;
-`;
-
-const StyledTableHead = styled(TableHead)`
-  & .MuiTableCell-head {
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-  }
-`;
 
 class Overview extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      status: ["new", "active", "hold", "canceled", "completed"],
-    };
   }
 
   deleteProject(project) {
-    const { projects } = this.state;
+    const { projects } = this.props;
     axios
       .delete(
         "/api/delete_project",
@@ -110,15 +69,7 @@ class Overview extends Component {
     }${separator}${year} - ${hour}:${minutes}`;
   };
 
-  getTotals = (data, key) => {
-    let total = 0;
-    data.forEach((item) => {
-      if (item["status"] == key) {
-        total += 1;
-      }
-    });
-    return total;
-  };
+
 
   linkToPath = (pathname, data) => {
     let savedData = JSON.stringify(data);
@@ -238,38 +189,7 @@ class Overview extends Component {
             </Table>
           </Paper>
         </Grid>
-        <Grid
-          container
-          xs={2}
-          style={{ marginLeft: 15, width: "100%", maxHeight: 200 }}
-        >
-          <Paper variant="outlined" square>
-            <Table style={{ minWidth: 60 }}>
-              <StyledTableHead>
-                <TableRow>
-                  <StyledTableHeadCell style={{ width: 120 }}>
-                    Status
-                  </StyledTableHeadCell>
-                  <StyledTableHeadCell>Total</StyledTableHeadCell>
-                </TableRow>
-              </StyledTableHead>
-              <TableBody>
-                {this.state.status.map((status) => {
-                  return (
-                    <TableRow key={status}>
-                      <StyledCell component="th" scope="row">
-                        <Status type={status}>{status}</Status>
-                      </StyledCell>
-                      <StyledCell style={{ textAlign: "center" }}>
-                        {this.getTotals(projects, status)}
-                      </StyledCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </Paper>
-        </Grid>
+        <StatusesTable projects={this.props.projects}/>
       </Grid>
     );
   }

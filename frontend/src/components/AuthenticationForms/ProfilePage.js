@@ -23,7 +23,6 @@ class ProfilePage extends Component {
         headers: { Authorization: `${localStorage.getItem("token")}` },
       })
       .then((res) => {
-        console.log(res.data)
         this.setState({
           firstName: res.data.firstname,
           lastName: res.data.lastname,
