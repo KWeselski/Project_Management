@@ -61,7 +61,7 @@ export const logout = () => {
         dispatch(authLogout());
       })
       .catch((err) => {
-        dispatch(authFail(err));
+        //dispatch(authFail(err));
       });
   };
 };
@@ -156,7 +156,7 @@ export const authCheckState = () => {
       if (expirationDate <= new Date()) {
         dispatch(logout());
       } else {
-        dispatch(authSuccess(token));
+        //dispatch(authSuccess(token));
         dispatch(
           checkAuthTimeout(
             (expirationDate.getTime() - new Date().getTime()) / 1000

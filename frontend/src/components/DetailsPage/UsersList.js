@@ -4,7 +4,7 @@ import List from "@material-ui/core/List";
 import UserForm from '../ProjectForms/UserForm';
 
 export default function UsersList(props) {
-    const {data} = props;
+  const {users} = props;
   return (
     <Grid container xs={12} md={2}>
       <Grid item xs={12} md={12} style={{ marginLeft: 10 }}>
@@ -20,7 +20,7 @@ export default function UsersList(props) {
             dense
             style={{ maxHeight: "50vh", width: "100%", maxWidth: 350 }}
           >
-            {data.users.map((user) => {
+            {users.map((user) => {
               return <UserForm value={user} confirmedUsers={true} />;
             })}
           </List>

@@ -1,151 +1,114 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import {
   Button,
   Grid,
   TextField,
-  Typography,
   MenuItem,
 } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
 
-class FormPersonalInfo extends Component {
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.nextStep();
-  };
+export default function FormPersonalInfo(props){
 
-  render() {
-    const { values, handleChange } = this.props;
-
+  const {firstName, lastName, sex, age, phone, handleSubmit, handleChange} = props
     return (
+      <form onSubmit={handleSubmit}>
       <Grid
         container
-        direction="column"
-        alignItems="center"
         justify="center"
-        style={{ minHeight: "80vh" }}
+        spacing={2}
+        style={{ marginTop: "2vh", padding: 20, height: "100%" }}
+        verticalAlign="middle"
       >
-        <Grid item xs={10} md={3}>
-          <Paper variant="outlined" square>
-            <Typography
-              align="center"
-              style={{ marginTop: "5vh" }}
-              variant="h4"
-            >
-              Type your personal info
-            </Typography>
-            <form onSubmit={this.handleSubmit}>
-              <Grid
-                container
-                justify="center"
-                spacing={2}
-                style={{ marginTop: "2vh", padding: 20, height: "100%" }}
-                verticalAlign="middle"
-              >
-                <Grid item xs={12} md={10}>
-                  <TextField
-                    autoComplete="firstName"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                    inputProps={{ pattern: "[A-Za-z]{1,50}" }}
-                    value={values.firstName}
-                    style={{ backgroundColor: "lightgray" }}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12} md={10}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="lastName"
-                    label="Last Name"
-                    id="lastName"
-                    inputProps={{ pattern: "[A-Za-z]{1,50}" }}
-                    value={values.lastName}
-                    style={{ backgroundColor: "lightgray" }}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12} md={5}>
-                  <TextField
-                    variant="outlined"
-                    select
-                    required
-                    fullWidth
-                    name="sex"
-                    label="Sex"
-                    id="sex"
-                    value={values.sex}
-                    style={{ backgroundColor: "lightgray" }}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="none" disabled>
-                      Sex
-                    </MenuItem>
-                    <MenuItem value={"male"}>Male</MenuItem>
-                    <MenuItem value={"female"}>Female</MenuItem>
-                  </TextField>
-                </Grid>
-                <Grid item xs={12} md={5}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="age"
-                    label="Age"
-                    id="age"
-                    inputProps={{ pattern: "[0-9]{2}", maxLength: 2 }}
-                    maxLength="2"
-                    value={values.age}
-                    style={{ backgroundColor: "lightgray" }}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12} md={10}>
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    name="phone"
-                    label="Phone Number"
-                    id="phone"
-                    inputProps={{ pattern: "[0-9]{9}", maxLength: 9 }}
-                    value={values.phone}
-                    style={{ backgroundColor: "lightgray" }}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12} md={12} align="center">
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    style={{ width: "50%" }}
-                    color="primary"
-                  >
-                    Continue
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </Paper>
-          <Paper variant="outlined" square style={{ marginTop: 20 }}>
-            <Grid container style={{ padding: 20 }} justify="center">
-              <Link style={{ textDecoration: "none" }} to="/">
-                Already have an account?
-              </Link>
-            </Grid>
-          </Paper>
+        <Grid item xs={12} md={10}>
+          <TextField
+            autoComplete="firstName"
+            name="firstName"
+            variant="outlined"
+            required
+            fullWidth
+            id="firstName"
+            label="First Name"
+            autoFocus
+            inputProps={{ pattern: "[A-Za-z]{1,50}" }}
+            value={firstName}
+            style={{ backgroundColor: "lightgray" }}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={10}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            name="lastName"
+            label="Last Name"
+            id="lastName"
+            inputProps={{ pattern: "[A-Za-z]{1,50}" }}
+            value={lastName}
+            style={{ backgroundColor: "lightgray" }}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <TextField
+            variant="outlined"
+            select
+            required
+            fullWidth
+            name="sex"
+            label="Sex"
+            id="sex"
+            value={sex}
+            style={{ backgroundColor: "lightgray" }}
+            onChange={handleChange}
+          >
+            <MenuItem value="none" disabled>
+              Sex
+            </MenuItem>
+            <MenuItem value={"male"}>Male</MenuItem>
+            <MenuItem value={"female"}>Female</MenuItem>
+          </TextField>
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            name="age"
+            label="Age"
+            id="age"
+            inputProps={{ pattern: "[0-9]{2}", maxLength: 2 }}
+            maxLength="2"
+            value={age}
+            style={{ backgroundColor: "lightgray" }}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={10}>
+          <TextField
+            variant="outlined"
+            fullWidth
+            name="phone"
+            label="Phone Number"
+            id="phone"
+            inputProps={{ pattern: "[0-9]{9}", maxLength: 9 }}
+            value={phone}
+            style={{ backgroundColor: "lightgray" }}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={12} align="center">
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            style={{ width: "50%" }}
+            color="primary"
+          >
+            Continue
+          </Button>
         </Grid>
       </Grid>
+    </form>
     );
   }
-}
 
-export default FormPersonalInfo;

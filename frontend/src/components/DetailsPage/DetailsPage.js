@@ -46,7 +46,7 @@ class DetailsPage extends Component {
     return (
       <Grid container xs={12} style={{ marginLeft: 220 }}>
         <ProjectInfo data={data} profiles={profiles}/>
-        <UsersList data={data}/>
+        <UsersList users={data.users}/>
         <CommentsList id={data.id} creator={data.creator}/>
         </Grid>
     );

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { authLogin } from "../actions/authActions";
+import { authLogin } from '../../actions/authActions';
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 

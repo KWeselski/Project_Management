@@ -6,13 +6,13 @@ import {
   Redirect,
 } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
-import Overview from "./Overview/Overview";
-import RegistrationForm from "./AuthenticationForms/RegistrationForm";
-import LoginForm from "./AuthenticationForms/LoginForm";
+import ProjectsList from "./Overview/ProjectsList";
+import RegistrationForm from "./AuthenticationForms/Register/index";
+import LoginForm from "./AuthenticationForms/Signup/index";
 import CreateProjectForm from "./ProjectForms/CreateProjectForm";
 import EditProjectForm from "./ProjectForms/EditProjectForm";
-import EditProfileForm from "./AuthenticationForms/ProfileComponents/EditProfileForm";
-import ProfilePage from "./AuthenticationForms/ProfilePage";
+import EditProfileForm from "./AuthenticationForms/EditProfile/index";
+import ProfilePage from "./AuthenticationForms/ProfilePage/index";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -46,7 +46,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginForm} />
               <Route exact path="/register" component={RegistrationForm} />
-              <Route exact path="/overview" component={Overview} />
+              <Route exact path="/overview" component={ProjectsList} />
               <Route
                 exact
                 path="/create_project"

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import FormPassword from "./FormPassword";
-import FormPersonalInfo from "./FormPersonalInfo";
+import PasswordPage from './PasswordPage'
+import PersonalInfoPage from './PersonalInfoPage'
 
 class RegistrationForm extends Component {
   state = {
@@ -34,15 +34,19 @@ class RegistrationForm extends Component {
     switch (step) {
       case 1:
         return (
-          <FormPersonalInfo
+          <PersonalInfoPage
             nextStep={this.nextStep}
             handleChange={this.handleChange}
-            values={this.state}
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            sex={this.state.sex}
+            age={this.state.age}
+            phone={this.state.phone}
           />
         );
       case 2:
         return (
-          <FormPassword
+          <PasswordPage
             returnStep={this.returnStep}
             handleChange={this.handleChange}
             values={this.state}

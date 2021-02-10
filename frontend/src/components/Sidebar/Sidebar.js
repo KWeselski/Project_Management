@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import MenuSharpIcon from "@material-ui/icons/MenuSharp";
 import { SidebarData } from "./SidebarData";
 import SidebarItemMenu from "./SidebarItemMenu";
 

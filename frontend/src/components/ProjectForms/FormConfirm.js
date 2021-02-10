@@ -2,23 +2,13 @@ import React, { Component } from "react";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import List from "@material-ui/core/List";
+import {getCurrentDate} from "./ProjectsMethods"
 import { connect } from "react-redux";
 import { createProject, updateProject } from "../actions/projectActions";
-import UserForm from "./UserForm";
+import UsersList from "../DetailsPage/UsersList";
 
 class FormConfirm extends Component {
-  getCurrentDate = (date) => {
-    let separator = "/";
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    let hour = date.getHours();
-    let minutes = date.getMinutes();
-    return `${day}${separator}${
-      month < 10 ? `0${month}` : `${month}`
-    }${separator}${year} Time: ${hour}:${minutes}`;
-  };
+  
 
   confirmProject = async () => {
     const { values, create, update } = this.props;
@@ -34,7 +24,7 @@ class FormConfirm extends Component {
   render() {
     const { values, update, returnStep, returnToOverview } = this.props;
 
-    if (values.returnToOverview) {
+    if (values.ToOverview) {
       return <Redirect to="/overview"></Redirect>;
     }
     return (
@@ -80,10 +70,10 @@ class FormConfirm extends Component {
             <Grid container xs={12} md={3} style={{ padding: 20 }}>
               <span>
                 <Typography variant="h6">
-                  Start Date: {this.getCurrentDate(values.startDate)}
+                  Start Date: {getCurrentDate(values.startDate)}
                 </Typography>
                 <Typography variant="h6">
-                  End Date: {this.getCurrentDate(values.endDate)}
+                  End Date: {getCurrentDate(values.endDate)}
                 </Typography>
                 {update ? (
                   <Typography variant="h6">Status: {values.status} </Typography>
@@ -129,23 +119,7 @@ class FormConfirm extends Component {
             </Grid>
           </Grid>
         </Paper>
-        <Grid container xs={12} md={2}>
-          <Grid item xs={12} md={12} style={{ marginLeft: 30 }}>
-            <Paper variant="outlined" square style={{ maxHeight: "100%", overflow: "auto" }}>
-              <Typography align="center" variant="h5">
-                Added users
-              </Typography>
-              <List
-                dense
-                style={{ maxHeight: "50vh", width: "100%", maxWidth: 350 }}
-              >
-                {values.users.map((user) => {
-                  return <UserForm value={user} confirmedUsers={true} />;
-                })}
-              </List>
-            </Paper>
-          </Grid>
-        </Grid>
+        <UsersList users={values.users}/>
       </Grid>
     );
   }

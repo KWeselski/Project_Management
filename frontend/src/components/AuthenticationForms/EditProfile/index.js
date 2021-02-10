@@ -69,7 +69,7 @@ class EditProfileForm extends Component {
   }
 
   updateProfile = async () => {  
-    form_data = createFormData();
+    const form_data = this.createFormData();
     await axios
       .put(
         "/api/profile_data",
