@@ -56,7 +56,7 @@ export default function UserForm(props) {
           <ListItemSecondaryAction>
             <Checkbox
               edge="end"
-              onChange={handleToogle(value)}
+              onChange={() => handleToogle(value)}
               checked={
                 users
                   .map((v) => {

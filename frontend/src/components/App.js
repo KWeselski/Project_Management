@@ -9,8 +9,8 @@ import Sidebar from "./Sidebar/Sidebar";
 import ProjectsList from "./Overview/ProjectsList";
 import RegistrationForm from "./AuthenticationForms/Register/index";
 import LoginForm from "./AuthenticationForms/Signup/index";
-import CreateProjectForm from "./ProjectForms/CreateProjectForm";
-import EditProjectForm from "./ProjectForms/EditProjectForm";
+import CreateProjectForm from "./ProjectForms/NewProject";
+import EditProjectForm from "./ProjectForms/EditProject";
 import EditProfileForm from "./AuthenticationForms/EditProfile/index";
 import ProfilePage from "./AuthenticationForms/ProfilePage/index";
 import Grid from "@material-ui/core/Grid";
@@ -20,7 +20,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import DetailsPage from "./DetailsPage/DetailsPage";
 import { getProjects } from "./actions/projectActions";
 import { authCheckState } from "./actions/authActions";
-import CommentForm from "./ProjectForms/CommentForm";
+import CommentForm from "./ProjectForms/AddCommentForm";
 
 class App extends Component {
   constructor(props) {

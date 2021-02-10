@@ -2,17 +2,35 @@ import React, { Component } from "react";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import {getCurrentDate} from "./ProjectsMethods"
 import { connect } from "react-redux";
 import { createProject, updateProject } from "../actions/projectActions";
 import UsersList from "../DetailsPage/UsersList";
 
 class FormConfirm extends Component {
-  
+  getCurrentDate = (date) => {
+    let separator = "/";
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    return `${day}${separator}${
+      month < 10 ? `0${month}` : `${month}`
+    }${separator}${year} Time: ${hour}:${minutes}`;
+  };
 
   confirmProject = async () => {
-    const { values, create, update } = this.props;
-    let users = values.users.map((a) => a.user);
+    const {
+      title,
+      status,
+      description,
+      startDate,
+      endDate,
+      create,
+      update,
+    } = this.props;
+    const values = { title, description, status, startDate, endDate };
+    let users = this.props.users.map((a) => a.user);
     if (create) {
       await this.props.createProject(values, users);
     }
@@ -46,7 +64,7 @@ class FormConfirm extends Component {
               <TextField
                 readonly
                 fullWidth
-                value={values.title}
+                value={this.props.title}
                 inputProps={{ style: { fontSize: "1.4rem" }, maxLength: 100 }}
               />
             </Grid>
@@ -60,7 +78,7 @@ class FormConfirm extends Component {
                   fullWidth
                   id="description"
                   label="Description"
-                  value={values.description}
+                  value={this.props.description}
                   rows={15}
                   inputProps={{ maxLength: 1000 }}
                   multiline={true}
@@ -70,13 +88,15 @@ class FormConfirm extends Component {
             <Grid container xs={12} md={3} style={{ padding: 20 }}>
               <span>
                 <Typography variant="h6">
-                  Start Date: {getCurrentDate(values.startDate)}
+                  Start Date: {this.getCurrentDate(this.props.startDate)}
                 </Typography>
                 <Typography variant="h6">
-                  End Date: {getCurrentDate(values.endDate)}
+                  End Date: {this.getCurrentDate(this.props.endDate)}
                 </Typography>
                 {update ? (
-                  <Typography variant="h6">Status: {values.status} </Typography>
+                  <Typography variant="h6">
+                    Status: {this.props.status}{" "}
+                  </Typography>
                 ) : (
                   <React.Fragment />
                 )}
@@ -119,11 +139,22 @@ class FormConfirm extends Component {
             </Grid>
           </Grid>
         </Paper>
-        <UsersList users={values.users}/>
+        <UsersList users={this.props.users} />
       </Grid>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    title: state.actProj.title,
+    description: state.actProj.description,
+    startDate: state.actProj.startDate,
+    endDate: state.actProj.endDate,
+    users: state.actProj.users,
+    status: state.actProj.status,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -136,4 +167,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(FormConfirm);
+export default connect(mapStateToProps, mapDispatchToProps)(FormConfirm);

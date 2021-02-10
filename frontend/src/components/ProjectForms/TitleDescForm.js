@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from "react";
 import {
     Grid,
     TextField,
@@ -6,10 +6,28 @@ import {
 import Paper from "@material-ui/core/Paper";
 
 
-export default function TitleDescForm(props){   
+export default class TitleDescForm extends Component{ 
+  
+    state = {
+      title: "",
+      description: "",
+    }
 
-    const {title, description, handleChange} = props;
+    handleChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+    };
 
+    componentDidMount(){
+
+      const {values} = this.props;
+      if(values){
+        this.setState({title: values.title, description: values.description})
+      }else{
+        this.setState({title:"", description: ""})
+      }
+    }
+
+    render(){
     return(
         <Paper variant="outlined" square>
             <Grid
@@ -28,8 +46,8 @@ export default function TitleDescForm(props){
                   fullWidth
                   id="title"
                   label="Title"
-                  value={title}
-                  onChange={handleChange}
+                  value={this.state.title}
+                  onChange={this.handleChange}
                   inputProps={{ maxLength: 100, style: { fontSize: "1.4rem" } }}
                 />
               </Grid>
@@ -41,14 +59,15 @@ export default function TitleDescForm(props){
                     fullWidth
                     id="description"
                     label="Description"
-                    value={description}
+                    value={this.state.description}
                     rows={15}
                     inputProps={{ maxLength: 1000 }}
                     multiline={true}
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                   />            
               </Grid>          
             </Grid>
-            </Paper>
+        </Paper>
     )
+    }
 }
