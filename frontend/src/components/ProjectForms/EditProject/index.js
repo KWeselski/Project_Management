@@ -2,46 +2,38 @@ import React, { Component } from "react";
 import FormConfirm from "../FormConfirm";
 import FormCreate from "../FormCreate";
 import { connect } from "react-redux";
+import * as project_action from "../../actions/actualProjectActions";
 
 class EditProjectForm extends Component {
-  state = {
-    step: 1,
-    returnToOverview: false,
-    validate: false,
-  };
 
   componentDidMount() {
-    const {project_id,projects} = this.props;
-    this.props.loadState(project_id,projects );
-    /*
-    const data = JSON.parse(localStorage.getItem("/edit_project/"));
-    this.setState({
-      title: data.title,
-      description: data.description,
-      startDate: new Date(data.start_date),
-      endDate: new Date(data.end_date),
-      users: data.users,
-      status: data.status,
-      project_id: data.id,
-      creator: data.creator,
-    });
-    */
+    if(this.props.user != null){
+      const project_id = (String(window.location).split("/").pop())
+      this.props.get_project(project_id)
+      this.setState({loaded:true})
+    }
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.user !== this.props.user){
+      const project_id = (String(window.location).split("/").pop())
+      this.props.get_project(project_id)
+      this.setState({loaded:true})
+    }
   }
 
   render() {
-    const { step } = this.state;
-    
+    const { step,loaded } = this.state;
+    if(!loaded){
+      return(<h1></h1>)
+    }
+
     switch (step) {
       case 1:
         return (
           <FormCreate
             nextStep={this.nextStep}
             returnToOverview={this.returnToOverview}
-            handleChange={this.handleChange}
-            handleStartDateChange={this.handleStartDateChange}
-            handleEndDateChange={this.handleEndDateChange}
-            handleToogle={this.handleToogle}
-            changeUsersData={this.changeUsersData}
             values={this.state}
             update={true}
           />
@@ -60,14 +52,13 @@ class EditProjectForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  projects: state.project.projects
+  users_in_project: state.actProj.users,
+  user: state.auth.user
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      loadState: (project_id, projects) => {
-        dispatch(project_action.editProjectStart(project_id, projects))
-      }
+      get_project: (project_id) => { dispatch(project_action.getProjectValues(project_id))}
   };
 };
 

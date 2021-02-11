@@ -16,7 +16,7 @@ class AddUserForm extends Component {
     const { loaded } = this.state;
     const { users, profiles, handleToogle } = this.props;
     if (users.length > 0 && loaded == false && profiles.length > 0) {
-      this.props.changeUsersData();
+      this.props.changeUsersData(profiles);
       this.setState({ loaded: true });
     }
     return (

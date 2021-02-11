@@ -2,21 +2,20 @@ import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
 import { OperationsData } from "./OperationsData";
-import axios from "axios";
 import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { deleteProject } from "../actions/projectActions";
-import { ListItemText } from "@material-ui/core";
+
 
 function OperationIcons(props) {
-  const {project, deleteProject, projects} = props;
+  const {project, deleteProject,} = props;
  
   return (
     <Grid container xs={12} justify="space-between">
       {OperationsData.map((item) => {
         return (
           <Tooltip title={item.title} aria-label={item.title}>
-          <Link to={{pathname:`${item.link}`, state:`${item.state}`}}>
+          <Link to={(item.title == "Delete") ? null : {pathname:`${item.link}${project.id}`}}>
             <i onClick={() =>{
               if(item.title == "Delete"){ deleteProject(project)}}
             }>

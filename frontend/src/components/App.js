@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+
 } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
 import ProjectsList from "./Overview/ProjectsList";
@@ -19,20 +19,20 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import DetailsPage from "./DetailsPage/DetailsPage";
 import { getProjects } from "./actions/projectActions";
-import { authCheckState } from "./actions/authActions";
+import { authCheckState , loadUser} from "./actions/authActions";
 import CommentForm from "./ProjectForms/AddCommentForm";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: true,
+      authenticated: false,
     };
   }
 
-  componentDidMount() {
-    this.props.onTryAutoSignup();
-    if (this.props.isAuthenticated) {
+  async componentDidMount() {
+    await this.props.loadUser();
+    if (!this.props.isAuthenticated) {
       this.setState({ authenticated: true });
     }
   }
@@ -52,7 +52,7 @@ class App extends Component {
                 path="/create_project"
                 component={CreateProjectForm}
               />
-              <Route exact path="/edit_project" component={EditProjectForm} />
+              <Route exact path="/edit_project/:id" component={EditProjectForm} />
               <Route exact path="/edit_profile" component={EditProfileForm} />
               <Route exact path="/details" component={DetailsPage} />
               <Route exact path="/add_comment" component={CommentForm} />
@@ -76,6 +76,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(getProjects());
     },
     onTryAutoSignup: () => dispatch(authCheckState()),
+    loadUser:() => {dispatch(loadUser())}
   };
 };
 

@@ -20,19 +20,22 @@ const actualProjectReducer = (state = initialState, action) => {
       users: [],
       status: "",
       validate: false,
+      creator: "",
     };
   }
 
   if (action.type == actionTypes.EDIT_PROJECT_START) {
-    
+    const project = action.project;
     return {
-      title: "",
-      description: "",
-      startDate: new Date(),
-      endDate: new Date(),
-      users: [],
-      status: "",
+      title: project.title,
+      description: project.description,
+      startDate: project.start_date,
+      endDate: project.end_date,
+      users: project.users,
+      status: project.status,
       validate: false,
+      project_id: project.id,
+      
     };
   }
 
@@ -54,7 +57,7 @@ const actualProjectReducer = (state = initialState, action) => {
       const users_in_project = [];
       state.users.map((user) => {
         var index = action.profiles.findIndex((x) => x.user == user);
-        users_in_project.push(profiles[index]);
+        users_in_project.push(action.profiles[index]);
       });
       return { ...state, users: [...users_in_project] };
     }
@@ -77,7 +80,8 @@ const actualProjectReducer = (state = initialState, action) => {
 
   if (action.type == actionTypes.APPLY_TITLE_DESC) {
     return { ...state, title: action.title, description: action.description };
-  } else {
+  } 
+  else {
     return state;
   }
 };

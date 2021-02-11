@@ -6,41 +6,17 @@ import { connect } from "react-redux";
 
 class CreateProjectForm extends Component {
   state = {
-    step: 1,
     ToOverview: false,
     loaded : false,
   };
 
-  nextStep = () => {
-    const { step } = this.state;
-    this.setState({ step: step + 1 });
-  };
-
-   returnStep = () => {
-    const { step } = this.state;
-    this.setState({ step: step - 1 });
-  };
-
-   returnToOverview = () => {
-    this.setState({ returnToOverview: true });
-  };
-
-   checkDate = () => {
-    const { startDate, endDate, } = this.state;
-    if (startDate > endDate) {
-      this.setState({ validate: false });
-    } else {
-      this.setState({ validate: true });
-    }
-  };
-
   componentDidMount(){
-    this.props.cleanState();
+    //this.props.cleanState();
     this.setState({loaded:true})
   }
 
   render() {
-    const { step ,loaded} = this.state;
+    const {loaded} = this.state;
 
     if(!loaded){
       return(<h1>Loading</h1>)
@@ -50,10 +26,8 @@ class CreateProjectForm extends Component {
       case 1:
         return (
           <FormCreate
-            nextStep={this.nextStep}
+            nextStep={this.props.nextStep}
             returnToOverview={this.returnToOverview}
-            handleChange={this.handleChange}
-            changeUsersData={this.changeUsersData}
             values={this.state}
           />
         );

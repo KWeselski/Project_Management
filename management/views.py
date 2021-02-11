@@ -30,6 +30,7 @@ def create_project(request):
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     if request.method == 'PUT':
+        print(request.data)
         try:
             project = Project.objects.get(id=request.data['id'])
         except Project.DoesNotExist:
@@ -109,6 +110,25 @@ def profile_data(request):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def get_project(request, pk):
+    try:
+        project = Project.objects.get(pk=pk)
+    except Project.DoesNotExist:
+        return Response('Project not exist',
+                        status=status.HTTP_404_NOT_FOUND)
+    serializer = ProjectSerializer(project, context={'request': request})
+    return Response(serializer.data)
+
+
+@api_view()
+def get_user(request):
+    token = request.headers['Authorization']
+    user_id = Token.objects.get(key=token).user_id
+    user = User.objects.get(id=user_id)
+    return Response(user.id)
 
 
 def get_user_from_token(request):

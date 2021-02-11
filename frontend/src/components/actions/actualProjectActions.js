@@ -1,4 +1,5 @@
 import * as actionTypes from "./action-types/actualProject-actions";
+import axios from "axios";
 
 export const createProjectStart = () => {
     return {
@@ -19,14 +20,19 @@ export const createProjectStart = () => {
     };
   };
 
-  export const editProjectStart = (project_id, projects) => {
+  export const getProjectStart = () => {
     return{
-      type:actionTypes.EDIT_PROJECT_START,
-      project_id: project_id,
-      projects: projects
+      type: actionTypes.GET_PROJECT_START,
     }
   }
 
+  export const editProjectStart = (project) => {
+    return{
+      type: actionTypes.EDIT_PROJECT_START,
+      project: project
+    }
+  }
+  
 
  export const applyTitleDesc = (title, description) =>{
      return {
@@ -69,3 +75,11 @@ export const createProjectStart = () => {
          user: user
      }
  }
+
+ export const getProjectValues = (id) => {
+    return async (dispatch) => {
+      await axios.get(`/api/get_project/${id}`).then((res) => {
+        dispatch(editProjectStart(res.data))
+      })      
+      }     
+}

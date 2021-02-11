@@ -7,6 +7,7 @@ import { createProject, updateProject } from "../actions/projectActions";
 import UsersList from "../DetailsPage/UsersList";
 
 class FormConfirm extends Component {
+  
   getCurrentDate = (date) => {
     let separator = "/";
     let day = date.getDate();
@@ -41,7 +42,6 @@ class FormConfirm extends Component {
   };
   render() {
     const { values, update, returnStep, returnToOverview } = this.props;
-
     if (values.ToOverview) {
       return <Redirect to="/overview"></Redirect>;
     }

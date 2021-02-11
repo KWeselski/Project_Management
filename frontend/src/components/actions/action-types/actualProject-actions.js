@@ -14,3 +14,5 @@ export const CHANGE_USER_DATA = "CHANGE_USER_DATA";
 export const TOOGLE_USER = "TOOGLE_USER";
 
 export const APPLY_TITLE_DESC ="APPLY_TITLE_DESC";
+
+export const GET_USER_START = "GET_USER_START";

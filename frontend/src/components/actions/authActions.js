@@ -33,6 +33,19 @@ export const authSuccess = (token) => {
   };
 };
 
+export const userLoading = () => {
+  return {
+    type: actionTypes.USER_LOADING,
+  };
+};
+
+export const userLoaded = (user) => {
+  return {
+    type: actionTypes.USER_LOADED,
+    user:user
+  };
+};
+
 export const resetPass = () => {
   return {
     type: actionTypes.RESET_PASS,
@@ -74,10 +87,24 @@ export const checkAuthTimeout = (expirationTime) => {
   };
 };
 
+export const loadUser = () => {
+  return async (dispatch) => {
+    dispatch(userLoading());
+    await axios
+    .get("/api/get_user/", {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    })
+    .then((res) => {
+          dispatch(userLoaded(res.data))
+        }
+      );
+  };
+};
+
 export const authLogin = (email, password) => {
   return (dispatch) => {
     dispatch(authStart());
-    axios
+     axios
       .post("/auth/login/", {
         email: email,
         password: password,

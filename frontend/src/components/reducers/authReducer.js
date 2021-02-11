@@ -4,12 +4,15 @@ import {
   AUTH_FAIL,
   AUTH_LOGOUT,
   RESET_PASS,
+  USER_LOADING,
+  USER_LOADED
 } from "../actions/action-types/auth-actions";
 
 const initialState = {
   token: null,
   error: null,
   loading: false,
+  user:null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -17,7 +20,7 @@ const authReducer = (state = initialState, action) => {
     return { ...state, error: null, loading: true };
   }
   if (action.type == AUTH_SUCCESS) {
-    return { ...state, token: action.token, error: null, loading: false };
+    return { ...state, token: action.token, error: null, loading: false};
   }
   if (action.type == AUTH_FAIL) {
     return { ...state, error: action.error, loading: false };
@@ -27,9 +30,17 @@ const authReducer = (state = initialState, action) => {
   }
   if (action.type == RESET_PASS) {
     return { ...state, error: null, loading: false };
-  } else {
+  }
+  if (action.type == USER_LOADING){
+    return {...state, loading:true}
+  }
+  if(action.type == USER_LOADED){
+    return {...state,loading:false,user:action.user}
+  }
+   else {
     return state;
   }
+  
 };
 
 export default authReducer;

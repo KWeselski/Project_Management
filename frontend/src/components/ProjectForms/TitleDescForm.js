@@ -17,14 +17,12 @@ export default class TitleDescForm extends Component{
       this.setState({ [e.target.name]: e.target.value });
     };
 
-    componentDidMount(){
-
-      const {values} = this.props;
-      if(values){
-        this.setState({title: values.title, description: values.description})
-      }else{
-        this.setState({title:"", description: ""})
+    componentDidUpdate(prevProps){
+      if(prevProps.values.title !== this.props.values.title){
+        console.log('hello')
+        this.setState({title: this.props.values.title, description: this.props.values.description})
       }
+      
     }
 
     render(){

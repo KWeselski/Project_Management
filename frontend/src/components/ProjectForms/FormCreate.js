@@ -26,7 +26,6 @@ class FormCreate extends Component {
       update,
       handleChange,
       returnToOverview,
-      changeUsersData,
     } = this.props;
     if (values.ToOverview) {
       return <Redirect to="/overview"></Redirect>;

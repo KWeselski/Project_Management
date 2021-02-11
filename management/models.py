@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MinValueValidator, MaxValueValidator
+import uuid
 
 
 # Create your models here.
@@ -32,35 +33,11 @@ class Project(models.Model):
         ("canceled", "Canceled"),
         ("archived", "Archived"),
     )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(User, on_delete=models.CASCADE,
                                 related_name='creator')
-    users = models.ManyToManyField(User)
-    description = models.TextField()
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES,
-                              default="new")
-
-    def __str__(self):
-        return self.title
-
-
-class Task(models.Model):
-    STATUS_CHOICES = (
-        ("new", "New"),
-        ("active", "Active"),
-        ("hold", "On Hold"),
-        ("completed", "Completed"),
-        ("canceled", "Canceled"),
-        ("archived", "Archived"),
-    )
-    title = models.CharField(max_length=100)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE,
-                                related_name='task_project')
-    creator = models.ForeignKey(User, on_delete=models.CASCADE,
-                                related_name='task_creator')
-    users = models.ManyToManyField(User)
+    users = models.ManyToManyField(User, related_name='users')
     description = models.TextField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
