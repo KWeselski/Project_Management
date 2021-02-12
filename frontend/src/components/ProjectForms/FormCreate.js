@@ -3,20 +3,16 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import DatesForm from "./DatesForm";
 import AddUsersForm from "./AddUsersForm";
-import { connect } from "react-redux";
 import StatusSelect from "./EditProject/StatusSelect";
 import Paper from "@material-ui/core/Paper";
 import TitleDescForm from "./TitleDescForm";
-import * as project_action from "../actions/actualProjectActions";
+
 class FormCreate extends Component {
   constructor(props){
     super(props);
-    this.formRef = React.createRef();
   }
 
   handleSubmit = () => {
-    const {title, description} = this.formRef.current.state
-    this.props.applyTitleDesc(title,description)
     this.props.nextStep()
   };
 
@@ -25,6 +21,9 @@ class FormCreate extends Component {
       values,
       update,
       handleChange,
+      handleStartDateChange,
+      handleEndDateChange,
+      handleToogle,
       returnToOverview,
     } = this.props;
     if (values.ToOverview) {
@@ -40,8 +39,9 @@ class FormCreate extends Component {
         <Grid item container md={12} spacing={1}>
           <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
             <TitleDescForm
-              ref ={this.formRef}
-              values = {{'title': this.props.title, 'description': this.props.description}}
+              title = {values.title}
+              description ={values.description}
+              handleChange={handleChange}
             />
             <Paper variant="outlined" square>
               <Grid container md={4} style={{ padding: 20 }}>
@@ -54,11 +54,11 @@ class FormCreate extends Component {
                   <React.Fragment />
                 )}
                 <DatesForm
-                  startDate={this.props.startDate}
-                  endDate={this.props.endDate}
-                  validate={this.props.validate}
-                  handleStartDateChange={this.props.changeStartDate}
-                  handleEndDateChange={this.props.changeEndDate}
+                  startDate={values.startDate}
+                  endDate={values.endDate}
+                  validate={values.validate}
+                  handleStartDateChange={handleStartDateChange}
+                  handleEndDateChange={handleEndDateChange}
                 />
                 <Grid container xs={12} md={12} justify="space-between">
                   <Grid item>
@@ -89,9 +89,9 @@ class FormCreate extends Component {
               <Grid item xs={12} md={12} style={{ marginLeft: 30 }}>
                 <AddUsersForm
                   update={update}
-                  users={this.props.users}
+                  users={values.users}
                   changeUsersData={this.props.changeUsersData}
-                  handleToogle={this.props.toogleUser}
+                  handleToogle={handleToogle}
                 />
               </Grid>
             </Grid>
@@ -102,32 +102,4 @@ class FormCreate extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    profiles: state.project.profiles,
-    title: state.actProj.title,
-    description: state.actProj.description,
-    startDate: state.actProj.startDate,
-    endDate: state.actProj.endDate,
-    users: state.actProj.users,
-    validate: state.actProj.validate,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeStartDate: (date) => dispatch(project_action.changeStartDate(date)),
-    changeEndDate: (date) => dispatch(project_action.changeEndDate(date)),
-    toogleUser: (user) => {
-      dispatch(project_action.toogleUser(user));
-    },
-    changeUsersData: (profiles) => {
-      dispatch(project_action.changeUsersData(profiles));
-    },
-    applyTitleDesc : (title, description) => {
-      dispatch(project_action.applyTitleDesc(title,description))
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormCreate);
+export default (FormCreate);

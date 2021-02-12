@@ -27,17 +27,19 @@ class FormConfirm extends Component {
       description,
       startDate,
       endDate,
-      create,
-      update,
-    } = this.props;
-    const values = { title, description, status, startDate, endDate };
-    let users = this.props.users.map((a) => a.user);
+      project_id,
+      creator
+    } = this.props.values;
+    const {create, update} = this.props;
+    const values = { title, description, status, startDate, endDate,creator };
+    let users = this.props.values.users.map((a) => a.user);
     if (create) {
       await this.props.createProject(values, users);
     }
     if (update) {
-      await this.props.updateProject(values, users);
+      await this.props.updateProject(values, users, project_id);
     }
+    console.log(this.props.returnToOverview())
     this.props.returnToOverview();
   };
   render() {
@@ -64,7 +66,7 @@ class FormConfirm extends Component {
               <TextField
                 readonly
                 fullWidth
-                value={this.props.title}
+                value={values.title}
                 inputProps={{ style: { fontSize: "1.4rem" }, maxLength: 100 }}
               />
             </Grid>
@@ -78,7 +80,7 @@ class FormConfirm extends Component {
                   fullWidth
                   id="description"
                   label="Description"
-                  value={this.props.description}
+                  value={values.description}
                   rows={15}
                   inputProps={{ maxLength: 1000 }}
                   multiline={true}
@@ -86,16 +88,12 @@ class FormConfirm extends Component {
               </Grid>
             </Grid>
             <Grid container xs={12} md={3} style={{ padding: 20 }}>
-              <span>
-                <Typography variant="h6">
-                  Start Date: {this.getCurrentDate(this.props.startDate)}
-                </Typography>
-                <Typography variant="h6">
-                  End Date: {this.getCurrentDate(this.props.endDate)}
-                </Typography>
+              <span>              
+              <Typography variant='h6'>Start Date: {this.getCurrentDate(values.startDate)}</Typography>       
+              <Typography variant='h6'>End Date: {this.getCurrentDate(values.endDate)}</Typography>
                 {update ? (
                   <Typography variant="h6">
-                    Status: {this.props.status}{" "}
+                    Status: {values.status}{" "}
                   </Typography>
                 ) : (
                   <React.Fragment />
@@ -139,32 +137,17 @@ class FormConfirm extends Component {
             </Grid>
           </Grid>
         </Paper>
-        <UsersList users={this.props.users} />
+        <UsersList users={values.users} />
       </Grid>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    title: state.actProj.title,
-    description: state.actProj.description,
-    startDate: state.actProj.startDate,
-    endDate: state.actProj.endDate,
-    users: state.actProj.users,
-    status: state.actProj.status,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
-  return {
-    createProject: (values, users) => {
-      dispatch(createProject(values, users));
-    },
-    updateProject: (values, users) => {
-      dispatch(updateProject(values, users));
-    },
-  };
-};
+  return{
+      createProject: (values,users) => {dispatch(createProject(values,users))},
+      updateProject: (values,users,id) => {dispatch(updateProject(values,users,id))}
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormConfirm);
+export default connect(null,mapDispatchToProps)(FormConfirm)

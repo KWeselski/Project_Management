@@ -21,6 +21,7 @@ export default function UsersList(props) {
             style={{ maxHeight: "50vh", width: "100%", maxWidth: 350 }}
           >
             {users.map((user) => {
+              console.log(user)
               return <UserForm value={user} confirmedUsers={true} />;
             })}
           </List>

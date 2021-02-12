@@ -7,16 +7,19 @@ import UserForm from "./UserForm";
 
 class AddUserForm extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       loaded: false,
     };
   }
+
+
+
   render() {
     const { loaded } = this.state;
-    const { users, profiles, handleToogle } = this.props;
+    const { users, profiles, handleToogle, changeUsersData} = this.props;
     if (users.length > 0 && loaded == false && profiles.length > 0) {
-      this.props.changeUsersData(profiles);
+      changeUsersData(profiles)
       this.setState({ loaded: true });
     }
     return (

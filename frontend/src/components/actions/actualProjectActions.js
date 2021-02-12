@@ -62,13 +62,6 @@ export const createProjectStart = () => {
      }
  }
 
- export const changeUsersData = (profiles) => {
-     return {
-         type: actionTypes.CHANGE_USER_DATA,
-         profiles: profiles,
-     }
- }
-
  export const toogleUser = (user) => {
      return {
          type: actionTypes.TOOGLE_USER,
@@ -76,10 +69,3 @@ export const createProjectStart = () => {
      }
  }
 
- export const getProjectValues = (id) => {
-    return async (dispatch) => {
-      await axios.get(`/api/get_project/${id}`).then((res) => {
-        dispatch(editProjectStart(res.data))
-      })      
-      }     
-}

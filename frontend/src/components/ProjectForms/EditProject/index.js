@@ -7,43 +7,32 @@ import * as project_action from "../../actions/actualProjectActions";
 class EditProjectForm extends Component {
 
   componentDidMount() {
-    if(this.props.user != null){
-      const project_id = (String(window.location).split("/").pop())
-      this.props.get_project(project_id)
-      this.setState({loaded:true})
-    }
-  }
-
-  componentDidUpdate(prevProps){
-    if(prevProps.user !== this.props.user){
-      const project_id = (String(window.location).split("/").pop())
-      this.props.get_project(project_id)
-      this.setState({loaded:true})
-    }
+    this.props.getData()
   }
 
   render() {
-    const { step,loaded } = this.state;
-    if(!loaded){
-      return(<h1></h1>)
-    }
-
-    switch (step) {
+    switch (this.props.values.step) {
       case 1:
         return (
           <FormCreate
-            nextStep={this.nextStep}
-            returnToOverview={this.returnToOverview}
-            values={this.state}
+            nextStep={this.props.nextStep}
+            returnToOverview={this.props.returnToOverview}
+            handleChange={this.props.handleChange}
+            handleStartDateChange={this.props.handleStartDateChange}
+            handleEndDateChange={this.props.handleEndDateChange}
+            handleToogle={this.props.handleToogle}
+            changeUsersData={this.props.changeUsersData}
+            values={this.props.values}
             update={true}
           />
         );
       case 2:
         return (
           <FormConfirm
-            returnStep={this.returnStep}
-            returnToOverview={this.returnToOverview}
-            values={this.state}
+            returnStep={this.props.returnStep}
+            returnToOverview={this.props.returnToOverview}
+            changeUsersData={this.props.changeUsersData}
+            values={this.props.values}
             update={true}
           />
         );

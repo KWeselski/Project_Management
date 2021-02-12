@@ -151,20 +151,20 @@ export const createProject = (values, users) => {
   };
 };
 
-export const updateProject = (values, users) => {
+export const updateProject = (values, users, id) => {
   return async (dispatch) => {
     dispatch(projectAddStart());
     await axios
       .put(
         "/api/create_project/",
         {
+          id:id,
           title: values.title,
           description: values.description,
           start_date: values.startDate,
           end_date: values.endDate,
           users: users,
           status: values.status,
-          id: values.project_id,
           creator: values.creator,
         },
         {
