@@ -1,23 +1,31 @@
 import React, { Component } from "react";
-import CreateProjectForm from './NewProject/index'
-import EditProjectForm from './EditProject/index'
-import axios from 'axios';
+import CreateProjectForm from "./NewProject/index";
+import EditProjectForm from "./EditProject/index";
+import axios from "axios";
+
+const initialState = {
+  step: 1,
+  title: "",
+  description: "",
+  startDate: new Date(),
+  endDate: new Date(),
+  users: [],
+  creator: null,
+  status: "",
+  project_id: null,
+  ToOverview: false,
+  validate: false,
+};
 
 export default class ProjectForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
 
-state = {
-    step: 1,
-    title: "",
-    description: "",
-    startDate: new Date(),
-    endDate: new Date(),
-    users: [],
-    creator: null,
-    status: "",
-    project_id: null,
-    ToOverview: false,
-    validate: false,
-};
+  clearStateForNewProject = () => {
+    this.setState(initialState);
+  };
 
   nextStep = () => {
     const { step } = this.state;
@@ -30,7 +38,9 @@ state = {
   };
 
   returnToOverview = () => {
-    this.setState({ ToOverview: true });
+    this.setState({
+      ToOverview: true,
+    });
   };
 
   handleChange = (e) => {
@@ -38,7 +48,7 @@ state = {
   };
 
   checkDate = () => {
-    const { startDate, endDate} = this.state;
+    const { startDate, endDate } = this.state;
     if (startDate > endDate) {
       this.setState({ validate: false });
     } else {
@@ -60,7 +70,8 @@ state = {
 
   handleToogle = (value) => () => {
     const { users } = this.state;
-    const currentIndex = users.map((v) => {
+    const currentIndex = users
+      .map((v) => {
         return v.id;
       })
       .indexOf(value.id);
@@ -75,7 +86,6 @@ state = {
 
   changeUsersData = (profiles) => {
     if (!this.state.users.some((i) => !Number.isInteger(i))) {
-      //const { profiles } = this.props;
       const users_in_project = [];
       this.state.users.map((user) => {
         let index = profiles.findIndex((x) => x.user == user);
@@ -85,29 +95,27 @@ state = {
     }
   };
 
-
   getProjectValues = async () => {
-    const id = (String(window.location).split("/").pop())
-    await axios.get(`/api/get_project/${id}`).then((res) => { 
+    const id = String(window.location).split("/").pop();
+    await axios.get(`/api/get_project/${id}`).then((res) => {
       const data = res.data;
-       this.setState({
+      this.setState({
         title: data.title,
-       description: data.description,
-       startDate: new Date(data.start_date),
-       endDate: new Date(data.end_date),
-       users: data.users,
-       status: data.status,
-       creator: data.creator,
-       project_id:id})
-    })
-     
-  
- }  
+        description: data.description,
+        startDate: new Date(data.start_date),
+        endDate: new Date(data.end_date),
+        users: data.users,
+        status: data.status,
+        creator: data.creator,
+        project_id: id,
+      });
+    });
+  };
 
   render() {
-    const choice = (this.props.match.params.id) ? 'edit' : 'create' 
+    const choice = this.props.match.params.id ? "edit" : "create";
     switch (choice) {
-      case 'create':
+      case "create":
         return (
           <CreateProjectForm
             nextStep={this.nextStep}
@@ -118,10 +126,11 @@ state = {
             handleEndDateChange={this.handleEndDateChange}
             handleToogle={this.handleToogle}
             changeUsersData={this.changeUsersData}
+            newState={this.clearStateForNewProject}
             values={this.state}
           />
         );
-      case 'edit':
+      case "edit":
         return (
           <EditProjectForm
             nextStep={this.nextStep}
@@ -136,8 +145,8 @@ state = {
             getData={this.getProjectValues}
           />
         );
-       default:
-           return(<h1>Loading</h1>)
+      default:
+        return <h1>Loading</h1>;
     }
   }
 }

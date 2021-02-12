@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import {Grid,} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import CommentsList from './CommentsList'
-import ProjectInfo from './ProjectInfo';
+import CommentsList from "./CommentsList";
+import ProjectInfo from "./ProjectInfo";
 import UsersList from "./UsersList";
-
+import axios from 'axios'
 class DetailsPage extends Component {
   state = {
     loaded: false,
@@ -23,17 +23,17 @@ class DetailsPage extends Component {
     data.users = [...users_in_project];
   };
 
-  getData = () => {
-    let data = JSON.parse(localStorage.getItem("/details"));
-    this.changeUsersData(data);
-    this.setState({
-      data: data,
-      loaded: true,
-      });
+  getProjectValues = async () => {
+    const id = String(window.location).split("/").pop();
+    await axios.get(`/api/get_project/${id}`).then((res) => {
+      this.changeUsersData(res.data);
+      this.setState({data:res.data,loaded:true})
+    })
   }
 
+
   componentDidMount() {
-    this.getData();
+    this.getProjectValues();
   }
 
   render() {
@@ -45,17 +45,15 @@ class DetailsPage extends Component {
     }
     return (
       <Grid container xs={12} style={{ marginLeft: 220 }}>
-        <ProjectInfo data={data} profiles={profiles}/>
-        <UsersList users={data.users}/>
-        <CommentsList id={data.id} creator={data.creator}/>
-        </Grid>
+        <ProjectInfo data={data} profiles={profiles} />
+        <UsersList users={data.users} />
+        <CommentsList id={data.id} creator={data.creator} />
+      </Grid>
     );
   }
 }
 const mapStateToProps = (state) => ({
   profiles: state.project.profiles,
-  loading: state.project.loading,
-  error: state.project.error,
 });
 
 export default connect(mapStateToProps)(DetailsPage);

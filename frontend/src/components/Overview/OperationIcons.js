@@ -6,21 +6,30 @@ import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { deleteProject } from "../actions/projectActions";
 
-
 function OperationIcons(props) {
-  const {project, deleteProject,} = props;
- 
+  const { project, deleteProject } = props;
+
   return (
     <Grid container xs={12} justify="space-between">
       {OperationsData.map((item) => {
         return (
           <Tooltip title={item.title} aria-label={item.title}>
-          <Link to={(item.title == "Delete") ? null : {pathname:`${item.link}${project.id}`}}>
-            <i onClick={() =>{
-              if(item.title == "Delete"){ deleteProject(project)}}
-            }>
+            <Link
+              to={
+                item.title == "Delete"
+                  ? null
+                  : { pathname: `${item.link}${project.id}` }
+              }
+            >
+              <i
+                onClick={() => {
+                  if (item.title == "Delete") {
+                    deleteProject(project);
+                  }
+                }}
+              >
                 {item.icon}
-            </i>
+              </i>
             </Link>
           </Tooltip>
         );

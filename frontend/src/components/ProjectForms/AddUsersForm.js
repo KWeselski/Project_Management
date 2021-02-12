@@ -7,23 +7,25 @@ import UserForm from "./UserForm";
 
 class AddUserForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       loaded: false,
     };
   }
 
-
-
   render() {
     const { loaded } = this.state;
-    const { users, profiles, handleToogle, changeUsersData} = this.props;
+    const { users, profiles, handleToogle, changeUsersData } = this.props;
     if (users.length > 0 && loaded == false && profiles.length > 0) {
-      changeUsersData(profiles)
+      changeUsersData(profiles);
       this.setState({ loaded: true });
     }
     return (
-      <Paper variant="outlined" square style={{ maxHeight: "100%", overflow: "auto" }}>
+      <Paper
+        variant="outlined"
+        square
+        style={{ maxHeight: "100%", overflow: "auto" }}
+      >
         <Typography align="center" variant="h5">
           Add users to project
         </Typography>
@@ -45,8 +47,6 @@ class AddUserForm extends Component {
 
 const mapStateToProps = (state) => ({
   profiles: state.project.profiles,
-  loading: state.project.loading,
-  error: state.project.error,
 });
 
 export default connect(mapStateToProps)(AddUserForm);

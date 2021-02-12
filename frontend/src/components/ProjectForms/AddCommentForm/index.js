@@ -13,15 +13,15 @@ class CommentForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { comment } = this.state;
-    const id = JSON.parse(localStorage.getItem("/add_comment/"));
-    this.createComment(comment, id);
+    this.createComment(comment);
   };
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  createComment = (comment, id) => {
+  createComment = (comment) => {
+    const id = String(window.location).split("/").pop();
     axios
       .post(
         "/api/create_comment/",

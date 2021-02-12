@@ -4,7 +4,6 @@ import Sidebar from "./Sidebar/Sidebar";
 import ProjectsList from "./Overview/ProjectsList";
 import RegistrationForm from "./AuthenticationForms/Register/index";
 import LoginForm from "./AuthenticationForms/Signup/index";
-import CreateProjectForm from "./ProjectForms/NewProject";
 import ProjectForm from "./ProjectForms/index";
 import EditProfileForm from "./AuthenticationForms/EditProfile/index";
 import ProfilePage from "./AuthenticationForms/ProfilePage/index";
@@ -12,7 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import DetailsPage from "./DetailsPage/DetailsPage";
+import DetailsPage from "./DetailsPage/index";
 import { getProjects } from "./actions/projectActions";
 import { authCheckState, loadUser } from "./actions/authActions";
 import CommentForm from "./ProjectForms/AddCommentForm";
@@ -45,8 +44,8 @@ class App extends Component {
               <Route exact path="/create_project" component={ProjectForm} />
               <Route exact path="/edit_project/:id" component={ProjectForm} />
               <Route exact path="/edit_profile" component={EditProfileForm} />
-              <Route exact path="/details" component={DetailsPage} />
-              <Route exact path="/add_comment" component={CommentForm} />
+              <Route exact path="/details/:id" component={DetailsPage} />
+              <Route exact path="/add_comment/:id" component={CommentForm} />
               <Route exact path="/profile" component={ProfilePage} />
             </Switch>
           </Grid>

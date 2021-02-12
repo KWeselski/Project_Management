@@ -8,15 +8,14 @@ import List from "@material-ui/core/List";
 import axios from "axios";
 
 export default function CommentsList(props) {
-const {id, creator} = props
+  const { id, creator } = props;
   const [comments, setComments] = useState([]);
 
   useEffect(async () => {
     const result = await axios.get(`/api/get_comments/${id}`);
     setComments(result.data);
-    console.log(comments)
-  },[]);
-  
+  }, []);
+
   return (
     <Grid container xs={12} md={4} style={{ padding: 20 }}>
       <Grid item xs={12} md={12} style={{ marginLeft: 10 }}>

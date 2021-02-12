@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import FormConfirm from "../FormConfirm";
 import FormCreate from "../FormCreate";
 import { connect } from "react-redux";
-import * as project_action from "../../actions/actualProjectActions";
 
 class EditProjectForm extends Component {
 
-  componentDidMount() {
-    this.props.getData()
+  async componentDidMount() {
+    await this.props.getData()
   }
 
   render() {
+    if(this.props.values.creator != this.props.user){
+      return <div>You aren't creator</div>
+    }
     switch (this.props.values.step) {
       case 1:
         return (
@@ -41,7 +43,6 @@ class EditProjectForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  users_in_project: state.actProj.users,
   user: state.auth.user
 });
 

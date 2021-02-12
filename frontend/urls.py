@@ -8,6 +8,7 @@ urlpatterns = [
     path('create_project/', index),
     path('edit_project/<uuid:id>', index),
     path('edit_profile/', index),
-    path('details/', index),
+    path('details/<uuid:id>', index),
+    path('add_comment/<uuid:id>', index),
     path('profile/', index)
 ]

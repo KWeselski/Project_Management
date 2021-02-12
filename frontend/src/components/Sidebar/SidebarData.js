@@ -21,21 +21,4 @@ export const SidebarData = [
     icon: <AddToQueueSharpIcon />,
     link: "/create_project",
   },
-  {
-    title: "Test",
-    icon: <LocalLibraryIcon />,
-    iconOpened: <ExpandLessIcon />,
-    iconClosed: <ExpandMoreIcon />,
-
-    dropItem: [
-      {
-        title: "Test 1",
-        icon: <MenuBookIcon />,
-      },
-      {
-        title: "Test 2",
-        icon: <MenuBookIcon />,
-      },
-    ],
-  },
 ];

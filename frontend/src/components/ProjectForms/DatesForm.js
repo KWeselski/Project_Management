@@ -3,8 +3,13 @@ import { KeyboardDatePicker, TimePicker } from "@material-ui/pickers";
 import { Grid, Typography } from "@material-ui/core";
 
 export default function DatesForm(props) {
-
-  const {startDate, endDate, validate, handleStartDateChange, handleEndDateChange} = props
+  const {
+    startDate,
+    endDate,
+    validate,
+    handleStartDateChange,
+    handleEndDateChange,
+  } = props;
   return (
     <React.Fragment>
       <Grid container xs={12} md={12} justify="space-between">

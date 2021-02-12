@@ -7,7 +7,6 @@ import { createProject, updateProject } from "../actions/projectActions";
 import UsersList from "../DetailsPage/UsersList";
 
 class FormConfirm extends Component {
-  
   getCurrentDate = (date) => {
     let separator = "/";
     let day = date.getDate();
@@ -28,10 +27,10 @@ class FormConfirm extends Component {
       startDate,
       endDate,
       project_id,
-      creator
+      creator,
     } = this.props.values;
-    const {create, update} = this.props;
-    const values = { title, description, status, startDate, endDate,creator };
+    const { create, update } = this.props;
+    const values = { title, description, status, startDate, endDate, creator };
     let users = this.props.values.users.map((a) => a.user);
     if (create) {
       await this.props.createProject(values, users);
@@ -39,7 +38,6 @@ class FormConfirm extends Component {
     if (update) {
       await this.props.updateProject(values, users, project_id);
     }
-    console.log(this.props.returnToOverview())
     this.props.returnToOverview();
   };
   render() {
@@ -88,13 +86,15 @@ class FormConfirm extends Component {
               </Grid>
             </Grid>
             <Grid container xs={12} md={3} style={{ padding: 20 }}>
-              <span>              
-              <Typography variant='h6'>Start Date: {this.getCurrentDate(values.startDate)}</Typography>       
-              <Typography variant='h6'>End Date: {this.getCurrentDate(values.endDate)}</Typography>
+              <span>
+                <Typography variant="h6">
+                  Start Date: {this.getCurrentDate(values.startDate)}
+                </Typography>
+                <Typography variant="h6">
+                  End Date: {this.getCurrentDate(values.endDate)}
+                </Typography>
                 {update ? (
-                  <Typography variant="h6">
-                    Status: {values.status}{" "}
-                  </Typography>
+                  <Typography variant="h6">Status: {values.status} </Typography>
                 ) : (
                   <React.Fragment />
                 )}
@@ -144,10 +144,14 @@ class FormConfirm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return{
-      createProject: (values,users) => {dispatch(createProject(values,users))},
-      updateProject: (values,users,id) => {dispatch(updateProject(values,users,id))}
-  }
-}
+  return {
+    createProject: (values, users) => {
+      dispatch(createProject(values, users));
+    },
+    updateProject: (values, users, id) => {
+      dispatch(updateProject(values, users, id));
+    },
+  };
+};
 
-export default connect(null,mapDispatchToProps)(FormConfirm)
+export default connect(null, mapDispatchToProps)(FormConfirm);

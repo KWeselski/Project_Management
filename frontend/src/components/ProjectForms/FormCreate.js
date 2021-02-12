@@ -8,12 +8,12 @@ import Paper from "@material-ui/core/Paper";
 import TitleDescForm from "./TitleDescForm";
 
 class FormCreate extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
   handleSubmit = () => {
-    this.props.nextStep()
+    this.props.nextStep();
   };
 
   render() {
@@ -39,8 +39,8 @@ class FormCreate extends Component {
         <Grid item container md={12} spacing={1}>
           <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
             <TitleDescForm
-              title = {values.title}
-              description ={values.description}
+              title={values.title}
+              description={values.description}
               handleChange={handleChange}
             />
             <Paper variant="outlined" square>
@@ -64,7 +64,6 @@ class FormCreate extends Component {
                   <Grid item>
                     <Button
                       fullWidth
-                      
                       variant="contained"
                       color="primary"
                       onClick={returnToOverview}
@@ -102,4 +101,4 @@ class FormCreate extends Component {
   }
 }
 
-export default (FormCreate);
+export default FormCreate;
