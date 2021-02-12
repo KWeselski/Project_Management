@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     "rest_auth.registration",
     "rest_framework",
     "rest_framework.authtoken",
-    "phonenumber_field",
     "management",
     "frontend",
 ]
