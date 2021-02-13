@@ -45,13 +45,13 @@ export default function UserForm(props) {
           <ListItemAvatar>
             <Avatar
               style={{ backgroundColor: "green" }}
-              alt={value.firstname}
+              alt={value.firstName}
               src={value.avatar}
             ></Avatar>
           </ListItemAvatar>
           <ListItemText
             id={labelId}
-            primary={value.firstname + ` ` + value.lastname}
+            primary={value.firstName + ` ` + value.lastName}
           />
           <ListItemSecondaryAction>
             <Checkbox

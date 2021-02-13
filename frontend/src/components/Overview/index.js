@@ -33,10 +33,15 @@ class ProjectsList extends Component {
     }
 
     return (
-      <Grid container xs={12} md={12} style={{ marginLeft: 220, marginTop: 25 }}>
+      <Grid
+        container
+        xs={12}
+        md={12}
+        style={{ marginLeft: 220, marginTop: 25 }}
+      >
         <Grid item container sm={12} md={12} lg={9} xl={9}>
           <Paper variant="outlined" square>
-            <Table style={{ minWidth:600, maxWidth: 1200 }}>
+            <Table style={{ minWidth: 600, maxWidth: 1200 }}>
               <StyledTableHead>
                 <TableRow>
                   <StyledTableHeadCell>Title</StyledTableHeadCell>
@@ -60,7 +65,8 @@ class ProjectsList extends Component {
             </Table>
           </Paper>
         </Grid>
-        <Grid item
+        <Grid
+          item
           sm={4}
           md={3}
           lg={2}

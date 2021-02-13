@@ -24,7 +24,7 @@ export default function ProfileDialog(props) {
       <DialogTitle>
         <Grid container justify="space-between">
           <Typography style={{ padding: 10 }} variant="h5">
-            {values.firstname + " " + values.lastname}
+            {values.firstName + " " + values.lastName}
           </Typography>
           <Button
             type="submit"

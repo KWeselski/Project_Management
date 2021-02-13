@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
-import ProjectsList from "./Overview/ProjectsList";
+import ProjectsList from "./Overview/index";
 import RegistrationForm from "./AuthenticationForms/Register/index";
 import LoginForm from "./AuthenticationForms/Signup/index";
-import LogoutForm from './AuthenticationForms/Logout/index';
+import LogoutForm from "./AuthenticationForms/Logout/index";
 import ProjectForm from "./ProjectForms/index";
 import EditProfileForm from "./AuthenticationForms/EditProfile/index";
 import ProfilePage from "./AuthenticationForms/ProfilePage/index";
@@ -18,7 +18,6 @@ import { connect } from "react-redux";
 import { getProjects } from "./actions/projectActions";
 import { authCheckState, loadUser } from "./actions/authActions";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -31,13 +30,14 @@ class App extends Component {
     this.props.onTryAutoSignup();
   }
 
-  async componentDidUpdate(prevProps){
-    if(prevProps.isAuthenticated !== this.props.isAuthenticated){
-      if(this.props.isAuthenticated){
+  async componentDidUpdate(prevProps) {
+    if (prevProps.isAuthenticated !== this.props.isAuthenticated) {
+      if (this.props.isAuthenticated) {
         await this.props.loadUser();
-        this.setState({ authenticated: true})
+        this.setState({ authenticated: true });
+      } else {
+        this.setState({ authenticated: false });
       }
-      else{this.setState({ authenticated: false });}
     }
   }
 
@@ -58,7 +58,7 @@ class App extends Component {
               <Route exact path="/details/:id" component={DetailsPage} />
               <Route exact path="/add_comment/:id" component={CommentForm} />
               <Route exact path="/profile" component={ProfilePage} />
-              <Route exact path="/delete/:id" component={DeleteProject}/>
+              <Route exact path="/delete/:id" component={DeleteProject} />
             </Switch>
           </Grid>
         </Router>

@@ -1,28 +1,24 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import axios from "axios";
 import Paper from "@material-ui/core/Paper";
-import {Link, Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
-class CommentForm extends Component {
-  state = {
-    comment: "",
-    confirm: false,
-    id : String(window.location).split("/").pop(),
-  };
+export default function CommentForm(props) {
+  const [comment,setComment] = useState("")
+  const [confirm,setConfirm] = useState(false)
+  const id = String(window.location).split("/").pop()
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { comment,id } = this.state;
-    this.createComment(comment,id);
+    createComment(comment, id);
   };
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setComment({ [e.target.name]: e.target.value });
   };
 
-  createComment = (comment,id) => {
-    
+  const createComment = (comment, id) => {
     axios
       .post(
         "/api/create_comment/",
@@ -34,11 +30,9 @@ class CommentForm extends Component {
           headers: { Authorization: `${localStorage.getItem("token")}` },
         }
       )
-      .then(this.setState({ confirm: true }));
+      .then(setConfirm(true));
   };
 
-  render() {
-    const { comment, confirm,id } = this.state;
     if (confirm) {
       return <Redirect to={`/details/${id}`}></Redirect>;
     }
@@ -59,7 +53,7 @@ class CommentForm extends Component {
             >
               Comment
             </Typography>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <Grid
                 container
                 justify="center"
@@ -78,7 +72,7 @@ class CommentForm extends Component {
                     autoFocus
                     value={comment}
                     inputProps={{ maxLength: 250 }}
-                    onChange={this.handleChange}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid
@@ -89,14 +83,15 @@ class CommentForm extends Component {
                   style={{ padding: 20 }}
                 >
                   <Grid item>
-                  <Button
-                  component={Link}
-                  to="/overview"
-                  type="submit"
-                  style={{ width: "30%" }}
-                  variant="contained"
-                  color="primary"
-                >Back
+                    <Button
+                      component={Link}
+                      to="/overview"
+                      type="submit"
+                      style={{ width: "30%" }}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Back
                     </Button>
                   </Grid>
                   <Grid item>
@@ -116,7 +111,4 @@ class CommentForm extends Component {
         </Grid>
       </Grid>
     );
-  }
 }
-
-export default CommentForm;

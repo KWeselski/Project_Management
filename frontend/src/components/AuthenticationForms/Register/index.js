@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import PasswordPage from './PasswordPage'
-import PersonalInfoPage from './PersonalInfoPage'
+import PasswordPage from "./PasswordPage";
+import PersonalInfoPage from "./PersonalInfoPage";
 
-class RegistrationForm extends Component {
+export default class RegistrationForm extends Component {
   state = {
     step: 1,
     email: "",
@@ -30,32 +30,40 @@ class RegistrationForm extends Component {
   };
 
   render() {
-    const { step } = this.state;
+    const {
+      step,
+      firstName,
+      lastName,
+      sex,
+      age,
+      phone,
+      nextStep,
+      returnStep,
+      handleChange,
+    } = this.state;
     switch (step) {
       case 1:
         return (
           <PersonalInfoPage
-            nextStep={this.nextStep}
-            handleChange={this.handleChange}
-            firstName={this.state.firstName}
-            lastName={this.state.lastName}
-            sex={this.state.sex}
-            age={this.state.age}
-            phone={this.state.phone}
+            nextStep={nextStep}
+            handleChange={handleChange}
+            firstName={firstName}
+            lastName={lastName}
+            sex={sex}
+            age={age}
+            phone={phone}
           />
         );
       case 2:
         return (
           <PasswordPage
-            returnStep={this.returnStep}
-            handleChange={this.handleChange}
+            returnStep={returnStep}
+            handleChange={handleChange}
             values={this.state}
           />
         );
       default:
-        console.log();
+        return <React.Fragment />;
     }
   }
 }
-
-export default RegistrationForm;

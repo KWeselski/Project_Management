@@ -12,8 +12,8 @@ const initialState = {
   users: [],
   creator: null,
   status: "",
-  project_id: null,
-  ToOverview: false,
+  projectId: null,
+  toOverview: false,
   validate: false,
 };
 
@@ -39,7 +39,7 @@ export default class ProjectForm extends Component {
 
   returnToOverview = () => {
     this.setState({
-      ToOverview: true,
+      toOverview: true,
     });
   };
 
@@ -75,23 +75,23 @@ export default class ProjectForm extends Component {
         return v.id;
       })
       .indexOf(value.id);
-    const new_checked = [...users];
+    const newChecked = [...users];
     if (currentIndex === -1) {
-      new_checked.push(value);
+      newChecked.push(value);
     } else {
-      new_checked.splice(currentIndex, 1);
+      newChecked.splice(currentIndex, 1);
     }
-    this.setState({ users: new_checked });
+    this.setState({ users: newChecked });
   };
 
   changeUsersData = (profiles) => {
     if (!this.state.users.some((i) => !Number.isInteger(i))) {
-      const users_in_project = [];
+      const usersInProject = [];
       this.state.users.map((user) => {
         let index = profiles.findIndex((x) => x.user == user);
-        users_in_project.push(profiles[index]);
+        usersInProject.push(profiles[index]);
       });
-      this.setState({ users: [...users_in_project] });
+      this.setState({ users: [...usersInProject] });
     }
   };
 
@@ -107,7 +107,7 @@ export default class ProjectForm extends Component {
         users: data.users,
         status: data.status,
         creator: data.creator,
-        project_id: id,
+        projectId: id,
       });
     });
   };
@@ -141,8 +141,8 @@ export default class ProjectForm extends Component {
             handleEndDateChange={this.handleEndDateChange}
             handleToogle={this.handleToogle}
             changeUsersData={this.changeUsersData}
-            values={this.state}
             getData={this.getProjectValues}
+            values={this.state}
           />
         );
       default:

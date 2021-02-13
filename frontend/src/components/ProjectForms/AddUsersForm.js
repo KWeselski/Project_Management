@@ -1,52 +1,44 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import List from "@material-ui/core/List";
 import { Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import UserForm from "./UserForm";
 
-class AddUserForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loaded: false,
-    };
+function AddUserForm(props) {
+  const [loaded, setLoaded] = useState(false);
+  const { users, profiles, handleToogle, changeUsersData, activeUser } = props;
+  if (users.length > 0 && loaded == false && profiles.length > 0) {
+    changeUsersData(profiles);
+    setLoaded(true);
   }
 
-  render() {
-    const { loaded } = this.state;
-    const { users, profiles, handleToogle, changeUsersData } = this.props;
-    if (users.length > 0 && loaded == false && profiles.length > 0) {
-      changeUsersData(profiles);
-      this.setState({ loaded: true });
-    }
-    return (
-      <Paper
-        variant="outlined"
-        square
-        style={{ maxHeight: "100%", overflow: "auto" }}
-      >
-        <Typography align="center" variant="h5">
-          Add users to project
-        </Typography>
-        <List dense style={{ maxHeight: "50vh", width: "100%", maxWidth: 600 }}>
-          {profiles.map((user) => {
-            return (
-              <UserForm
-                value={user}
-                users={users}
-                handleToogle={handleToogle}
-              />
-            );
-          })}
-        </List>
-      </Paper>
-    );
-  }
+  return (
+    <Paper
+      variant="outlined"
+      square
+      style={{ maxHeight: "100%", overflow: "auto" }}
+    >
+      <Typography align="center" variant="h5">
+        Add users to project
+      </Typography>
+      <List dense style={{ maxHeight: "50vh", width: "100%", maxWidth: 600 }}>
+        {profiles.map((user) => {
+          if (activeUser == user.user) {
+            return;
+          }
+          return (
+            <UserForm value={user} users={users} handleToogle={handleToogle} />
+          );
+        })}
+      </List>
+    </Paper>
+  );
 }
 
 const mapStateToProps = (state) => ({
   profiles: state.project.profiles,
+  activeUser: state.auth.user,
 });
 
 export default connect(mapStateToProps)(AddUserForm);

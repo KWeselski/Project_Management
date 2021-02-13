@@ -3,7 +3,7 @@ import { Grid, TextField } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
 export default function TitleDescForm(props) {
-  const {title, description , handleChange} = props;
+  const { title, description, handleChange } = props;
   return (
     <Paper variant="outlined" square>
       <Grid

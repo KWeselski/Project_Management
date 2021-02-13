@@ -26,7 +26,7 @@ class FormConfirm extends Component {
       description,
       startDate,
       endDate,
-      project_id,
+      projectId,
       creator,
     } = this.props.values;
     const { create, update } = this.props;
@@ -36,13 +36,13 @@ class FormConfirm extends Component {
       await this.props.createProject(values, users);
     }
     if (update) {
-      await this.props.updateProject(values, users, project_id);
+      await this.props.updateProject(values, users, projectId);
     }
     this.props.returnToOverview();
   };
   render() {
     const { values, update, returnStep, returnToOverview } = this.props;
-    if (values.ToOverview) {
+    if (values.toOverview) {
       return <Redirect to="/overview"/>;
     }
     return (

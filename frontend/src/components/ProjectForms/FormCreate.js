@@ -7,10 +7,7 @@ import StatusSelect from "./EditProject/StatusSelect";
 import Paper from "@material-ui/core/Paper";
 import TitleDescForm from "./TitleDescForm";
 
-class FormCreate extends Component {
-  constructor(props) {
-    super(props);
-  }
+export default class FormCreate extends Component {
 
   handleSubmit = () => {
     this.props.nextStep();
@@ -25,8 +22,9 @@ class FormCreate extends Component {
       handleEndDateChange,
       handleToogle,
       returnToOverview,
+      changeUsersData
     } = this.props;
-    if (values.ToOverview) {
+    if (values.toOverview) {
       return <Redirect to="/overview"></Redirect>;
     }
     return (
@@ -50,7 +48,7 @@ class FormCreate extends Component {
                 <AddUsersForm
                   update={update}
                   users={values.users}
-                  changeUsersData={this.props.changeUsersData}
+                  changeUsersData={changeUsersData}
                   handleToogle={handleToogle}
                 />
               </Grid>
@@ -104,5 +102,3 @@ class FormCreate extends Component {
     );
   }
 }
-
-export default FormCreate;

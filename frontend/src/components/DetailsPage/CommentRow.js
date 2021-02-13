@@ -6,9 +6,9 @@ import { Grid, Typography, Avatar } from "@material-ui/core";
 import { CreatorDiv } from "./styles";
 
 export default function CommentRow(props) {
-    const {creator, comment} = props;
-    const getCurrentDate = (com) => {
-    const date = new Date(com)
+  const { creator, comment } = props;
+  const getCurrentDate = (com) => {
+    const date = new Date(com);
     let separator = "/";
     let day = date.getDate();
     let month = date.getMonth() + 1;
@@ -46,7 +46,9 @@ export default function CommentRow(props) {
               )}
             </Grid>
             <Grid>
-              <Typography variant="h7">{getCurrentDate(comment_date)}</Typography>
+              <Typography variant="h7">
+                {getCurrentDate(comment_date)}
+              </Typography>
             </Grid>
           </Grid>
         }
@@ -58,4 +60,4 @@ export default function CommentRow(props) {
       />
     </ListItem>
   );
-};
+}

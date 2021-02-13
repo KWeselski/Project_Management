@@ -29,8 +29,6 @@ class Project(models.Model):
         ("active", "Active"),
         ("hold", "On Hold"),
         ("completed", "Completed"),
-        ("canceled", "Canceled"),
-        ("archived", "Archived"),
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     title = models.CharField(max_length=100)

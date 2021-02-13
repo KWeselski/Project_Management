@@ -8,8 +8,8 @@ function DeleteProject(props) {
   const id = String(window.location).split("/").pop();
   const [deleted, setDeleted] = useState(false);
   const confirmDelete = async () => {
-    await props.deleteProject(id)
-    setDeleted(true)
+    await props.deleteProject(id);
+    setDeleted(true);
   };
 
   if (deleted) {
@@ -38,26 +38,25 @@ function DeleteProject(props) {
             justify="space-between"
             style={{ marginTop: "2vh", padding: 20, height: "100%" }}
           >
-       
-              <Button
-                component={Link}
-                to="/overview"
-                type="submit"
-                style={{ width: "30%" }}
-                variant="contained"
-                color="primary"
-              >
-                No
-              </Button>
-              <Button
-                type="submit"
-                style={{ width: "30%" }}
-                variant="contained"
-                color="primary"
-                onClick={() => confirmDelete()}
-              >
-                Yes
-              </Button>
+            <Button
+              component={Link}
+              to="/overview"
+              type="submit"
+              style={{ width: "30%" }}
+              variant="contained"
+              color="primary"
+            >
+              No
+            </Button>
+            <Button
+              type="submit"
+              style={{ width: "30%" }}
+              variant="contained"
+              color="primary"
+              onClick={() => confirmDelete()}
+            >
+              Yes
+            </Button>
           </Grid>
         </Paper>
       </Grid>

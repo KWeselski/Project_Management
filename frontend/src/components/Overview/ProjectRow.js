@@ -2,9 +2,9 @@ import { StyledCell, Status } from "./styles";
 import OperationIcons from "./OperationIcons";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import React from 'react';
+import React from "react";
 export default function ProjectRow(props) {
-  const {project} = props
+  const { project } = props;
 
   const getCurrentDate = (d) => {
     let date = new Date(d);
@@ -31,9 +31,7 @@ export default function ProjectRow(props) {
       <StyledCell align="center">
         {getCurrentDate(project.start_date)}
       </StyledCell>
-      <StyledCell align="center">
-        {getCurrentDate(project.end_date)}
-      </StyledCell>
+      <StyledCell align="center">{getCurrentDate(project.end_date)}</StyledCell>
       <StyledCell>
         <Status type={project.status}>{project.status}</Status>
       </StyledCell>
