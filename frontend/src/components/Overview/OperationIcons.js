@@ -4,38 +4,26 @@ import { Link } from "react-router-dom";
 import { OperationsData } from "./OperationsData";
 import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import { deleteProject } from "../actions/projectActions";
+
 
 function OperationIcons(props) {
-
-  const { project, deleteProject,user } = props;
+  const { project, user } = props;
   return (
-    <Grid container xs={12} justify="space-between">
+    <Grid container xs={12} justify="space-evenly">
       {OperationsData.map((item) => {
-        if((project.creator != user) && item.title=="Edit"){return }else{
-        return (
-          
-          <Tooltip title={item.title} aria-label={item.title}>
-            <Link
-              to={
-                item.title == "Delete"
-                  ? null
-                  : { pathname: `${item.link}${project.id}` }
-              }
-            >
-              <i
-                onClick={() => {
-                  if (item.title == "Delete") {
-                    deleteProject(project);
-                  }
-                }}
+        if (project.creator != user && (item.title == "Edit" || item.title=='Delete')) {
+          return;
+        } else {
+          return (
+            <Tooltip title={item.title} aria-label={item.title}>
+              <Link
+                to={{ pathname: `${item.link}${project.id}` }}
               >
-                {item.icon}
-              </i>
-            </Link>
-          </Tooltip>
-        );
-              }
+                <i>{item.icon}</i>
+              </Link>
+            </Tooltip>
+          );
+        }
       })}
     </Grid>
   );
@@ -43,16 +31,8 @@ function OperationIcons(props) {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteProject: (project) => {
-      dispatch(deleteProject(project));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(OperationIcons);
+export default connect(mapStateToProps)(OperationIcons);

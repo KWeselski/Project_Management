@@ -8,14 +8,16 @@ import LogoutForm from './AuthenticationForms/Logout/index';
 import ProjectForm from "./ProjectForms/index";
 import EditProfileForm from "./AuthenticationForms/EditProfile/index";
 import ProfilePage from "./AuthenticationForms/ProfilePage/index";
+import DetailsPage from "./DetailsPage/index";
+import CommentForm from "./ProjectForms/AddCommentForm";
+import DeleteProject from "./Overview/DeleteProject";
 import Grid from "@material-ui/core/Grid";
-import { connect } from "react-redux";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import DetailsPage from "./DetailsPage/index";
+import { connect } from "react-redux";
 import { getProjects } from "./actions/projectActions";
 import { authCheckState, loadUser } from "./actions/authActions";
-import CommentForm from "./ProjectForms/AddCommentForm";
+
 
 class App extends Component {
   constructor(props) {
@@ -56,6 +58,7 @@ class App extends Component {
               <Route exact path="/details/:id" component={DetailsPage} />
               <Route exact path="/add_comment/:id" component={CommentForm} />
               <Route exact path="/profile" component={ProfilePage} />
+              <Route exact path="/delete/:id" component={DeleteProject}/>
             </Switch>
           </Grid>
         </Router>

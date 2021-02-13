@@ -23,5 +23,6 @@ export const OperationsData = [
   {
     title: "Delete",
     icon: <DeleteSharpIcon />,
+    link: "/delete/"
   },
 ];

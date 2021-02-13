@@ -1,10 +1,20 @@
-import React from "react";
-import { Link} from "react-router-dom";
+import React, { useState } from "react";
+import { deleteProject } from "../actions/projectActions";
+import { connect } from "react-redux";
 import { Button, Grid, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
-import { connect } from "react-redux";
-import { logout } from "../../actions/authActions";
-function LogoutForm(props) {
+import { Link, Redirect } from "react-router-dom";
+function DeleteProject(props) {
+  const id = String(window.location).split("/").pop();
+  const [deleted, setDeleted] = useState(false);
+  const confirmDelete = async () => {
+    await props.deleteProject(id)
+    setDeleted(true)
+  };
+
+  if (deleted) {
+    return <Redirect to="/overview" />;
+  }
   return (
     <Grid
       container
@@ -13,14 +23,14 @@ function LogoutForm(props) {
       justify="center"
       style={{ minHeight: "70vh" }}
     >
-      <Grid item xs={12} md={2}>
+      <Grid item xs={12} md={3}>
         <Paper variant="outlined" square>
           <Typography
             align="center"
             style={{ marginTop: "5vh", marginLeft: "5vh", marginRight: "5vh" }}
             variant="h4"
           >
-            Are you sure you want to log out?
+            Are you sure you want to delete the project?
           </Typography>
           <Grid
             container
@@ -28,8 +38,10 @@ function LogoutForm(props) {
             justify="space-between"
             style={{ marginTop: "2vh", padding: 20, height: "100%" }}
           >
-            <Link to="/overview">
+       
               <Button
+                component={Link}
+                to="/overview"
                 type="submit"
                 style={{ width: "30%" }}
                 variant="contained"
@@ -37,18 +49,15 @@ function LogoutForm(props) {
               >
                 No
               </Button>
-            </Link>
-            <Link to="">
               <Button
                 type="submit"
                 style={{ width: "30%" }}
                 variant="contained"
                 color="primary"
-                onClick={() => props.logout()}
+                onClick={() => confirmDelete()}
               >
                 Yes
               </Button>
-            </Link>
           </Grid>
         </Paper>
       </Grid>
@@ -58,8 +67,10 @@ function LogoutForm(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => dispatch(logout()),
+    deleteProject: (project) => {
+      dispatch(deleteProject(project));
+    },
   };
 };
 
-export default connect(null, mapDispatchToProps)(LogoutForm);
+export default connect(null, mapDispatchToProps)(DeleteProject);

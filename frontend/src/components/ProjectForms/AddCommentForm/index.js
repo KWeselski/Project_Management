@@ -2,26 +2,27 @@ import React, { Component } from "react";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import axios from "axios";
 import Paper from "@material-ui/core/Paper";
-import { Redirect } from "react-router-dom";
+import {Link, Redirect } from "react-router-dom";
 
 class CommentForm extends Component {
   state = {
     comment: "",
     confirm: false,
+    id : String(window.location).split("/").pop(),
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { comment } = this.state;
-    this.createComment(comment);
+    const { comment,id } = this.state;
+    this.createComment(comment,id);
   };
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  createComment = (comment) => {
-    const id = String(window.location).split("/").pop();
+  createComment = (comment,id) => {
+    
     axios
       .post(
         "/api/create_comment/",
@@ -37,9 +38,9 @@ class CommentForm extends Component {
   };
 
   render() {
-    const { comment, confirm } = this.state;
+    const { comment, confirm,id } = this.state;
     if (confirm) {
-      return <Redirect to="/overview"></Redirect>;
+      return <Redirect to={`/details/${id}`}></Redirect>;
     }
     return (
       <Grid
@@ -87,7 +88,17 @@ class CommentForm extends Component {
                   md={12}
                   style={{ padding: 20 }}
                 >
-                  <Grid item></Grid>
+                  <Grid item>
+                  <Button
+                  component={Link}
+                  to="/overview"
+                  type="submit"
+                  style={{ width: "30%" }}
+                  variant="contained"
+                  color="primary"
+                >Back
+                    </Button>
+                  </Grid>
                   <Grid item>
                     <Button
                       fullWidth
@@ -95,7 +106,7 @@ class CommentForm extends Component {
                       variant="contained"
                       color="primary"
                     >
-                      Next
+                      Add
                     </Button>
                   </Grid>
                 </Grid>

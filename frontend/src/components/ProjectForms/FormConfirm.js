@@ -43,7 +43,7 @@ class FormConfirm extends Component {
   render() {
     const { values, update, returnStep, returnToOverview } = this.props;
     if (values.ToOverview) {
-      return <Redirect to="/overview"></Redirect>;
+      return <Redirect to="/overview"/>;
     }
     return (
       <Grid container xs={12} style={{ marginLeft: 220 }}>

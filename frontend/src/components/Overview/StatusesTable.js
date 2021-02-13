@@ -5,7 +5,7 @@ import {
   StyledTableHeadCell,
   Status,
 } from "./styles";
-import { Table, TableRow, TableBody, Grid } from "@material-ui/core";
+import { Table, TableRow, TableBody} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
 export default function StatusesTable(props) {
