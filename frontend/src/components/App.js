@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import ProjectsList from "./Overview/ProjectsList";
 import RegistrationForm from "./AuthenticationForms/Register/index";
 import LoginForm from "./AuthenticationForms/Signup/index";
+import LogoutForm from './AuthenticationForms/Logout/index';
 import ProjectForm from "./ProjectForms/index";
 import EditProfileForm from "./AuthenticationForms/EditProfile/index";
 import ProfilePage from "./AuthenticationForms/ProfilePage/index";
@@ -24,10 +25,17 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
-    await this.props.loadUser();
-    if (!this.props.isAuthenticated) {
-      this.setState({ authenticated: true });
+  componentDidMount() {
+    this.props.onTryAutoSignup();
+  }
+
+  async componentDidUpdate(prevProps){
+    if(prevProps.isAuthenticated !== this.props.isAuthenticated){
+      if(this.props.isAuthenticated){
+        await this.props.loadUser();
+        this.setState({ authenticated: true})
+      }
+      else{this.setState({ authenticated: false });}
     }
   }
 
@@ -40,6 +48,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginForm} />
               <Route exact path="/register" component={RegistrationForm} />
+              <Route exact path="/logout" component={LogoutForm} />
               <Route exact path="/overview" component={ProjectsList} />
               <Route exact path="/create_project" component={ProjectForm} />
               <Route exact path="/edit_project/:id" component={ProjectForm} />

@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import {
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
-import FormPersonalInfo from '../FormPersonalInfo'
+import FormPersonalInfo from "../FormPersonalInfo";
 
 class FormEditPersonalInfo extends Component {
-  
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.nextStep();
@@ -34,13 +30,14 @@ class FormEditPersonalInfo extends Component {
               Edit your personal info
             </Typography>
             <FormPersonalInfo
-            firstName={values.firstName}
-            lastName={values.lastName}
-            sex={values.sex}
-            age={values.age}
-            phone={values.phone}
-            handleSubmit={this.handleSubmit}
-            handleChange={handleChange}/>
+              firstName={values.firstName}
+              lastName={values.lastName}
+              sex={values.sex}
+              age={values.age}
+              phone={values.phone}
+              handleSubmit={this.handleSubmit}
+              handleChange={handleChange}
+            />
           </Paper>
         </Grid>
       </Grid>
@@ -48,4 +45,4 @@ class FormEditPersonalInfo extends Component {
   }
 }
 
-export default FormEditPersonalInfo
+export default FormEditPersonalInfo;

@@ -55,7 +55,7 @@ class EditProfileForm extends Component {
       image = this.state.selectedFile;
     } else {
       image = this.state.avatar;
-    } 
+    }
     const form_data = new FormData();
     form_data.append("firstname", this.state.firstName);
     form_data.append("lastname", this.state.lastName);
@@ -65,21 +65,18 @@ class EditProfileForm extends Component {
     form_data.append("description", this.state.description);
     form_data.append("avatar", image);
     form_data.append("user", this.state.user_id);
-    return form_data
-  }
+    return form_data;
+  };
 
-  updateProfile = async () => {  
+  updateProfile = async () => {
     const form_data = this.createFormData();
     await axios
-      .put(
-        "/api/profile_data",
-        form_data, 
-        {headers:{
-            Authorization: `${localStorage.getItem("token")}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
+      .put("/api/profile_data", form_data, {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         console.log(res.data);
       })

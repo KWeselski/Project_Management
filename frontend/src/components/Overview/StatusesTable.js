@@ -22,11 +22,6 @@ export default function StatusesTable(props) {
   };
 
   return (
-    <Grid
-      container
-      xs={2}
-      style={{ marginLeft: 15, width: "100%", maxHeight: 200 }}
-    >
       <Paper variant="outlined" square>
         <Table style={{ minWidth: 60 }}>
           <StyledTableHead>
@@ -53,6 +48,5 @@ export default function StatusesTable(props) {
           </TableBody>
         </Table>
       </Paper>
-    </Grid>
   );
 }

@@ -68,7 +68,7 @@ class FormConfirm extends Component {
                 inputProps={{ style: { fontSize: "1.4rem" }, maxLength: 100 }}
               />
             </Grid>
-            <Grid container xs={12} md={9}>
+            <Grid container xs={12} md={8}>
               <Grid item xs={12} md={12} style={{ padding: 20 }}>
                 <TextField
                   readonly
@@ -85,7 +85,7 @@ class FormConfirm extends Component {
                 />
               </Grid>
             </Grid>
-            <Grid container xs={12} md={3} style={{ padding: 20 }}>
+            <Grid container xs={12} md={4} style={{ padding: 20 }}>
               <span>
                 <Typography variant="h6">
                   Start Date: {this.getCurrentDate(values.startDate)}
@@ -137,7 +137,7 @@ class FormConfirm extends Component {
             </Grid>
           </Grid>
         </Paper>
-        <UsersList users={values.users} />
+        <UsersList users={values.users}/>
       </Grid>
     );
   }

@@ -1,8 +1,6 @@
 import React from "react";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonSharpIcon from "@material-ui/icons/PersonSharp";
 import AddToQueueSharpIcon from "@material-ui/icons/AddToQueueSharp";
 export const SidebarData = [
@@ -20,5 +18,10 @@ export const SidebarData = [
     title: "New Project",
     icon: <AddToQueueSharpIcon />,
     link: "/create_project",
+  },
+  {
+    title: "Logout",
+    icon: <ExitToAppIcon />,
+    link: "/logout",
   },
 ];

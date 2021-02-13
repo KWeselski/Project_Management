@@ -8,17 +8,8 @@ const Side = styled.div`
   background: #15171c;
   height: 5vh;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const NavIcon = styled(Link)`
-  margin-left: 2rem;
-  font-size: 2rem;
-  height: 80px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  top:0;
+  position: sticky;
 `;
 
 const SidebarNav = styled.nav`
@@ -41,6 +32,7 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
   }
+  
 
   render() {
     return (

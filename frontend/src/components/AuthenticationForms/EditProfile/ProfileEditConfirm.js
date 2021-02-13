@@ -4,9 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 
-
 class ProfileEditConfirm extends Component {
-
   confirmProfile = async () => {
     await this.props.updateProfile();
     this.props.returnToProfile();
@@ -85,14 +83,14 @@ class ProfileEditConfirm extends Component {
                     </Button>
                   </Grid>
                   <Grid item md={6}>
-                      <Button
-                        variant="contained"
-                        onClick={this.confirmProfile}
-                        fullwidth
-                        color="primary"
-                      >
-                        Confirm
-                      </Button>
+                    <Button
+                      variant="contained"
+                      onClick={this.confirmProfile}
+                      fullwidth
+                      color="primary"
+                    >
+                      Confirm
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>

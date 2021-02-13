@@ -7,12 +7,14 @@ import Grid from "@material-ui/core/Grid";
 import { deleteProject } from "../actions/projectActions";
 
 function OperationIcons(props) {
-  const { project, deleteProject } = props;
 
+  const { project, deleteProject,user } = props;
   return (
     <Grid container xs={12} justify="space-between">
       {OperationsData.map((item) => {
+        if((project.creator != user) && item.title=="Edit"){return }else{
         return (
+          
           <Tooltip title={item.title} aria-label={item.title}>
             <Link
               to={
@@ -33,6 +35,7 @@ function OperationIcons(props) {
             </Link>
           </Tooltip>
         );
+              }
       })}
     </Grid>
   );
@@ -40,7 +43,7 @@ function OperationIcons(props) {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.project.projects,
+    user: state.auth.user
   };
 };
 

@@ -5,7 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import CommentsList from "./CommentsList";
 import ProjectInfo from "./ProjectInfo";
 import UsersList from "./UsersList";
-import axios from 'axios'
+import axios from "axios";
 class DetailsPage extends Component {
   state = {
     loaded: false,
@@ -27,10 +27,9 @@ class DetailsPage extends Component {
     const id = String(window.location).split("/").pop();
     await axios.get(`/api/get_project/${id}`).then((res) => {
       this.changeUsersData(res.data);
-      this.setState({data:res.data,loaded:true})
-    })
-  }
-
+      this.setState({ data: res.data, loaded: true });
+    });
+  };
 
   componentDidMount() {
     this.getProjectValues();
@@ -44,10 +43,16 @@ class DetailsPage extends Component {
       return <CircularProgress />;
     }
     return (
-      <Grid container xs={12} style={{ marginLeft: 220 }}>
-        <ProjectInfo data={data} profiles={profiles} />
-        <UsersList users={data.users} />
-        <CommentsList id={data.id} creator={data.creator} />
+      <Grid container xs={12} spacing={3} style={{ marginLeft: 220, marginTop:20 }}>
+        <Grid item xs={12} md={5}>
+          <ProjectInfo data={data} profiles={profiles} />
+        </Grid>
+        <Grid item xs={4} md={2}>
+          <UsersList users={data.users} />
+        </Grid>
+        <Grid item xs={8} md={4}>
+          <CommentsList id={data.id} creator={data.creator} />
+        </Grid>
       </Grid>
     );
   }

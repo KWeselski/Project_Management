@@ -1,16 +1,18 @@
 import React from "react";
-import {
-  Button,
-  Grid,
-  TextField,
-  MenuItem,
-} from "@material-ui/core";
+import { Button, Grid, TextField, MenuItem } from "@material-ui/core";
 
-export default function FormPersonalInfo(props){
-
-  const {firstName, lastName, sex, age, phone, handleSubmit, handleChange} = props
-    return (
-      <form onSubmit={handleSubmit}>
+export default function FormPersonalInfo(props) {
+  const {
+    firstName,
+    lastName,
+    sex,
+    age,
+    phone,
+    handleSubmit,
+    handleChange,
+  } = props;
+  return (
+    <form onSubmit={handleSubmit}>
       <Grid
         container
         justify="center"
@@ -109,6 +111,5 @@ export default function FormPersonalInfo(props){
         </Grid>
       </Grid>
     </form>
-    );
-  }
-
+  );
+}

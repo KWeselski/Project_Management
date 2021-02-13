@@ -19,13 +19,17 @@ class LoginForm extends React.Component {
     e.preventDefault();
     const { email, password } = this.state;
     this.props.login(email, password);
+
   };
 
   render() {
-    const { token } = this.props;
+    const { token, error } = this.props;
     const { email, password } = this.props;
+    if (error) {
+      return <h1>Error</h1>
+    }
     if (token) {
-      return <Redirect to="/overview"></Redirect>;
+      return <Redirect to="/overview"/>
     }
 
     return (

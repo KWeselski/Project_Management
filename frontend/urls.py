@@ -10,5 +10,6 @@ urlpatterns = [
     path('edit_profile/', index),
     path('details/<uuid:id>', index),
     path('add_comment/<uuid:id>', index),
-    path('profile/', index)
+    path('profile/', index),
+    path('logout/', index)
 ]

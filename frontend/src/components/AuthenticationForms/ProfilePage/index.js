@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import ProfilePageInfo from "./ProfilePageInfo";

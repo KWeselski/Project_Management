@@ -1,15 +1,9 @@
 import React, { Component } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import {
-  Button,
-  Grid,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
 class FormEditAvatarAbout extends Component {
-  
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.nextStep();

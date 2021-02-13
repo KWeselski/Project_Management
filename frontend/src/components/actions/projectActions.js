@@ -158,7 +158,7 @@ export const updateProject = (values, users, id) => {
       .put(
         "/api/create_project/",
         {
-          id:id,
+          id: id,
           title: values.title,
           description: values.description,
           start_date: values.startDate,
