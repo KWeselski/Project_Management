@@ -77,11 +77,8 @@ class EditProfileForm extends Component {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => {
-        console.log(res.data);
-      })
       .catch((error) => {
-        console.log(error);
+        return error.response.data
       });
   };
 

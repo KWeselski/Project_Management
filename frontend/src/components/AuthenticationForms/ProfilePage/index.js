@@ -36,7 +36,7 @@ export default class ProfilePage extends Component {
         });
       })
       .catch((error) => {
-        return error;
+        return error.reponse.data;
       });
   };
 
@@ -48,17 +48,10 @@ export default class ProfilePage extends Component {
     const { avatar, firstName, lastName, sex, age, phone } = this.state;
     return (
       <Grid container direction="column" alignItems="center">
-        <Grid container item md={4} style={{ marginTop: 100, width: "100%" }}>
+        <Grid item md={5} style={{ marginTop: 100, width: "100%" }}>
           <Paper variant="outlined" square style={{ height: "100%" }}>
-            <Grid container item style={{ height: 600 }}>
-              <Grid
-                container
-                direction="column"
-
-                md={1}
-                style={{ borderRight: "1px solid gray" }}
-              >
-              <Grid item>
+            <Grid container style={{ height: 600 }}>
+              <Grid item xs={4}>
                 <ProfilePageInfo
                   avatar={avatar}
                   firstName={firstName}
@@ -68,7 +61,6 @@ export default class ProfilePage extends Component {
                   phone={phone}
                 />
                 </Grid>
-              </Grid>
               <Grid
                 item
                 container
@@ -84,7 +76,7 @@ export default class ProfilePage extends Component {
                     {this.state.description}
                   </MainTypography>
                 </Grid>
-                <Grid container alignItems="center" justify="center" md={12}>
+                <Grid item container alignItems="center" justify="center" md={12}>
                   <Link to={{ pathname: "/edit_profile/", state: this.state }}>
                     <Button variant="contained" fullwidth color="primary">
                       Edit profile
@@ -92,7 +84,7 @@ export default class ProfilePage extends Component {
                   </Link>
                 </Grid>
               </Grid>
-            </Grid>
+              </Grid>
           </Paper>
         </Grid>
       </Grid>

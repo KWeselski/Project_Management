@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import {Typography} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 export const Status = styled.div`
   background: ${(props) =>
     (props.type === "new" && "lightblue") ||
     (props.type === "active" && "yellow") ||
-    (props.type === "canceled" && "red")};
+    (props.type === "hold" && "pink") ||
+    (props.type === "completed" && "lightgreen") ||
+    (props.type === "delayed" && "red")};
   text-align: center;
   border-radius: 30px;
   width: 100%;
@@ -16,16 +18,16 @@ export const Status = styled.div`
 `;
 
 export const CreatorDiv = styled.div`
-    background: #B8860B;
-    font-weight: bold;
-    border-radius: 15px;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+  background: #b8860b;
+  font-weight: bold;
+  border-radius: 15px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-    text-align: center;
-    width: 100px;
+  text-align: center;
+  width: 100px;
 `;
 
 export const MainTypography = styled(Typography)`
-    padding: 20px;
-    word-wrap: break-word;
-`
+  padding: 20px;
+  word-wrap: break-word;
+`;

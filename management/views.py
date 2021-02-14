@@ -24,11 +24,11 @@ def create_profile(request):
 
 @api_view(['POST', 'PUT'])
 def create_project(request):
+    user = get_user_from_token(request)
+    if user is None:
+        return Response('Cant create project',
+                        status=status.HTTP_400_BAD_REQUEST)
     if request.method == 'POST':
-        user = get_user_from_token(request)
-        if user is None:
-            return Response('Cant create project',
-                            status=status.HTTP_400_BAD_REQUEST)
         request.data['creator'] = user.id
         request.data['users'].append(user.id)
         serializers = ProjectSerializer(data=request.data)
@@ -141,6 +141,10 @@ def get_project(request, pk):
 @api_view()
 def get_user(request):
     token = request.headers['Authorization']
+    try:
+        user_id = Token.objects.get(key=token).user_id
+    except Token.DoesNotExist:
+        return Response('User not exist')
     user_id = Token.objects.get(key=token).user_id
     user = User.objects.get(id=user_id)
     return Response(user.id)

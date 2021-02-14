@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { authResetPassword } from "../../actions/authActions";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
+import { Link } from "react-router-dom";
 
 class ResetPasswordForm extends React.Component {
   state = {
@@ -21,7 +22,7 @@ class ResetPasswordForm extends React.Component {
   };
 
   render() {
-    const { token, error, email } = this.props;
+    const { error, email } = this.props;
     const { reset } = this.state;
     var errorMessage;
 
@@ -36,12 +37,21 @@ class ResetPasswordForm extends React.Component {
         >
           <Grid item xs={12} md={3}>
             <Paper variant="outlined" square>
-              <Typography
-                align="center"
-                variant="h4"
-              >
+              <Typography align="center" variant="h4">
                 Thank you, we send you an email for reset password
               </Typography>
+              <Grid item xs={12} md={12} align="center" style={{ padding: 20 }}>
+                <Button
+                  component={Link}
+                  to=""
+                  type="submit"
+                  style={{ width: "50%" }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Return
+                </Button>
+              </Grid>
             </Paper>
           </Grid>
         </Grid>

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { authResetPasswordConfirm } from "./actions/authActions";
+import { authResetPasswordConfirm } from "../../actions/authActions";
+import { Link } from "react-router-dom";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
@@ -24,9 +25,9 @@ class ResetPasswordConfirmForm extends React.Component {
   };
 
   render() {
-    const { loading, error, password1, password2 } = this.props;
+    const { error, password1, password2 } = this.props;
     const { reset } = this.state;
-
+    var errorMessage;
     if (error == null && reset) {
       return (
         <Grid
@@ -41,6 +42,18 @@ class ResetPasswordConfirmForm extends React.Component {
               <Typography align="center" variant="h4">
                 Thank you, your password is changed
               </Typography>
+              <Grid item xs={12} md={12} align="center" style={{ padding: 20 }}>
+                <Button
+                  component={Link}
+                  to=""
+                  type="submit"
+                  style={{ width: "50%" }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Return
+                </Button>
+              </Grid>
             </Paper>
           </Grid>
         </Grid>
@@ -97,6 +110,7 @@ class ResetPasswordConfirmForm extends React.Component {
                     label="New password"
                     autoFocus
                     value={password1}
+                    style={{ backgroundColor: "lightgray" }}
                     onChange={this.handleChange}
                   />
                 </Grid>
@@ -109,8 +123,8 @@ class ResetPasswordConfirmForm extends React.Component {
                     fullWidth
                     id="password2"
                     label="Repeat password"
-                    autoFocus
                     value={password2}
+                    style={{ backgroundColor: "lightgray" }}
                     onChange={this.handleChange}
                   />
                 </Grid>

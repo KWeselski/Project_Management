@@ -33,12 +33,14 @@ class FormConfirm extends Component {
     const values = { title, description, status, startDate, endDate, creator };
     let users = this.props.values.users.map((a) => a.user);
     if (create) {
-      await this.props.createProject(values, users);
+      await this.props.createProject(values, users)
+      await this.props.returnToOverview();
     }
     if (update) {
       await this.props.updateProject(values, users, projectId);
+      await this.props.returnToOverview();
     }
-    this.props.returnToOverview();
+    
   };
   render() {
     const { values, update, returnStep, returnToOverview } = this.props;
@@ -109,7 +111,14 @@ class FormConfirm extends Component {
                   )}
                 </span>
               </Grid>
-              <Grid item container justify="space-between" xs={12} md={12} style={{ padding: 20 }}>
+              <Grid
+                item
+                container
+                justify="space-between"
+                xs={12}
+                md={12}
+                style={{ padding: 20 }}
+              >
                 <Grid item>
                   <Button
                     fullWidth

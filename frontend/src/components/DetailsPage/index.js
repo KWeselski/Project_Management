@@ -37,7 +37,7 @@ class DetailsPage extends Component {
 
   render() {
     const { loaded, data } = this.state;
-    const { profiles } = this.props;
+    const { profiles } = this.props
 
     if (!loaded) {
       return <CircularProgress />;
@@ -47,7 +47,7 @@ class DetailsPage extends Component {
         <Grid item xs={12} md={5}>
           <ProjectInfo data={data} profiles={profiles} />
         </Grid>
-        <Grid item xs={5} md={2}>
+        <Grid item xs={5} md={3}>
           <UsersList users={data.users} />
         </Grid>
         <Grid item xs={7} md={4}>

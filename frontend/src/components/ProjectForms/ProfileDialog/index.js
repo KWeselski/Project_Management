@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Avatar from "@material-ui/core/Avatar";
 import { Grid, Typography } from "@material-ui/core";
-import {StyledDialog, StyledDialogContent} from './styles'
+import {StyledDialog, StyledDialogContent, MainTypography} from './styles'
 
 
 export default function ProfileDialog(props) {
@@ -12,10 +12,10 @@ export default function ProfileDialog(props) {
   return (
     <StyledDialog open={openDialog}>
       <DialogTitle>
-        <Grid container justify="space-between">
-          <Typography style={{ padding: 10 }} variant="h5">
+        <Grid container xs={12} justify="space-between">
+          <MainTypography variant="h5">
             {values.firstname + " " + values.lastname}
-          </Typography>
+          </MainTypography>
           <Button
             type="submit"
             onClick={() => {
@@ -27,11 +27,11 @@ export default function ProfileDialog(props) {
         </Grid>
       </DialogTitle>
       <StyledDialogContent dividers>
-        <Grid container xs={12}>
-          <Grid container xs={12} justify="center">
+        <Grid container xs={12} alignItems="center">
+          <Grid item container xs={12} justify="center">
             <Avatar style={{ height: 100, width: 100 }} src={values.avatar} />
           </Grid>
-          <Grid container xs={12} style={{ marginTop: 10, height: 200 }}>
+          <Grid item container xs={12} style={{ marginTop: 10, height: 200 }}>
             <Grid item xs={12}>
               <Typography variant="h6">
                 <b>Sex:</b> {values.sex}
@@ -48,9 +48,9 @@ export default function ProfileDialog(props) {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="h8">
+              <MainTypography variant="h8">
                 <b>About me:</b> {values.description}
-              </Typography>
+              </MainTypography>
             </Grid>
           </Grid>
         </Grid>

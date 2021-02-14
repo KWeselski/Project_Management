@@ -5,7 +5,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
-import ProfileDialog from "./ProfileDialog/index";
+import ProfileDialog from "../ProfileDialog/index";
 
 export default function UserForm(props) {
   const [openDialog, setOpenDialog] = useState(false);

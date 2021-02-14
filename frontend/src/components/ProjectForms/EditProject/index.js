@@ -22,7 +22,11 @@ class EditProjectForm extends Component {
       user,
     } = this.props;
     if (values.creator != user) {
-      return <div style={{position: 'fixed', top: '50%',left:'50%'}}>You aren't creator</div>;
+      return (
+        <div style={{ position: "fixed", top: "50%", left: "50%" }}>
+          You aren't creator
+        </div>
+      );
     }
     switch (values.step) {
       case 1:

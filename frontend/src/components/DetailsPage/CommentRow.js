@@ -8,16 +8,16 @@ import { CreatorDiv } from "./styles";
 export default function CommentRow(props) {
   const { creator, comment } = props;
   const getCurrentDate = (com) => {
-    const date = new Date(com);
+    let date = new Date(com);
     let separator = "/";
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let hour = date.getHours();
-    let minutes = date.getMinutes();
+    let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes()
     return `${day}${separator}${
       month < 10 ? `0${month}` : `${month}`
-    }${separator}${year} Time: ${hour}:${minutes}`;
+    }${separator}${year} - ${hour}:${minutes}`;
   };
   const comment_date = comment.date_added;
   const labelId = `checkbox-list-secondary-label-${comment.id}`;

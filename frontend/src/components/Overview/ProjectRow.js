@@ -13,7 +13,7 @@ export default function ProjectRow(props) {
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let hour = date.getHours();
-    let minutes = date.getMinutes();
+    let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes()
     return `${day}${separator}${
       month < 10 ? `0${month}` : `${month}`
     }${separator}${year} - ${hour}:${minutes}`;

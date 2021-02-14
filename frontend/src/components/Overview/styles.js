@@ -7,7 +7,7 @@ export const Status = styled.div`
     (props.type === "active" && "yellow") ||
     (props.type === "hold" && "pink") ||
     (props.type === "completed" && "lightgreen") ||
-    (props.type === "canceled" && "red")};
+    (props.type === "delayed" && "red")}; 
   text-align: center;
   border-radius: 30px;
   width: 75%;
