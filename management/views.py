@@ -11,11 +11,14 @@ from django.contrib.auth.models import User
 @api_view(['POST'])
 def create_profile(request):
     user = get_user_from_token(request)
+    if user is None:
+        return Response('Cant create profile',
+                        status=status.HTTP_400_BAD_REQUEST)
     request.data['user'] = user.id
     serializer = ProfileSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(status=status.HTTP_201_CREATED)
+        return Response('Profile created', status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -23,13 +26,15 @@ def create_profile(request):
 def create_project(request):
     if request.method == 'POST':
         user = get_user_from_token(request)
+        if user is None:
+            return Response('Cant create project',
+                            status=status.HTTP_400_BAD_REQUEST)
         request.data['creator'] = user.id
         request.data['users'].append(user.id)
-        print(request.data)
         serializers = ProjectSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response('Project created', status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
     if request.method == 'PUT':
         try:
@@ -37,22 +42,29 @@ def create_project(request):
         except Project.DoesNotExist:
             return Response('Project not exist',
                             status=status.HTTP_404_NOT_FOUND)
-        user_is_creator(request)
+        creator = project.creator
+        if creator != user:
+            return Respone('User are not creator',
+                           status=status.HTTP_401_UNAUTHORIZED)
         serializers = ProjectSerializer(project, data=request.data)
         if serializers.is_valid():
             serializers.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response('Project updated', status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['DELETE'])
 def delete_project(request):
+    user = get_user_from_token(request)
     try:
         project = Project.objects.get(id=request.data['id'])
     except Project.DoesNotExist:
         return Response('Project not exist',
                         status=status.HTTP_404_NOT_FOUND)
-    user_is_creator(request)
+    creator = project.creator
+    if creator != user:
+        return Respone('User are not creator',
+                       status=status.HTTP_401_UNAUTHORIZED)
     project.delete()
     return Response('Deleted sucessfully', status=status.HTTP_201_CREATED)
 
@@ -64,7 +76,7 @@ def create_comment(request):
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(status=status.HTTP_201_CREATED)
+        return Response('Comment created', status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -72,8 +84,8 @@ def create_comment(request):
 def get_project_comments(request, pk):
     try:
         comments = Comment.objects.filter(project=pk)
-    except Product.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    except Comment.DoesNotExist:
+        return Response('Comment not exist', status=status.HTTP_404_NOT_FOUND)
     serializer = CommentSerializer(comments, context={'request': request},
                                    many=True)
     return Response(serializer.data)
@@ -134,16 +146,11 @@ def get_user(request):
     return Response(user.id)
 
 
-def user_is_creator(request):
-    creator = request.data['creator']
-    user = request.data['user']
-    if creator != user:
-        return Respone('User are not creator',
-                       status=status.HTTP_401_UNAUTHORIZED)
-
-
 def get_user_from_token(request):
     token = request.headers['Authorization']
-    user_id = Token.objects.get(key=token).user_id
+    try:
+        user_id = Token.objects.get(key=token).user_id
+    except Token.DoesNotExist:
+        return None
     user = User.objects.get(id=user_id)
     return user

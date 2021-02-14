@@ -117,7 +117,7 @@ export const authLogin = (email, password) => {
         dispatch(checkAuthTimeout(3600));
       })
       .catch((err) => {
-        dispatch(authFail(err));
+        dispatch(authFail(err.response.data));
       });
   };
 };

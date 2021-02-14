@@ -43,32 +43,32 @@ class FormConfirm extends Component {
   render() {
     const { values, update, returnStep, returnToOverview } = this.props;
     if (values.toOverview) {
-      return <Redirect to="/overview"/>;
+      return <Redirect to="/overview" />;
     }
     return (
       <Grid container xs={12} style={{ marginLeft: 220 }}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={12}>
           <Typography align="center" variant="h3" style={{ padding: 40 }}>
             Confirm new project
           </Typography>
         </Grid>
-        <Paper variant="outlined" square>
+        <Grid item container spacing={3} md={12}>
           <Grid
             container
-            xs={12}
-            md={12}
+            item
+            md={6}
             textAlign="center"
             style={{ height: "100%" }}
           >
-            <Grid item xs={8} md={8} style={{ padding: 20 }}>
-              <TextField
-                readonly
-                fullWidth
-                value={values.title}
-                inputProps={{ style: { fontSize: "1.4rem" }, maxLength: 100 }}
-              />
-            </Grid>
-            <Grid container xs={12} md={8}>
+            <Paper variant="outlined" square style={{ width: "100%" }}>
+              <Grid item xs={8} md={8} style={{ padding: 20 }}>
+                <TextField
+                  readonly
+                  fullWidth
+                  value={values.title}
+                  inputProps={{ style: { fontSize: "1.4rem" }, maxLength: 100 }}
+                />
+              </Grid>
               <Grid item xs={12} md={12} style={{ padding: 20 }}>
                 <TextField
                   readonly
@@ -84,22 +84,32 @@ class FormConfirm extends Component {
                   multiline={true}
                 />
               </Grid>
-            </Grid>
-            <Grid container xs={12} md={4} style={{ padding: 20 }}>
-              <span>
-                <Typography variant="h6">
-                  Start Date: {this.getCurrentDate(values.startDate)}
-                </Typography>
-                <Typography variant="h6">
-                  End Date: {this.getCurrentDate(values.endDate)}
-                </Typography>
-                {update ? (
-                  <Typography variant="h6">Status: {values.status} </Typography>
-                ) : (
-                  <React.Fragment />
-                )}
-              </span>
-              <Grid container justify="space-between" xs={12} md={12}>
+            </Paper>
+          </Grid>
+
+          <Grid item md={2}>
+            <UsersList users={values.users} />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Paper variant="outlined" square>
+              <Grid item style={{ padding: 20 }}>
+                <span>
+                  <Typography variant="h6">
+                    Start Date: {this.getCurrentDate(values.startDate)}
+                  </Typography>
+                  <Typography variant="h6">
+                    End Date: {this.getCurrentDate(values.endDate)}
+                  </Typography>
+                  {update ? (
+                    <Typography variant="h6">
+                      Status: {values.status}{" "}
+                    </Typography>
+                  ) : (
+                    <React.Fragment />
+                  )}
+                </span>
+              </Grid>
+              <Grid item container justify="space-between" xs={12} md={12} style={{ padding: 20 }}>
                 <Grid item>
                   <Button
                     fullWidth
@@ -134,10 +144,9 @@ class FormConfirm extends Component {
                   </Button>
                 </Grid>
               </Grid>
-            </Grid>
+            </Paper>
           </Grid>
-        </Paper>
-        <UsersList users={values.users}/>
+        </Grid>
       </Grid>
     );
   }

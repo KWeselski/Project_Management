@@ -5,12 +5,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
-import ProfileDialog from "./ProfileDialog";
+import ProfileDialog from "./ProfileDialog/index";
 
 export default function UserForm(props) {
   const [openDialog, setOpenDialog] = useState(false);
-  const { value, users, handleToogle, confirmedUsers } = props;
-  const labelId = `checkbox-list-secondary-label-${value.id}`;
+  const { values, users, handleToogle, confirmedUsers } = props;
+  const labelId = `checkbox-list-secondary-label-${values.id}`;
 
   const open = () => {
     setOpenDialog(true);
@@ -19,50 +19,50 @@ export default function UserForm(props) {
   if (confirmedUsers) {
     return (
       <React.Fragment>
-        <ListItem key={value.id} button onClick={open}>
+        <ListItem key={values.id} button onClick={open}>
           <ListItemAvatar>
             <Avatar
-              src={value.avatar}
+              src={values.avatar}
               style={{ backgroundColor: "green" }}
             ></Avatar>
           </ListItemAvatar>
           <ListItemText
             id={labelId}
-            primary={value.firstname + ` ` + value.lastname}
+            primary={values.firstname + ` ` + values.lastname}
           />
         </ListItem>
         <ProfileDialog
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
-          data={value}
+          data={values}
         />
       </React.Fragment>
     );
   } else {
     return (
       <React.Fragment>
-        <ListItem key={value.id} button onClick={open}>
+        <ListItem key={values.id} button onClick={open}>
           <ListItemAvatar>
             <Avatar
               style={{ backgroundColor: "green" }}
-              alt={value.firstName}
-              src={value.avatar}
+              alt={values.firstname}
+              src={values.avatar}
             ></Avatar>
           </ListItemAvatar>
           <ListItemText
             id={labelId}
-            primary={value.firstName + ` ` + value.lastName}
+            primary={values.firstname + ` ` + values.lastname}
           />
           <ListItemSecondaryAction>
             <Checkbox
               edge="end"
-              onChange={handleToogle(value)}
+              onChange={handleToogle(values)}
               checked={
                 users
                   .map((v) => {
                     return v.id;
                   })
-                  .indexOf(value.id) !== -1
+                  .indexOf(values.id) !== -1
               }
               inputProps={{ "aria-labelledby": labelId }}
             />
@@ -71,7 +71,7 @@ export default function UserForm(props) {
         <ProfileDialog
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
-          data={value}
+          data={values}
         />
       </React.Fragment>
     );

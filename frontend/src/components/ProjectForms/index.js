@@ -49,7 +49,7 @@ export default class ProjectForm extends Component {
 
   checkDate = () => {
     const { startDate, endDate } = this.state;
-    if (startDate > endDate) {
+    if (startDate.getTime() >= endDate.getTime()) {
       this.setState({ validate: false });
     } else {
       this.setState({ validate: true });

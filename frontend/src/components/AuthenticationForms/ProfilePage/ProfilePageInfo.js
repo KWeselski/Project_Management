@@ -3,6 +3,7 @@ import { Grid, Typography } from "@material-ui/core";
 import React from "react";
 
 export default function ProfilePageInfo(props) {
+  const {firstName, lastName, avatar, sex, age, phone} = props;
   return (
     <Grid
       container
@@ -13,25 +14,25 @@ export default function ProfilePageInfo(props) {
     >
       <Avatar
         style={{ height: 150, width: 150, marginTop: 20 }}
-        src={props.avatar}
+        src={avatar}
       />
       <Typography variant="h4" style={{ padding: 20 }}>
-        <b>{props.firstName + " " + props.lastName}</b>
+        <b>{firstName + " " + lastName}</b>
       </Typography>
       <Grid container alignItem="flex-start">
         <Grid item xs={12}>
           <Typography variant="h6" style={{ padding: 20 }}>
-            <b>Sex:</b> {props.sex}
+            <b>Sex:</b> {sex}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" style={{ padding: 20 }}>
-            <b>Age:</b> {props.age}
+            <b>Age:</b> {age}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" style={{ padding: 20 }}>
-            <b>Phone:</b> {props.phone}
+            <b>Phone:</b> {phone}
           </Typography>
         </Grid>
       </Grid>

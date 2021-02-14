@@ -15,7 +15,7 @@ export default function CommentForm(props) {
   };
 
   const handleChange = (e) => {
-    setComment({ [e.target.name]: e.target.value });
+    setComment(e.target.value);
   };
 
   const createComment = (comment, id) => {

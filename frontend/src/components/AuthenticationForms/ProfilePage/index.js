@@ -5,7 +5,7 @@ import axios from "axios";
 import ProfilePageInfo from "./ProfilePageInfo";
 import { Link } from "react-router-dom";
 
-class ProfilePage extends Component {
+export default class ProfilePage extends Component {
   state = {
     firstName: "",
     lastName: "",
@@ -44,18 +44,19 @@ class ProfilePage extends Component {
   }
 
   render() {
+    const { avatar, firstName, lastName, sex, age, phone } = this.state;
     return (
       <Grid container direction="column" alignItems="center">
         <Grid item md={4} style={{ marginTop: 100, width: "100%" }}>
           <Paper variant="outlined" square style={{ height: "100%" }}>
             <Grid container style={{ height: 600 }}>
               <ProfilePageInfo
-                avatar={this.state.avatar}
-                firstName={this.state.firstName}
-                lastName={this.state.lastName}
-                sex={this.state.sex}
-                age={this.state.age}
-                phone={this.state.phone}
+                avatar={avatar}
+                firstName={firstName}
+                lastName={lastName}
+                sex={sex}
+                age={age}
+                phone={phone}
               />
               <Grid
                 container
@@ -85,5 +86,3 @@ class ProfilePage extends Component {
     );
   }
 }
-
-export default ProfilePage;

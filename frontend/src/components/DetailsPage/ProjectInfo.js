@@ -1,6 +1,8 @@
 import { Status } from "./styles";
 import { Grid, Typography, Paper, Avatar } from "@material-ui/core";
 import React from "react";
+import {MainTypography} from './styles';
+
 
 export default function ProjectInfo(props) {
   const { data, profiles } = props;
@@ -18,30 +20,32 @@ export default function ProjectInfo(props) {
   };
   return (
     <Paper variant="outlined" square style={{ width: "100%", height: "100%" }}>
-      <Grid container justify="space-between">
-        <Grid item xs={9} style={{ padding: 20 }}>
-          <Typography variant="h5">{data.title}</Typography>
-          <div style={{ display: "flex", marginTop: 10 }}>
-            <Typography variant="h6" style={{ marginRight: 10 }}>
-              Created by:
-            </Typography>
-            <Avatar
-              src={creator.avatar}
-              style={{ backgroundColor: "green" }}
-            ></Avatar>
-            <Typography variant="h6" style={{ marginLeft: 10 }}>
-              {creator.firstname + " " + creator.lastname}
-            </Typography>
-          </div>
+      <Grid container>
+        <Grid item xs={12}>
+          <MainTypography variant="h5">{data.title}</MainTypography>
         </Grid>
-        <Grid item xs={2} style={{ padding: 20 }}>
-          <Status type={data.status}>{data.status}</Status>
+        <Grid item container>
+          <Grid item container xs={10} style={{ padding: 20 }}>
+              <Typography variant="h6" style={{ marginRight: 10 }}>
+                Created by:
+              </Typography>
+              <Avatar
+                src={creator.avatar}
+                style={{ backgroundColor: "green" }}
+              ></Avatar>
+              <Typography variant="h6" style={{ marginLeft: 10 }}>
+                {creator.firstname + " " + creator.lastname}
+              </Typography>
+          </Grid>
+          <Grid item xs={2} style={{ padding: 20 }}>
+            <Status type={data.status}>{data.status}</Status>
+          </Grid>
         </Grid>
       </Grid>
 
       <Grid item xs={12} md={12} style={{ padding: 20, height: "50vh" }}>
         <Typography variant="h6">Project description:</Typography>
-        <Typography variant="body1">{data.description}</Typography>
+        <MainTypography variant="body1">{data.description}</MainTypography>
       </Grid>
       <Grid
         container

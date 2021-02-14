@@ -43,14 +43,14 @@ class DetailsPage extends Component {
       return <CircularProgress />;
     }
     return (
-      <Grid container xs={12} spacing={3} style={{ marginLeft: 220, marginTop:20 }}>
+      <Grid container xs={10} spacing={3} style={{ marginLeft: 220, marginTop:20 }}>
         <Grid item xs={12} md={5}>
           <ProjectInfo data={data} profiles={profiles} />
         </Grid>
-        <Grid item xs={4} md={2}>
+        <Grid item xs={5} md={2}>
           <UsersList users={data.users} />
         </Grid>
-        <Grid item xs={8} md={4}>
+        <Grid item xs={7} md={4}>
           <CommentsList id={data.id} creator={data.creator} />
         </Grid>
       </Grid>

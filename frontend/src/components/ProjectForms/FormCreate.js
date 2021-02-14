@@ -8,7 +8,6 @@ import Paper from "@material-ui/core/Paper";
 import TitleDescForm from "./TitleDescForm";
 
 export default class FormCreate extends Component {
-
   handleSubmit = () => {
     this.props.nextStep();
   };
@@ -22,7 +21,7 @@ export default class FormCreate extends Component {
       handleEndDateChange,
       handleToogle,
       returnToOverview,
-      changeUsersData
+      changeUsersData,
     } = this.props;
     if (values.toOverview) {
       return <Redirect to="/overview"></Redirect>;
@@ -53,7 +52,7 @@ export default class FormCreate extends Component {
                 />
               </Grid>
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={5}>
               <Paper variant="outlined" square style={{ marginLeft: 50 }}>
                 <Grid container md={12} style={{ padding: 20 }}>
                   {update ? (
@@ -64,6 +63,7 @@ export default class FormCreate extends Component {
                   ) : (
                     <React.Fragment />
                   )}
+
                   <DatesForm
                     startDate={values.startDate}
                     endDate={values.endDate}
@@ -88,6 +88,7 @@ export default class FormCreate extends Component {
                         fullWidth
                         variant="contained"
                         color="primary"
+                        disabled={!values.validate && !update}
                       >
                         Next
                       </Button>

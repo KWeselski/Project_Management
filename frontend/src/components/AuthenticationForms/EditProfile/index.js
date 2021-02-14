@@ -92,40 +92,32 @@ class EditProfileForm extends Component {
 
   render() {
     const { step } = this.state;
-    const {
-      returnStep,
-      nextStep,
-      handleChange,
-      handleImageUpload,
-      updateProfile,
-      returnToProfile,
-    } = this.props;
     switch (step) {
       case 1:
         return (
           <FormEditProfileInfo
-            nextStep={nextStep}
-            handleChange={handleChange}
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
             values={this.state}
           />
         );
       case 2:
         return (
           <FormEditAvatarAbout
-            returnStep={returnStep}
-            nextStep={nextStep}
-            handleChange={handleChange}
-            handleImageUpload={handleImageUpload}
+            returnStep={this.returnStep}
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+            handleImageUpload={this.handleImageUpload}
             values={this.state}
           />
         );
       case 3:
         return (
           <ProfileEditConfirm
-            returnStep={returnStep}
-            handleChange={handleChange}
-            updateProfile={updateProfile}
-            returnToProfile={returnToProfile}
+            returnStep={this.returnStep}
+            handleChange={this.handleChange}
+            updateProfile={this.updateProfile}
+            returnToProfile={this.returnToProfile}
             values={this.state}
           />
         );

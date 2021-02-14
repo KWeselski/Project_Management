@@ -54,7 +54,7 @@ export default function CommentRow(props) {
         }
         secondary={
           <React.Fragment>
-            <Typography variant="h6">{comment.comment}</Typography>
+            <Typography style={{wordWrap:'break-word'}} variant="h6">{comment.comment}</Typography>
           </React.Fragment>
         }
       />

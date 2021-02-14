@@ -109,17 +109,14 @@ export const getProjects = () => {
   };
 };
 
-export const deleteProject = (id, creator, user) => {
+export const deleteProject = (id) => {
   return async (dispatch) => {
     dispatch(projectDeleteStart());
     await axios
-      .delete(
-        "/api/delete_project/",
-        {
-          data: { id: id, creator: creator, user: user },
-        },
-        { headers: { Authorization: `${localStorage.getItem("token")}` } }
-      )
+      .delete("/api/delete_project/",{
+         headers: { Authorization: `${localStorage.getItem("token")}` },
+         data: { id: id}
+        })
       .then(() => {
         dispatch(projectDeleteFinish(id));
       })

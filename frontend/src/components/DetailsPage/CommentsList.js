@@ -21,7 +21,7 @@ export default function CommentsList(props) {
       <Typography align="center" variant="h5">
         Comments
       </Typography>
-      <List dense style={{ maxHeight: "50vh", width: "100%" }}>
+      <List dense style={{ maxHeight: "80vh", width: "100%" }}>
         {comments.map((comment) => {
           return <CommentRow creator={creator} comment={comment} />;
         })}

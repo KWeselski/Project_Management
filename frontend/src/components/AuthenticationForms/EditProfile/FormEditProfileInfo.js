@@ -3,14 +3,14 @@ import { Grid, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import FormPersonalInfo from "../FormPersonalInfo";
 
-export default function FormEditPersonalInfo(props) {
+export default function FormEditProfileInfo(props) {
   const { nextStep, values, handleChange } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     nextStep();
   };
-
+console.log(values)
   return (
     <Grid
       container

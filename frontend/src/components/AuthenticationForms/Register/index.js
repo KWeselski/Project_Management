@@ -37,16 +37,13 @@ export default class RegistrationForm extends Component {
       sex,
       age,
       phone,
-      nextStep,
-      returnStep,
-      handleChange,
     } = this.state;
     switch (step) {
       case 1:
         return (
           <PersonalInfoPage
-            nextStep={nextStep}
-            handleChange={handleChange}
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
             firstName={firstName}
             lastName={lastName}
             sex={sex}
@@ -57,8 +54,8 @@ export default class RegistrationForm extends Component {
       case 2:
         return (
           <PasswordPage
-            returnStep={returnStep}
-            handleChange={handleChange}
+            returnStep={this.returnStep}
+            handleChange={this.handleChange}
             values={this.state}
           />
         );

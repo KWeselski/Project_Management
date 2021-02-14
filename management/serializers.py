@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import Profile, Project, Comment
 from rest_framework.serializers import FileField
+from .models import Profile, Project, Comment
 
 
 class ProfileSerializer(serializers.ModelSerializer):

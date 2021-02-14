@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import FormPassword from "../FormPassword";
 function PasswordPage(props) {
   const [redirectToLogin, setRedirect] = useState(false);
-  const { values, signup, createProfile } = props;
+  const {returnStep, values, signup, createProfile, handleChange, error } = props;
   const username = values.firstName + "_" + values.lastName;
   var errorMessage;
   const handleSubmit = async (e) => {
@@ -22,9 +22,6 @@ function PasswordPage(props) {
     );
     setRedirect(true);
   };
-  if (redirectToLogin) {
-    return <Redirect to="/overview"></Redirect>;
-  }
   if (error) {
     errorMessage = (
       <Grid container xs={12}>
@@ -37,6 +34,9 @@ function PasswordPage(props) {
         })}
       </Grid>
     );
+  }
+  if (error==null && redirectToLogin) {
+    return <Redirect to="/overview"></Redirect>;
   }
   return (
     <Grid
@@ -56,7 +56,7 @@ function PasswordPage(props) {
             password1={values.password1}
             password2={values.password2}
             handleChange={handleChange}
-            handleSubmit={this.handleSubmit}
+            handleSubmit={handleSubmit}
             returnStep={returnStep}
             error={error}
             errorMessage={errorMessage}

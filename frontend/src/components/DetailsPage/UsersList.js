@@ -9,14 +9,14 @@ export default function UsersList(props) {
     <Paper
       variant="outlined"
       square
-      style={{ maxHeight: "100%", overflow: "auto" }}
+      style={{ maxHeight: "100%", minWidth:200, overflow: "auto" }}
     >
       <Typography align="center" variant="h5">
         Users
       </Typography>
       <List dense style={{ maxHeight: "50vh", width: "100%", maxWidth: 350 }}>
         {users.map((user) => {
-          return <UserForm value={user} confirmedUsers={true} />;
+          return <UserForm values={user} confirmedUsers={true} />;
         })}
       </List>
     </Paper>

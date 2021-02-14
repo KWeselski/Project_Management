@@ -10,6 +10,7 @@ export default class CreateProjectForm extends Component {
   render() {
     const {
       nextStep,
+      returnStep,
       returnToOverview,
       handleChange,
       handleStartDateChange,
@@ -17,7 +18,6 @@ export default class CreateProjectForm extends Component {
       handleToogle,
       changeUsersData,
       values,
-      user,
     } = this.props;
     switch (values.step) {
       case 1:

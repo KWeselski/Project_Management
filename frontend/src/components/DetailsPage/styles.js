@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import {Typography} from "@material-ui/core";
 export const Status = styled.div`
   background: ${(props) =>
     (props.type === "new" && "lightblue") ||
@@ -22,5 +22,10 @@ export const CreatorDiv = styled.div`
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     text-align: center;
-    width: 20%;
+    width: 100px;
 `;
+
+export const MainTypography = styled(Typography)`
+    padding: 20px;
+    word-wrap: break-word;
+`

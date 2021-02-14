@@ -27,8 +27,9 @@ class Project(models.Model):
     STATUS_CHOICES = (
         ("new", "New"),
         ("active", "Active"),
-        ("hold", "On Hold"),
+        ("onhold", "On Hold"),
         ("completed", "Completed"),
+        ('delayed', "Delayed")
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     title = models.CharField(max_length=100)

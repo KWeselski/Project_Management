@@ -1,20 +1,10 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Avatar from "@material-ui/core/Avatar";
 import { Grid, Typography } from "@material-ui/core";
-import styled from "styled-components";
+import {StyledDialog, StyledDialogContent} from './styles'
 
-const StyledDialog = styled(Dialog)`
-  position: absolute;
-`;
-
-const StyledDialogContent = styled(DialogContent)`
-  height: 40vh;
-  width: 30vh;
-`;
 
 export default function ProfileDialog(props) {
   const { data, openDialog, setOpenDialog } = props;
@@ -24,7 +14,7 @@ export default function ProfileDialog(props) {
       <DialogTitle>
         <Grid container justify="space-between">
           <Typography style={{ padding: 10 }} variant="h5">
-            {values.firstName + " " + values.lastName}
+            {values.firstname + " " + values.lastname}
           </Typography>
           <Button
             type="submit"

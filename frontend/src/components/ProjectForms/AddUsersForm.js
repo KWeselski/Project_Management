@@ -28,7 +28,7 @@ function AddUserForm(props) {
             return;
           }
           return (
-            <UserForm value={user} users={users} handleToogle={handleToogle} />
+            <UserForm values={user} users={users} handleToogle={handleToogle} />
           );
         })}
       </List>

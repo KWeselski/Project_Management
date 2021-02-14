@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { authLogin } from '../../actions/authActions';
+import { authLogin } from "../../actions/authActions";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
@@ -19,19 +19,29 @@ class LoginForm extends React.Component {
     e.preventDefault();
     const { email, password } = this.state;
     this.props.login(email, password);
-
   };
 
   render() {
     const { token, error } = this.props;
     const { email, password } = this.props;
+    var errorMessage;
+
     if (error) {
-      return <h1>Error</h1>
+      errorMessage = (
+        <Grid container xs={12}>
+          {Object.keys(error).map(function (key) {
+            return (
+              <Grid item align='center' xs={12}>
+                <Typography variant="h7">{error[key].join(",")}</Typography>
+              </Grid>
+            );
+          })}
+        </Grid>
+      );
     }
     if (token) {
-      return <Redirect to="/overview"/>
+      return <Redirect to="/overview" />;
     }
-
     return (
       <Grid
         container
@@ -98,6 +108,13 @@ class LoginForm extends React.Component {
                   </Button>
                 </Grid>
               </Grid>
+              {error ? (
+                <React.Fragment>
+                  {errorMessage}
+                </React.Fragment>
+              ) : (
+                <React.Fragment />
+              )}
               <Grid item align="center">
                 <Link style={{ textDecoration: "none" }} to="/reset_password/">
                   You don't remember password?
@@ -120,7 +137,6 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.auth.loading,
     error: state.auth.error,
     token: state.auth.token,
   };
