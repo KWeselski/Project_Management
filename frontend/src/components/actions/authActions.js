@@ -199,11 +199,11 @@ export const authResetPassword = (email) => (dispatch) => {
     .post("/auth/password/reset/", {
       email: email,
     })
-    .then((res) => {
+    .then(() => {
       dispatch(resetPass());
     })
-    .catch((err) => {
-      dispatch(authFail(err));
+    .catch((error) => {
+      dispatch(authFail(error.response.data));
     });
 };
 
@@ -220,8 +220,8 @@ export const authResetPasswordConfirm = (uid, token, password1, password2) => {
       .then(() => {
         dispatch(resetPass());
       })
-      .catch((err) => {
-        dispatch(authFail(err));
+      .catch((error) => {
+        dispatch(authFail(error.response.data));
       });
   };
 };

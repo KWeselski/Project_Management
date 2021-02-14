@@ -3,7 +3,6 @@ import { Grid, Typography, Paper, Avatar } from "@material-ui/core";
 import React from "react";
 import {MainTypography} from './styles';
 
-
 export default function ProjectInfo(props) {
   const { data, profiles } = props;
   const creator = profiles[profiles.findIndex((x) => x.user === data.creator)];

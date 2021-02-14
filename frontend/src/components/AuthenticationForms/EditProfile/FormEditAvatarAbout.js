@@ -84,7 +84,7 @@ export default function FormEditAvatarAbout(props) {
                   multiline={true}
                   rows={10}
                   id="description"
-                  inputProps={{ maxLength: 1000 }}
+                  inputProps={{ maxLength: 300 }}
                   value={values.description}
                   style={{ backgroundColor: "lightgray" }}
                   onChange={handleChange}

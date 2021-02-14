@@ -71,7 +71,7 @@ export default function CommentForm(props) {
                     label="Comment"
                     autoFocus
                     value={comment}
-                    inputProps={{ maxLength: 250 }}
+                    inputProps={{ maxLength: 350 }}
                     onChange={handleChange}
                   />
                 </Grid>

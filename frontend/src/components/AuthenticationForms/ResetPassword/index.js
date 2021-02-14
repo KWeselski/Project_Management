@@ -1,14 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { authLogin } from "../../actions/authActions";
+import { authResetPassword } from "../../actions/authActions";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
-class LoginForm extends React.Component {
+class ResetPasswordForm extends React.Component {
   state = {
     email: "",
-    password: "",
+    reset: false,
   };
 
   handleChange = (e) => {
@@ -16,22 +15,45 @@ class LoginForm extends React.Component {
   };
 
   handleSubmit = (e) => {
-    e.preventDefault();
-    const { email, password } = this.state;
-    this.props.login(email, password);
+    const { email } = this.state;
+    this.props.reset(email);
+    this.setState({ reset: true });
   };
 
   render() {
-    const { token, error } = this.props;
-    const { email, password } = this.state;
+    const { token, error, email } = this.props;
+    const { reset } = this.state;
     var errorMessage;
+
+    if (error == null && reset) {
+      return (
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: "70vh" }}
+        >
+          <Grid item xs={12} md={3}>
+            <Paper variant="outlined" square>
+              <Typography
+                align="center"
+                variant="h4"
+              >
+                Thank you, we send you an email for reset password
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+      );
+    }
 
     if (error) {
       errorMessage = (
         <Grid container xs={12}>
           {Object.keys(error).map(function (key) {
             return (
-              <Grid item align='center' xs={12}>
+              <Grid item align="center" xs={12}>
                 <Typography variant="h7">{error[key].join(",")}</Typography>
               </Grid>
             );
@@ -39,9 +61,7 @@ class LoginForm extends React.Component {
         </Grid>
       );
     }
-    if (token) {
-      return <Redirect to="/overview" />;
-    }
+
     return (
       <Grid
         container
@@ -57,7 +77,7 @@ class LoginForm extends React.Component {
               style={{ marginTop: "5vh" }}
               variant="h4"
             >
-              Sign in
+              Enter your email for reset password
             </Typography>
             <form onSubmit={this.handleSubmit}>
               <Grid
@@ -82,21 +102,6 @@ class LoginForm extends React.Component {
                     onChange={this.handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} md={10}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    value={password}
-                    style={{ backgroundColor: "lightgray" }}
-                    onChange={this.handleChange}
-                  />
-                </Grid>
                 <Grid item xs={12} md={12} align="center">
                   <Button
                     type="submit"
@@ -104,30 +109,16 @@ class LoginForm extends React.Component {
                     variant="contained"
                     color="primary"
                   >
-                    Login
+                    Reset password
                   </Button>
                 </Grid>
               </Grid>
               {error ? (
-                <React.Fragment>
-                  {errorMessage}
-                </React.Fragment>
+                <React.Fragment>{errorMessage}</React.Fragment>
               ) : (
                 <React.Fragment />
               )}
-              <Grid item align="center">
-                <Link style={{ textDecoration: "none" }} to="/reset_password/">
-                  You don't remember password?
-                </Link>
-              </Grid>
             </form>
-          </Paper>
-          <Paper variant="outlined" square style={{ marginTop: 20 }}>
-            <Grid container style={{ padding: 20 }} justify="center">
-              <Link style={{ textDecoration: "none" }} to="/register">
-                Create account
-              </Link>
-            </Grid>
           </Paper>
         </Grid>
       </Grid>
@@ -137,15 +128,15 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    loading: state.auth.loading,
     error: state.auth.error,
-    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (email, password) => dispatch(authLogin(email, password)),
+    reset: (email) => dispatch(authResetPassword(email)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordForm);

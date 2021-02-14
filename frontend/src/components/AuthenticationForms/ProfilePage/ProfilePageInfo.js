@@ -1,41 +1,36 @@
 import Avatar from "@material-ui/core/Avatar";
 import { Grid, Typography } from "@material-ui/core";
 import React from "react";
+import {MainTypography} from './styles';
 
 export default function ProfilePageInfo(props) {
   const {firstName, lastName, avatar, sex, age, phone} = props;
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      md={4}
-      style={{ borderRight: "1px solid gray" }}
-    >
+    <React.Fragment>
       <Avatar
         style={{ height: 150, width: 150, marginTop: 20 }}
         src={avatar}
       />
-      <Typography variant="h4" style={{ padding: 20 }}>
+      <MainTypography variant="h4">
         <b>{firstName + " " + lastName}</b>
-      </Typography>
+      </MainTypography>
       <Grid container alignItem="flex-start">
         <Grid item xs={12}>
-          <Typography variant="h6" style={{ padding: 20 }}>
+          <MainTypography variant="h6">
             <b>Sex:</b> {sex}
-          </Typography>
+          </MainTypography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" style={{ padding: 20 }}>
+          <MainTypography variant="h6">
             <b>Age:</b> {age}
-          </Typography>
+          </MainTypography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" style={{ padding: 20 }}>
+          <MainTypography variant="h6">
             <b>Phone:</b> {phone}
-          </Typography>
+          </MainTypography>
         </Grid>
       </Grid>
-    </Grid>
+    </React.Fragment>
   );
 }

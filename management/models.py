@@ -10,13 +10,13 @@ class Profile(models.Model):
     SEX_CHOICES = (("male", "Male"), ("female", "Female"))
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
-    firstname = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
-    sex = models.CharField(max_length=100, choices=SEX_CHOICES)
+    firstname = models.CharField(max_length=40)
+    lastname = models.CharField(max_length=40)
+    sex = models.CharField(max_length=10, choices=SEX_CHOICES)
     age = models.IntegerField(default=18, validators=[MinValueValidator(18),
                               MaxValueValidator(80)])
     phone = models.CharField(max_length=9)
-    description = models.CharField(max_length=100, blank=True)
+    description = models.CharField(max_length=300, blank=True)
     avatar = models.ImageField(null=True, blank=True)
 
     def __str__(self):

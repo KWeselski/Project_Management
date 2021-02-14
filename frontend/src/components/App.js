@@ -5,6 +5,7 @@ import ProjectsList from "./Overview/index";
 import RegistrationForm from "./AuthenticationForms/Register/index";
 import LoginForm from "./AuthenticationForms/Signup/index";
 import LogoutForm from "./AuthenticationForms/Logout/index";
+import ResetPasswordForm from "./AuthenticationForms/ResetPassword/index";
 import ProjectForm from "./ProjectForms/index";
 import EditProfileForm from "./AuthenticationForms/EditProfile/index";
 import ProfilePage from "./AuthenticationForms/ProfilePage/index";
@@ -51,6 +52,7 @@ class App extends Component {
               <Route exact path="/" component={LoginForm} />
               <Route exact path="/register" component={RegistrationForm} />
               <Route exact path="/logout" component={LogoutForm} />
+              <Route exact path="/reset_password" component={ResetPasswordForm} />
               <Route exact path="/overview" component={ProjectsList} />
               <Route exact path="/create_project" component={ProjectForm} />
               <Route exact path="/edit_project/:id" component={ProjectForm} />

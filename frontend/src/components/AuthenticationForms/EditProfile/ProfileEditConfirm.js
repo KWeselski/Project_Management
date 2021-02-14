@@ -3,6 +3,7 @@ import { Button, Grid,Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
+import {MainTypography} from '../ProfilePage/styles';
 
 export default function ProfileEditConfirm(props) {
   const { values, returnStep, returnToProfile, updateProfile } = props;
@@ -30,24 +31,24 @@ export default function ProfileEditConfirm(props) {
                 style={{ height: 200, width: 200, marginTop: 20 }}
                 src={values.avatar}
               />
-              <Typography variant="h4" style={{ padding: 20 }}>
+              <MainTypography variant="h4">
                 <b>{values.firstName + " " + values.lastName}</b>
-              </Typography>
+              </MainTypography>
               <Grid container alignItem="flex-start">
                 <Grid item xs={12}>
-                  <Typography variant="h6" style={{ padding: 20 }}>
+                  <MainTypography variant="h6">
                     <b>Sex:</b> {values.sex}
-                  </Typography>
+                  </MainTypography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="h6" style={{ padding: 20 }}>
+                  <MainTypography variant="h6">
                     <b>Age:</b> {values.age}
-                  </Typography>
+                  </MainTypography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="h6" style={{ padding: 20 }}>
+                  <MainTypography variant="h6">
                     <b>Phone:</b> {values.phone}
-                  </Typography>
+                  </MainTypography>
                 </Grid>
               </Grid>
             </Grid>

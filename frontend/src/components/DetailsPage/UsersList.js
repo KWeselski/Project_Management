@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Paper } from "@material-ui/core";
+import { Typography, Paper } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import UserForm from "../ProjectForms/UserForm";
 

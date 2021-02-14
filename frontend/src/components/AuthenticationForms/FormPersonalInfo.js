@@ -30,7 +30,7 @@ export default function FormPersonalInfo(props) {
             id="firstName"
             label="First Name"
             autoFocus
-            inputProps={{ pattern: "[A-Za-z]{1,50}" }}
+            inputProps={{ pattern: "[A-Za-z]{1,40}", maxLength:40 }}
             value={firstName}
             style={{ backgroundColor: "lightgray" }}
             onChange={handleChange}
@@ -44,7 +44,7 @@ export default function FormPersonalInfo(props) {
             name="lastName"
             label="Last Name"
             id="lastName"
-            inputProps={{ pattern: "[A-Za-z]{1,50}" }}
+            inputProps={{ pattern: "[A-Za-z]{1,40}", maxLength:40 }}
             value={lastName}
             style={{ backgroundColor: "lightgray" }}
             onChange={handleChange}
