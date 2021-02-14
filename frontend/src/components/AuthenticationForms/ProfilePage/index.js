@@ -48,9 +48,9 @@ export default class ProfilePage extends Component {
     const { avatar, firstName, lastName, sex, age, phone } = this.state;
     return (
       <Grid container direction="column" alignItems="center">
-        <Grid item md={5} style={{ marginTop: 100, width: "100%" }}>
-          <Paper variant="outlined" square style={{ height: "100%" }}>
-            <Grid container style={{ height: 600 }}>
+        <Grid item md={5} style={{ marginTop: 70, width: "100%" }}>
+          <Paper variant="outlined" square style={{ height: "100%", overflow:'auto' }}>
+            <Grid container style={{ height: 700 }}>
               <Grid item xs={4}>
                 <ProfilePageInfo
                   avatar={avatar}
@@ -60,7 +60,7 @@ export default class ProfilePage extends Component {
                   age={age}
                   phone={phone}
                 />
-                </Grid>
+              </Grid>
               <Grid
                 item
                 container
@@ -76,7 +76,13 @@ export default class ProfilePage extends Component {
                     {this.state.description}
                   </MainTypography>
                 </Grid>
-                <Grid item container alignItems="center" justify="center" md={12}>
+                <Grid
+                  item
+                  container
+                  alignItems="center"
+                  justify="center"
+                  md={12}
+                >
                   <Link to={{ pathname: "/edit_profile/", state: this.state }}>
                     <Button variant="contained" fullwidth color="primary">
                       Edit profile
@@ -84,7 +90,7 @@ export default class ProfilePage extends Component {
                   </Link>
                 </Grid>
               </Grid>
-              </Grid>
+            </Grid>
           </Paper>
         </Grid>
       </Grid>

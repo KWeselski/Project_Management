@@ -10,7 +10,6 @@ export default function FormEditProfileInfo(props) {
     e.preventDefault();
     nextStep();
   };
-console.log(values)
   return (
     <Grid
       container
