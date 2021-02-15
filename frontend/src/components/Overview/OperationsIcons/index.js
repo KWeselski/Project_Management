@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Grid, Tooltip} from "@material-ui/core/Grid";
+import {Grid, Tooltip} from "@material-ui/core";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
