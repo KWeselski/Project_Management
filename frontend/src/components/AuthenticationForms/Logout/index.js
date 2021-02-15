@@ -1,14 +1,20 @@
 import React from "react";
 
-import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import { Button, Grid, Paper} from "@material-ui/core";
 
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import { logout } from "../../actions/authActions";
 import { MainGrid, MainTypography} from "../ProfilePage/styles";
 
 function LogoutForm(props) {
+  const{ token } = props;
+
+  if (!token) {
+    return <Redirect to="" />;
+  }
+  
   return (
     <MainGrid
       container
@@ -57,10 +63,16 @@ function LogoutForm(props) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(LogoutForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LogoutForm);

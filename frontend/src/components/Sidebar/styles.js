@@ -5,16 +5,17 @@ import breakpoint from "styled-components-breakpoint";
 export const SidebarNav = styled.nav`
   background: #15171c;
   justify-content: center;
-  height: 400px;
+  height: ${(props) => (props.open ? "400" : "0")};
   width: 100%;
   transition: left 0.2s ease-in;
-  left: ${(props) => (props.open ? "0" : "-100%")};
   z-index: 2;
-
+  position: fixed;
+  top: ${(props) => (props.open ? "0" : "-500%")};
   ${breakpoint("sm")`
     position: fixed;
     width:200px;
     height: 100%;
+    left: ${(props) => (props.open ? "0" : "-100%")};
   `}
 `;
 
