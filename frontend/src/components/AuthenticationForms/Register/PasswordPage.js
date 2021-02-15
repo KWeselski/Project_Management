@@ -49,7 +49,7 @@ function PasswordPage(props) {
       justify="center"
       style={{ minHeight: "70vh" }}
     >
-      <Grid item xs={10} md={3}>
+      <Grid item sm={12} md={6} lg={3}>
         <Paper variant="outlined" square>
           <Typography align="center" style={{ marginTop: "5vh" }} variant="h4">
             Register your account

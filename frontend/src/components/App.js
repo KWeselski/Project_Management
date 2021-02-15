@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Grid from "@material-ui/core/Grid";
@@ -50,7 +51,7 @@ class App extends Component {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Router>
           <Sidebar open={this.state.authenticated} />
-          <Grid container md={12}>
+          <Grid container>
             <Switch>
               <Route exact path="/" component={LoginForm} />
               <Route exact path="/register" component={RegistrationForm} />

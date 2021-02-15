@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Button, Grid, TextField, MenuItem } from "@material-ui/core";
+import { Link } from "react-router-dom"
 
 export default function FormPersonalInfo(props) {
   const {
@@ -100,18 +101,23 @@ export default function FormPersonalInfo(props) {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={12} md={12} align="center">
+        <Grid item xs={12} md={6}>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
-            style={{ width: "50%" }}
             color="primary"
+            component={Link}
+            to=""
           >
+            Back
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Button type="submit" fullWidth variant="contained" color="primary">
             Continue
           </Button>
         </Grid>
-      </Grid>
+        </Grid>
     </form>
   );
 }

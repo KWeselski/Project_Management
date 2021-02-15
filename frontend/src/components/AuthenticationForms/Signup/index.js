@@ -50,7 +50,7 @@ class LoginForm extends React.Component {
         justify="center"
         style={{ minHeight: "70vh" }}
       >
-        <Grid item xs={12} md={3}>
+        <Grid item sm={12} md={6}>
           <Paper variant="outlined" square>
             <Typography
               align="center"

@@ -16,7 +16,7 @@ function LogoutForm(props) {
       justify="center"
       style={{ minHeight: "70vh" }}
     >
-      <Grid item xs={12} md={2}>
+      <Grid item xs={4} md={2}>
         <Paper variant="outlined" square>
           <Typography
             align="center"

@@ -36,9 +36,9 @@ class ResetPasswordForm extends React.Component {
           justify="center"
           style={{ minHeight: "70vh" }}
         >
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={6}>
             <Paper variant="outlined" square>
-              <Typography align="center" variant="h4">
+              <Typography variant="h4">
                 Thank you, we send you an email for reset password
               </Typography>
               <Grid item xs={12} md={12} align="center" style={{ padding: 20 }}>
@@ -81,11 +81,11 @@ class ResetPasswordForm extends React.Component {
         justify="center"
         style={{ minHeight: "70vh" }}
       >
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Paper variant="outlined" square>
             <Typography
               align="center"
-              style={{ marginTop: "5vh" }}
+              style={{ marginTop: "5vh", padding: 20 }}
               variant="h4"
             >
               Enter your email for reset password

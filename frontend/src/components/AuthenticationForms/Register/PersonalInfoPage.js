@@ -27,7 +27,7 @@ export default function PersonalInfoPage(props) {
       justify="center"
       style={{ minHeight: "80vh" }}
     >
-      <Grid item xs={10} md={3}>
+      <Grid item xs={10} sm={8} md={6} lg={3}>
         <Paper variant="outlined" square>
           <Typography align="center" style={{ marginTop: "5vh" }} variant="h4">
             Type your personal info

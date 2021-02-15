@@ -38,7 +38,7 @@ class ResetPasswordConfirmForm extends React.Component {
           justify="center"
           style={{ minHeight: "70vh" }}
         >
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={6}>
             <Paper variant="outlined" square>
               <Typography align="center" variant="h4">
                 Thank you, your password is changed
@@ -83,7 +83,7 @@ class ResetPasswordConfirmForm extends React.Component {
         justify="center"
         style={{ minHeight: "70vh" }}
       >
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Paper variant="outlined" square>
             <Typography
               align="center"

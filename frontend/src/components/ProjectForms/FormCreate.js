@@ -29,21 +29,21 @@ export default class FormCreate extends Component {
     }
     return (
       <Grid container xs={12} style={{ marginLeft: 220 }}>
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12}>
           <Typography align="center" variant="h3" style={{ padding: 40 }}>
             {update ? "Edit project" : "Add new project"}
           </Typography>
         </Grid>
         <Grid item container md={12} spacing={1}>
           <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
-            <Grid item md={8}>
+            <Grid item sm={12} md={8}>
               <TitleDescForm
                 title={values.title}
                 description={values.description}
                 handleChange={handleChange}
               />
             </Grid>
-            <Grid container xs={12} md={4}>
+            <Grid container sm={4} md={4}>
               <Grid item xs={12} md={12} style={{ marginLeft: 30 }}>
                 <AddUsersForm
                   update={update}

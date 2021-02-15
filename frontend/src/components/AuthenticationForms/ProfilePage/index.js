@@ -49,14 +49,14 @@ export default class ProfilePage extends Component {
     const { avatar, firstName, lastName, sex, age, phone } = this.state;
     return (
       <Grid container direction="column" alignItems="center">
-        <Grid item md={5} style={{ marginTop: 70, width: "100%" }}>
+        <Grid item sm={8} md={7} lg={5} xl={5} style={{marginLeft:220, marginTop: 70, width: "100%" }}>
           <Paper
             variant="outlined"
             square
             style={{ height: "100%", overflow: "auto" }}
           >
             <Grid container style={{ height: 700 }}>
-              <Grid item xs={4}>
+              <Grid item xs={4} style={{minWidth:200}}>
                 <ProfilePageInfo
                   avatar={avatar}
                   firstName={firstName}

@@ -5,3 +5,4 @@ export const MainTypography = styled(Typography)`
     padding: 20px;
     word-wrap: break-word;
 `
+

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
 import {
+  Grid,
   Table,
   TableBody,
-  TableRow,
+  TableContainer,
   TablePagination,
-  Grid,
+  TableRow,
   Paper
 } from "@material-ui/core";
 import { connect } from "react-redux";
@@ -53,12 +54,13 @@ class ProjectsList extends Component {
         md={12}
         style={{ marginLeft: 220, marginTop: 25 }}
       >
-        <Grid item container sm={12} md={12} lg={9} xl={9}>
+        <Grid item container sm={12} md={12} lg={10} xl={9}>
           <Paper variant="outlined" square>
-            <Table style={{ width: 1000 }}>
+          <TableContainer>
+            <Table>
               <StyledTableHead>
                 <TableRow>
-                  <StyledTableHeadCell>Title</StyledTableHeadCell>
+                  <StyledTableHeadCell style={{ width: 300 }}>Title</StyledTableHeadCell>
                   <StyledTableHeadCell style={{ width: 130 }}>
                     Start Date
                   </StyledTableHeadCell>
@@ -84,14 +86,15 @@ class ProjectsList extends Component {
               </TableBody>
             </Table>
             <TablePagination
-              rowsPerPageOptions={[5]}
+              rowsPerPageOptions={[6]}
               component="div"
               count={projects.length}
-              rowsPerPage={5}
+              rowsPerPage={6}
               page={page}
               onChangePage={this.handleChangePage}
             />
-          </Paper>
+            </TableContainer>
+          </Paper>       
         </Grid>
         <Grid
           item
