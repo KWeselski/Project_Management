@@ -1,10 +1,14 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Avatar from "@material-ui/core/Avatar";
-import { Grid, Typography } from "@material-ui/core";
-import {StyledDialog, StyledDialogContent, MainTypography} from './styles'
 
+import {
+  Avatar,
+  Button,
+  DialogTitle,
+  Grid,
+  Typography,
+} from "@material-ui/core";
+
+import { StyledDialog, StyledDialogContent, MainTypography } from "./styles";
 
 export default function ProfileDialog(props) {
   const { data, openDialog, setOpenDialog } = props;

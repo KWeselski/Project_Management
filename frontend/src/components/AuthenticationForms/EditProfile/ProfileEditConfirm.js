@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Grid, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
+
 import ProfilePageInfo from "../ProfilePage/ProfilePageInfo";
-import Avatar from "@material-ui/core/Avatar";
 import { MainTypography } from "../ProfilePage/styles";
 
 export default function ProfileEditConfirm(props) {
@@ -19,7 +19,11 @@ export default function ProfileEditConfirm(props) {
   return (
     <Grid container direction="column" alignItems="center">
       <Grid item md={4} style={{ marginTop: 70, width: "100%" }}>
-        <Paper variant="outlined" square style={{ height: "100%", overflow:'auto'}}>
+        <Paper
+          variant="outlined"
+          square
+          style={{ height: "100%", overflow: "auto" }}
+        >
           <Grid container style={{ height: 700 }}>
             <Grid item xs={4}>
               <ProfilePageInfo

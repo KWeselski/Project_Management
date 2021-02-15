@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid, TextField } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
+import { Grid, Paper, TextField } from "@material-ui/core";
 
 export default function TitleDescForm(props) {
   const { title, description, handleChange } = props;

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Button, Grid, Typography } from "@material-ui/core";
+
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
-import DatesForm from "./DatesForm";
+
 import AddUsersForm from "./AddUsersForm";
+import DatesForm from "./DatesForm";
 import StatusSelect from "./EditProject/StatusSelect";
-import Paper from "@material-ui/core/Paper";
 import TitleDescForm from "./TitleDescForm";
 
 export default class FormCreate extends Component {

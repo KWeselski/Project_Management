@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { deleteProject } from "../actions/projectActions";
-import { connect } from "react-redux";
-import { Button, Grid, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { deleteProject } from "../../actions/projectActions";
+
 function DeleteProject(props) {
   const id = String(window.location).split("/").pop();
   const [deleted, setDeleted] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
+
 import axios from "axios";
-import Paper from "@material-ui/core/Paper";
+import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
 import { Link, Redirect } from "react-router-dom";
 
 export default function CommentForm(props) {

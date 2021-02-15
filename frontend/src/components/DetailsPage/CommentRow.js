@@ -1,8 +1,10 @@
 import React from "react";
+
+import { Grid, Typography, Avatar } from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import { Grid, Typography, Avatar } from "@material-ui/core";
+
 import { CreatorDiv } from "./styles";
 
 export default function CommentRow(props) {

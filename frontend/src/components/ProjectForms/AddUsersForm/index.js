@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import List from "@material-ui/core/List";
-import { Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
+import { List, Paper, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
+
 import UserForm from "./UserForm";
 
 function AddUserForm(props) {

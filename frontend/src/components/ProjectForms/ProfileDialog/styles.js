@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import { Typography } from "@material-ui/core";
+
+import { Dialog, DialogContent, Typography } from "@material-ui/core";
+
 export const StyledDialog = styled(Dialog)`
   position: absolute;
 `;

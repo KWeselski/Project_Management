@@ -1,8 +1,10 @@
-import { StyledCell, Status } from "./styles";
-import OperationIcons from "./OperationIcons";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
 import React from "react";
+
+import {TableCell, TableRow} from "@material-ui/core";
+
+import OperationIcons from "./OperationsIcons/index";
+import { StyledCell, Status } from "./styles";
+
 export default function ProjectRow(props) {
   const { project } = props;
 

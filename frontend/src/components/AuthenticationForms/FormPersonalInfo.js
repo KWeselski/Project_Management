@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Button, Grid, TextField, MenuItem } from "@material-ui/core";
 
 export default function FormPersonalInfo(props) {
@@ -30,7 +31,7 @@ export default function FormPersonalInfo(props) {
             id="firstName"
             label="First Name"
             autoFocus
-            inputProps={{ pattern: "[A-Za-z]{1,40}", maxLength:40 }}
+            inputProps={{ pattern: "[A-Za-z]{1,40}", maxLength: 40 }}
             value={firstName}
             style={{ backgroundColor: "lightgray" }}
             onChange={handleChange}
@@ -44,7 +45,7 @@ export default function FormPersonalInfo(props) {
             name="lastName"
             label="Last Name"
             id="lastName"
-            inputProps={{ pattern: "[A-Za-z]{1,40}", maxLength:40 }}
+            inputProps={{ pattern: "[A-Za-z]{1,40}", maxLength: 40 }}
             value={lastName}
             style={{ backgroundColor: "lightgray" }}
             onChange={handleChange}
@@ -78,7 +79,8 @@ export default function FormPersonalInfo(props) {
             name="age"
             label="Age"
             id="age"
-            inputProps={{ pattern: "[0-9]{2}", maxLength: 2 }}
+            type="number"
+            inputProps={{ min: 18, max: 80, pattern: "[0-9]{2}", maxLength: 2 }}
             maxLength="2"
             value={age}
             style={{ backgroundColor: "lightgray" }}

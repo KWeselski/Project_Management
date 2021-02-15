@@ -1,22 +1,24 @@
 import React, { Component } from "react";
+
+import DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import Grid from "@material-ui/core/Grid";
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Sidebar from "./Sidebar/Sidebar";
-import ProjectsList from "./Overview";
-import RegistrationForm from "./AuthenticationForms/Register";
-import LoginForm from "./AuthenticationForms/Signup";
-import LogoutForm from "./AuthenticationForms/Logout";
-import ResetPasswordForm from "./AuthenticationForms/ResetPassword";
-import ResetPasswordConfirmForm from "./AuthenticationForms/ResetPassword/ResetPasswordConfirmForm";
-import ProjectForm from "./ProjectForms";
-import EditProfileForm from "./AuthenticationForms/EditProfile";
-import ProfilePage from "./AuthenticationForms/ProfilePage";
-import DetailsPage from "./DetailsPage";
+
 import CommentForm from "./ProjectForms/AddCommentForm";
 import DeleteProject from "./Overview/DeleteProject";
-import Grid from "@material-ui/core/Grid";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import { connect } from "react-redux";
+import DetailsPage from "./DetailsPage";
+import EditProfileForm from "./AuthenticationForms/EditProfile";
+import LoginForm from "./AuthenticationForms/Signup";
+import LogoutForm from "./AuthenticationForms/Logout";
+import ProfilePage from "./AuthenticationForms/ProfilePage";
+import ProjectForm from "./ProjectForms";
+import ProjectsList from "./Overview";
+import RegistrationForm from "./AuthenticationForms/Register";
+import ResetPasswordForm from "./AuthenticationForms/ResetPassword";
+import ResetPasswordConfirmForm from "./AuthenticationForms/ResetPassword/ResetPasswordConfirmForm";
+import Sidebar from "./Sidebar/Sidebar";
 import { getProjects } from "./actions/projectActions";
 import { authCheckState, loadUser } from "./actions/authActions";
 

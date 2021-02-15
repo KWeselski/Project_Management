@@ -1,7 +1,8 @@
-import { Typography, Paper } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import List from "@material-ui/core/List";
+
 import axios from "axios";
+import { List, Paper, Typography } from "@material-ui/core";
+
 import CommentRow from "./CommentRow";
 
 export default function CommentsList(props) {

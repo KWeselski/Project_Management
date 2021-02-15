@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+
+import axios from "axios";
+
 import FormEditProfileInfo from "./FormEditProfileInfo";
 import FormEditAvatarAbout from "./FormEditAvatarAbout";
 import ProfileEditConfirm from "./ProfileEditConfirm";
-import axios from "axios";
 
 class EditProfileForm extends Component {
   state = {

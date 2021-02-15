@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+
+import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Typography } from "@material-ui/core";
 
 const SidebarItem = styled(Link)`
   display: flex;

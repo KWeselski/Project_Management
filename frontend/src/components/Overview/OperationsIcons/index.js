@@ -1,9 +1,10 @@
 import React from "react";
-import Tooltip from "@material-ui/core/Tooltip";
-import { Link } from "react-router-dom";
-import { OperationsData } from "./OperationsData";
+
+import {Grid, Tooltip} from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import Grid from "@material-ui/core/Grid";
+import { Link } from "react-router-dom";
+
+import { OperationsData } from "./OperationsData";
 
 function OperationIcons(props) {
   const { project, user } = props;

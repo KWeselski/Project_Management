@@ -1,17 +1,18 @@
-import Avatar from "@material-ui/core/Avatar";
-import { Grid } from "@material-ui/core";
 import React from "react";
-import {MainTypography} from './styles';
+
+import {Avatar, Grid } from "@material-ui/core";
+
+import { MainTypography } from "./styles";
 
 export default function ProfilePageInfo(props) {
-  const {firstName, lastName, avatar, sex, age, phone} = props;
+  const { firstName, lastName, avatar, sex, age, phone } = props;
   return (
     <React.Fragment>
-      <Grid item align='center'>
-      <Avatar
-        style={{ height: 150, width: 150, marginTop: 20 }}
-        src={avatar}
-      />
+      <Grid item align="center">
+        <Avatar
+          style={{ height: 150, width: 150, marginTop: 20 }}
+          src={avatar}
+        />
       </Grid>
       <MainTypography variant="h5">
         <b>{firstName + " " + lastName}</b>

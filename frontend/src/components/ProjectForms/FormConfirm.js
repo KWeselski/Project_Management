@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
-import { Redirect } from "react-router-dom";
-import Paper from "@material-ui/core/Paper";
+
+import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+
 import { createProject, updateProject } from "../actions/projectActions";
 import UsersList from "../DetailsPage/UsersList";
 
@@ -33,14 +34,13 @@ class FormConfirm extends Component {
     const values = { title, description, status, startDate, endDate, creator };
     let users = this.props.values.users.map((a) => a.user);
     if (create) {
-      await this.props.createProject(values, users)
+      await this.props.createProject(values, users);
       await this.props.returnToOverview();
     }
     if (update) {
       await this.props.updateProject(values, users, projectId);
       await this.props.returnToOverview();
     }
-    
   };
   render() {
     const { values, update, returnStep, returnToOverview } = this.props;

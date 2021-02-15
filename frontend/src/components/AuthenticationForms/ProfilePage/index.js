@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Button, Grid, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
 import axios from "axios";
-import ProfilePageInfo from "./ProfilePageInfo";
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+
+import ProfilePageInfo from "./ProfilePageInfo";
 import { MainTypography } from "./styles";
 
 export default class ProfilePage extends Component {
@@ -49,7 +50,11 @@ export default class ProfilePage extends Component {
     return (
       <Grid container direction="column" alignItems="center">
         <Grid item md={5} style={{ marginTop: 70, width: "100%" }}>
-          <Paper variant="outlined" square style={{ height: "100%", overflow:'auto' }}>
+          <Paper
+            variant="outlined"
+            square
+            style={{ height: "100%", overflow: "auto" }}
+          >
             <Grid container style={{ height: 700 }}>
               <Grid item xs={4}>
                 <ProfilePageInfo

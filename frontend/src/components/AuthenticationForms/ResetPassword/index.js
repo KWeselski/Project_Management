@@ -1,9 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
-import { authResetPassword } from "../../actions/authActions";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
+import { Button, Grid, TextField, Paper, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { authResetPassword } from "../../actions/authActions";
 
 class ResetPasswordForm extends React.Component {
   state = {

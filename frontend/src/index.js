@@ -1,12 +1,14 @@
-import App from "./components/App";
 import React from "react";
 import ReactDOM from "react-dom";
-import authReducer from "./components/reducers/authReducer";
-import projectReducer from "./components/reducers/projectReducer";
+
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import { getUsers } from "./components/actions/projectActions";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
+
+import App from "./components/App";
+import { getUsers } from "./components/actions/projectActions";
+import authReducer from "./components/reducers/authReducer";
+import projectReducer from "./components/reducers/projectReducer";
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

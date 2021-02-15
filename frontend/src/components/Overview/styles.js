@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { TableCell, TableRow, TableHead } from "@material-ui/core/";
+import { TableCell, TableHead } from "@material-ui/core/";
 
 export const Status = styled.div`
   background: ${(props) =>
     (props.type === "new" && "lightblue") ||
     (props.type === "active" && "yellow") ||
-    (props.type === "hold" && "pink") ||
+    (props.type === "onhold" && "pink") ||
     (props.type === "completed" && "lightgreen") ||
     (props.type === "delayed" && "red")}; 
   text-align: center;

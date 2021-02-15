@@ -1,7 +1,8 @@
 import React from "react";
+
+import { Grid, Paper, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Grid, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
 import FormPersonalInfo from "../FormPersonalInfo";
 
 export default function PersonalInfoPage(props) {

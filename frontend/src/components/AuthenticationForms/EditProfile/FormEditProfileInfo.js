@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import { Grid, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+import React from "react";
+
+import { Grid, Paper, Typography } from "@material-ui/core";
+
 import FormPersonalInfo from "../FormPersonalInfo";
 
 export default function FormEditProfileInfo(props) {

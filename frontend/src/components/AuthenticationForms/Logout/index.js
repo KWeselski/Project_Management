@@ -1,9 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Grid, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
+
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { logout } from "../../actions/authActions";
+
 function LogoutForm(props) {
   return (
     <Grid

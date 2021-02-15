@@ -63,8 +63,8 @@ def delete_project(request):
                         status=status.HTTP_404_NOT_FOUND)
     creator = project.creator
     if creator != user:
-        return Respone('User are not creator',
-                       status=status.HTTP_401_UNAUTHORIZED)
+        return Response('User are not creator',
+                        status=status.HTTP_401_UNAUTHORIZED)
     project.delete()
     return Response('Deleted sucessfully', status=status.HTTP_201_CREATED)
 

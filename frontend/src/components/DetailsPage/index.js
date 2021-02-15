@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Grid } from "@material-ui/core";
+
+import axios from "axios";
+import { CircularProgress, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
-import CircularProgress from "@material-ui/core/CircularProgress";
+
 import CommentsList from "./CommentsList";
 import ProjectInfo from "./ProjectInfo";
 import UsersList from "./UsersList";
-import axios from "axios";
+
 class DetailsPage extends Component {
   state = {
     loaded: false,

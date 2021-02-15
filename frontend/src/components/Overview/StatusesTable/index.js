@@ -1,15 +1,16 @@
 import React from "react";
+
+import { Paper, Table, TableRow, TableBody } from "@material-ui/core";
+
 import {
   StyledTableHead,
   StyledCell,
   StyledTableHeadCell,
   Status,
-} from "./styles";
-import { Table, TableRow, TableBody } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+} from "../styles";
 
 export default function StatusesTable(props) {
-  const statuses = ["new", "active", "hold", "delayed", "completed"];
+  const statuses = ["new", "active", "onhold", "delayed", "completed"];
   const { projects } = props;
   const getTotals = (data, key) => {
     let total = 0;

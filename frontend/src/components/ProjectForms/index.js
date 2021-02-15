@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+
+import axios from "axios";
+
 import CreateProjectForm from "./NewProject/index";
 import EditProjectForm from "./EditProject/index";
-import axios from "axios";
 
 const initialState = {
   step: 1,

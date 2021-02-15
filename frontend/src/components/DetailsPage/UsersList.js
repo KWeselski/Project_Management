@@ -1,6 +1,7 @@
 import React from "react";
-import { Typography, Paper } from "@material-ui/core";
-import List from "@material-ui/core/List";
+
+import {List, Paper, Typography} from "@material-ui/core";
+
 import UserForm from "../ProjectForms/AddUsersForm/UserForm";
 
 export default function UsersList(props) {

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Checkbox from "@material-ui/core/Checkbox";
-import Avatar from "@material-ui/core/Avatar";
+import {Avatar, Checkbox} from "@material-ui/core";
+
 import ProfileDialog from "../ProfileDialog/index";
 
 export default function UserForm(props) {

@@ -1,7 +1,13 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
+import {
+  Avatar,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Paper,
+} from "@material-ui/core";
 
 export default function FormEditAvatarAbout(props) {
   const {
@@ -77,7 +83,6 @@ export default function FormEditAvatarAbout(props) {
               <Grid item xs={12} md={10}>
                 <TextField
                   variant="outlined"
-                  required
                   fullWidth
                   name="description"
                   label="About me"

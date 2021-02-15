@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+
+import { connect } from "react-redux";
+
 import FormConfirm from "../FormConfirm";
 import FormCreate from "../FormCreate";
-import { connect } from "react-redux";
 
 class EditProjectForm extends Component {
   async componentDidMount() {

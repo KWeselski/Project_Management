@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+
 import { Grid, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+
 import { authSignup, createProfile } from "../../actions/authActions";
 import Paper from "@material-ui/core/Paper";
 import FormPassword from "../FormPassword";
+
 function PasswordPage(props) {
   const [redirectToLogin, setRedirect] = useState(false);
   const {returnStep, values, signup, createProfile, handleChange, error } = props;

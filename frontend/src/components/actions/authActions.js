@@ -1,5 +1,6 @@
-import * as actionTypes from "./action-types/auth-actions";
 import axios from "axios";
+import * as actionTypes from "./action-types/auth-actions";
+
 
 export const profileStart = () => {
   return {
@@ -73,9 +74,6 @@ export const logout = () => {
         localStorage.removeItem("expirationDate");
         dispatch(authLogout());
       })
-      .catch((err) => {
-        //dispatch(authFail(err));
-      });
   };
 };
 
@@ -167,7 +165,7 @@ export const createProfile = (firstName, lastName, sex, age, phone) => {
         dispatch(profileSuccess());
       })
       .catch((error) => {
-        dispatch(profileFail(error));
+        dispatch(profileFail(error.response.data));
       });
   };
 };

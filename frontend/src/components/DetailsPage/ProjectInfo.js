@@ -1,7 +1,8 @@
-import { Status } from "./styles";
-import { Grid, Typography, Paper, Avatar } from "@material-ui/core";
 import React from "react";
-import {MainTypography} from './styles';
+
+import { Avatar, Paper, Grid, Typography } from "@material-ui/core";
+
+import { Status, MainTypography } from "./styles";
 
 export default function ProjectInfo(props) {
   const { data, profiles } = props;
@@ -12,7 +13,7 @@ export default function ProjectInfo(props) {
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let hour = date.getHours();
-    let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes()
+    let minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
     return `${day}${separator}${
       month < 10 ? `0${month}` : `${month}`
     }${separator}${year} Time: ${hour}:${minutes}`;
@@ -25,16 +26,16 @@ export default function ProjectInfo(props) {
         </Grid>
         <Grid item container>
           <Grid item container xs={10} style={{ padding: 20 }}>
-              <Typography variant="h6" style={{ marginRight: 10 }}>
-                Created by:
-              </Typography>
-              <Avatar
-                src={creator.avatar}
-                style={{ backgroundColor: "green" }}
-              ></Avatar>
-              <Typography variant="h6" style={{ marginLeft: 10 }}>
-                {creator.firstname + " " + creator.lastname}
-              </Typography>
+            <Typography variant="h6" style={{ marginRight: 10 }}>
+              Created by:
+            </Typography>
+            <Avatar
+              src={creator.avatar}
+              style={{ backgroundColor: "green" }}
+            ></Avatar>
+            <Typography variant="h6" style={{ marginLeft: 10 }}>
+              {creator.firstname + " " + creator.lastname}
+            </Typography>
           </Grid>
           <Grid item xs={2} style={{ padding: 20 }}>
             <Status type={data.status}>{data.status}</Status>
