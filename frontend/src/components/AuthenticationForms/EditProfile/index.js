@@ -14,7 +14,7 @@ class EditProfileForm extends Component {
     sex: "",
     age: "",
     phone: "",
-    avatar: "",
+    avatar: null,
     description: "",
     user_id: "",
     returnToProfile: false,

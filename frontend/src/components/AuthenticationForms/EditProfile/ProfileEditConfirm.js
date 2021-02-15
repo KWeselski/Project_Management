@@ -4,7 +4,7 @@ import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 
 import ProfilePageInfo from "../ProfilePage/ProfilePageInfo";
-import { MainTypography } from "../ProfilePage/styles";
+import { MainGrid, MainTypography } from "../ProfilePage/styles";
 
 export default function ProfileEditConfirm(props) {
   const { values, returnStep, returnToProfile, updateProfile } = props;
@@ -18,7 +18,7 @@ export default function ProfileEditConfirm(props) {
   }
   return (
     <Grid container direction="column" alignItems="center">
-      <Grid item md={4} style={{ marginTop: 70, width: "100%" }}>
+      <MainGrid md={4} style={{ width: "100%" }}>
         <Paper
           variant="outlined"
           square
@@ -80,7 +80,7 @@ export default function ProfileEditConfirm(props) {
             </Grid>
           </Grid>
         </Paper>
-      </Grid>
+      </MainGrid>
     </Grid>
   );
 }

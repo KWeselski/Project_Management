@@ -16,6 +16,7 @@ import StatusesTable from "./StatusesTable";
 import ProjectRow from "./ProjectRow";
 import { getProjects } from "../actions/projectActions";
 import { StyledTableHead, StyledTableHeadCell } from "./styles";
+import { MainGrid } from "../styles"
 
 class ProjectsList extends Component {
   constructor(props) {
@@ -48,11 +49,11 @@ class ProjectsList extends Component {
     }
 
     return (
-      <Grid
+      <MainGrid
         container
         xs={12}
         md={12}
-        style={{ marginLeft: 220, marginTop: 25 }}
+        style={{marginTop: 25 }}
       >
         <Grid item container sm={12} md={12} lg={10} xl={9}>
           <Paper variant="outlined" square>
@@ -105,7 +106,7 @@ class ProjectsList extends Component {
         >
           <StatusesTable projects={this.props.projects} />
         </Grid>
-      </Grid>
+      </MainGrid>
     );
   }
 }

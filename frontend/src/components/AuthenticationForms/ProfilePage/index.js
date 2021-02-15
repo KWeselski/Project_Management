@@ -5,13 +5,14 @@ import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import ProfilePageInfo from "./ProfilePageInfo";
-import { MainTypography } from "./styles";
+import { MainGrid, MainTypography } from "./styles";
+
 
 export default class ProfilePage extends Component {
   state = {
     firstName: "",
     lastName: "",
-    avatar: "",
+    avatar: null,
     description: "",
     age: "",
     sex: "",
@@ -36,9 +37,6 @@ export default class ProfilePage extends Component {
           user_id: res.data.user,
         });
       })
-      .catch((error) => {
-        return error.reponse.data;
-      });
   };
 
   componentDidMount() {
@@ -48,8 +46,8 @@ export default class ProfilePage extends Component {
   render() {
     const { avatar, firstName, lastName, sex, age, phone } = this.state;
     return (
-      <Grid container direction="column" alignItems="center">
-        <Grid item sm={8} md={7} lg={5} xl={5} style={{marginLeft:220, marginTop: 70, width: "100%" }}>
+      <MainGrid container direction="column" alignItems="center">
+        <Grid sm={10} md={10} lg={5} xl={5}>
           <Paper
             variant="outlined"
             square
@@ -73,7 +71,7 @@ export default class ProfilePage extends Component {
                 direction="row"
                 style={{ padding: 20, marginTop: 30 }}
               >
-                <Grid item md={12} style={{ height: "80%" }}>
+                <Grid item sm={12} md={12} style={{ height: "80%"}}>
                   <Typography variant="h5">
                     <b>About Me:</b>
                   </Typography>
@@ -98,7 +96,7 @@ export default class ProfilePage extends Component {
             </Grid>
           </Paper>
         </Grid>
-      </Grid>
+      </MainGrid>
     );
   }
 }

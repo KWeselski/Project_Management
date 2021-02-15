@@ -7,6 +7,7 @@ import AddUsersForm from "./AddUsersForm";
 import DatesForm from "./DatesForm";
 import StatusSelect from "./EditProject/StatusSelect";
 import TitleDescForm from "./TitleDescForm";
+import {MainGrid} from "../styles"
 
 export default class FormCreate extends Component {
   handleSubmit = () => {
@@ -28,23 +29,23 @@ export default class FormCreate extends Component {
       return <Redirect to="/overview"></Redirect>;
     }
     return (
-      <Grid container xs={12} style={{ marginLeft: 220 }}>
+      <MainGrid container xs={12}>
         <Grid item xs={12}>
           <Typography align="center" variant="h3" style={{ padding: 40 }}>
             {update ? "Edit project" : "Add new project"}
           </Typography>
         </Grid>
-        <Grid item container md={12} spacing={1}>
-          <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
-            <Grid item sm={12} md={8}>
+        <form onSubmit={this.handleSubmit}>
+        <Grid item container xs={12} spacing={1} style={{display: 'flex' }}>   
+            <Grid item sm={12} md={8} lg={5}>
               <TitleDescForm
                 title={values.title}
                 description={values.description}
                 handleChange={handleChange}
               />
             </Grid>
-            <Grid container sm={4} md={4}>
-              <Grid item xs={12} md={12} style={{ marginLeft: 30 }}>
+            <Grid container sm={12} md={4} lg={3}>
+              <Grid item xs={12}>
                 <AddUsersForm
                   update={update}
                   users={values.users}
@@ -53,8 +54,8 @@ export default class FormCreate extends Component {
                 />
               </Grid>
             </Grid>
-            <Grid item md={5}>
-              <Paper variant="outlined" square style={{ marginLeft: 50 }}>
+            <Grid item sm={12} md={12} lg={4}>
+              <Paper variant="outlined" square>
                 <Grid container md={12} style={{ padding: 20 }}>
                   {update ? (
                     <StatusSelect
@@ -97,10 +98,10 @@ export default class FormCreate extends Component {
                   </Grid>
                 </Grid>
               </Paper>
-            </Grid>
-          </form>
+            </Grid>       
         </Grid>
-      </Grid>
+        </form>
+      </MainGrid>
     );
   }
 }

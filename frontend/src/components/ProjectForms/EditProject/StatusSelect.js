@@ -23,7 +23,6 @@ export default function StatusSelect(props) {
           <option value="new">New</option>
           <option value={"active"}>Active</option>
           <option value={"onhold"}>On Hold</option>
-          <option value={"canceled"}>Canceled</option>
           <option value={"completed"}>Completed</option>
           <option value={"delayed"}>Delayed</option>
         </NativeSelect>

@@ -6,44 +6,43 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { logout } from "../../actions/authActions";
+import { MainGrid, MainTypography} from "../ProfilePage/styles";
 
 function LogoutForm(props) {
   return (
-    <Grid
+    <MainGrid
       container
       direction="column"
       alignItems="center"
-      justify="center"
-      style={{ minHeight: "70vh" }}
     >
-      <Grid item xs={4} md={2}>
+      <Grid item xs={12} md={6}>
         <Paper variant="outlined" square>
-          <Typography
+          <MainTypography
             align="center"
-            style={{ marginTop: "5vh", marginLeft: "5vh", marginRight: "5vh" }}
             variant="h4"
           >
             Are you sure you want to log out?
-          </Typography>
+          </MainTypography>
           <Grid
             container
-            spacing={2}
-            justify="space-between"
-            style={{ marginTop: "2vh", padding: 20, height: "100%" }}
+            justify="space-evenly"
+            style={{padding: 20, height: "100%" }}
+            verticalAlign="middle"
           >
-            <Link to="/overview">
               <Button
                 type="submit"
+                to="/overview"
+                component={Link}
                 style={{ width: "30%" }}
                 variant="contained"
                 color="primary"
               >
                 No
               </Button>
-            </Link>
-            <Link to="">
               <Button
                 type="submit"
+                to=""
+                component={Link}
                 style={{ width: "30%" }}
                 variant="contained"
                 color="primary"
@@ -51,11 +50,10 @@ function LogoutForm(props) {
               >
                 Yes
               </Button>
-            </Link>
           </Grid>
         </Paper>
       </Grid>
-    </Grid>
+    </MainGrid>
   );
 }
 

@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 
 import { createProject, updateProject } from "../actions/projectActions";
 import UsersList from "../DetailsPage/UsersList";
+import { MainGrid } from "../styles"
 
 class FormConfirm extends Component {
   getCurrentDate = (date) => {
@@ -47,19 +48,20 @@ class FormConfirm extends Component {
       return <Redirect to="/overview" />;
     }
     return (
-      <Grid container xs={12} style={{ marginLeft: 220 }}>
-        <Grid item xs={12} md={12}>
+      <MainGrid container xs={12}>
+        <Grid item xs={12}>
           <Typography align="center" variant="h3" style={{ padding: 40 }}>
             Confirm new project
           </Typography>
         </Grid>
-        <Grid item container spacing={3} md={12}>
+        <Grid item container spacing={3} xs={12}>
           <Grid
             container
             item
-            md={6}
+            xs={12}
+            md={12}
+            lg={5}
             textAlign="center"
-            style={{ height: "100%" }}
           >
             <Paper variant="outlined" square style={{ width: "100%" }}>
               <Grid item xs={8} md={8} style={{ padding: 20 }}>
@@ -87,11 +89,10 @@ class FormConfirm extends Component {
               </Grid>
             </Paper>
           </Grid>
-
-          <Grid item md={2}>
+          <Grid item sm={12} md={12} lg={2}>
             <UsersList users={values.users} />
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item sm={12} md={12} lg={3}>
             <Paper variant="outlined" square>
               <Grid item style={{ padding: 20 }}>
                 <span>
@@ -155,7 +156,7 @@ class FormConfirm extends Component {
             </Paper>
           </Grid>
         </Grid>
-      </Grid>
+      </MainGrid>
     );
   }
 }

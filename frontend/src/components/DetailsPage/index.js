@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import CommentsList from "./CommentsList";
 import ProjectInfo from "./ProjectInfo";
 import UsersList from "./UsersList";
+import { MainGrid } from "../styles"
 
 class DetailsPage extends Component {
   state = {
@@ -45,17 +46,17 @@ class DetailsPage extends Component {
       return <CircularProgress />;
     }
     return (
-      <Grid container xs={10} spacing={3} style={{ marginLeft: 220, marginTop:20 }}>
-        <Grid item xs={12} md={5}>
+      <MainGrid container xs={12} style={{marginTop:20 }}>
+        <Grid item sm={12} md={12} lg={5}>
           <ProjectInfo data={data} profiles={profiles} />
         </Grid>
-        <Grid item xs={5} md={3}>
+        <Grid item sm={12} md={4} lg={3}>
           <UsersList users={data.users} />
         </Grid>
-        <Grid item xs={7} md={4}>
+        <Grid item sm={12} md={8} lg={4}>
           <CommentsList id={data.id} creator={data.creator} />
         </Grid>
-      </Grid>
+      </MainGrid>
     );
   }
 }

@@ -24,7 +24,7 @@ store.dispatch(getUsers());
 const theme = {
   breakpoints: {
     xs: 0,
-    sm: 576,
+    sm: 590,
     md: 768,
     lg: 992,
     xl: 1200,
@@ -34,7 +34,7 @@ const theme = {
 const appDiv = document.getElementById("app");
 ReactDOM.render(
   <Provider store={store}>
-  <ThemeProvider theme={theme}><App /></ThemeProvider>
+  <ThemeProvider theme={theme}><App/></ThemeProvider>
   </Provider>,
   appDiv
 );

@@ -1,22 +1,22 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import breakpoint from 'styled-components-breakpoint';
+import breakpoint from "styled-components-breakpoint";
 
 export const SidebarNav = styled.nav`
   background: #15171c;
-  height: 100%;
   justify-content: center;
+  height: 400px;
   width: 100%;
   transition: left 0.2s ease-in;
   left: ${(props) => (props.open ? "0" : "-100%")};
-  z-index:2;
+  z-index: 2;
 
-  ${breakpoint('sm')`
+  ${breakpoint("sm")`
     position: fixed;
-    width: 200px;
+    width:200px;
+    height: 100%;
   `}
-
-`
+`;
 
 export const SidebarItem = styled(Link)`
   display: flex;

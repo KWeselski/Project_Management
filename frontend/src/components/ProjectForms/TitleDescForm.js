@@ -8,11 +8,8 @@ export default function TitleDescForm(props) {
     <Paper variant="outlined" square>
       <Grid
         container
-        xs={12}
-        md={12}
+        sm={12}
         textAlign="center"
-        justify="space-between"
-        style={{ height: "100%", marginTop: 20, minWidth:600 }}
       >
         <Grid item xs={12} md={12} style={{ padding: 20 }}>
           <TextField
@@ -41,8 +38,9 @@ export default function TitleDescForm(props) {
             multiline={true}
             onChange={handleChange}
           />
-        </Grid>
+        
       </Grid>
+    </Grid>
     </Paper>
   );
 }
