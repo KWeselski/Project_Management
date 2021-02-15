@@ -9,7 +9,7 @@ export const SidebarNav = styled.nav`
   width: 100%;
   transition: left 0.2s ease-in;
   z-index: 2;
-  position: fixed;
+  position: 'relative';
   top: ${(props) => (props.open ? "0" : "-500%")};
   ${breakpoint("sm")`
     position: fixed;
