@@ -28,7 +28,7 @@ class DetailsPage extends Component {
 
   getProjectValues = async () => {
     const id = String(window.location).split("/").pop();
-    await axios.get(`/api/get_project/${id}`).then((res) => {
+    await axios.get(`/api/project/get/${id}`).then((res) => {
       this.changeUsersData(res.data);
       this.setState({ data: res.data, loaded: true });
     });

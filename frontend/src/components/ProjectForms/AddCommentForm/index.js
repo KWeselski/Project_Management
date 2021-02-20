@@ -25,7 +25,7 @@ function CommentForm(props) {
   const createComment = (comment, id) => {
     axios
       .post(
-        "/api/create_comment/",
+        "/api/comment/create/",
         {
           comment: comment,
           project: id,

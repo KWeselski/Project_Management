@@ -9,7 +9,7 @@ export default function CommentsList(props) {
   const { creator, id } = props;
   const [comments, setComments] = useState([]);
   useEffect(async () => {
-    const result = await axios.get(`/api/get_comments/${id}`);
+    const result = await axios.get(`/api/comments/get/${id}`);
     setComments(result.data);
   }, []);
 

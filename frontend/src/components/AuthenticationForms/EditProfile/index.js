@@ -73,7 +73,7 @@ class EditProfileForm extends Component {
   updateProfile = async () => {
     const form_data = this.createFormData();
     await axios
-      .put("/api/profile_data", form_data, {
+      .put("/api/profile/data", form_data, {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",

@@ -116,7 +116,7 @@ class LoginForm extends React.Component {
                 <React.Fragment />
               )}
               <Grid item align="center">
-                <Link style={{ textDecoration: "none" }} to="/reset_password/">
+                <Link style={{ textDecoration: "none" }} to="/password/reset/">
                   You don't remember password?
                 </Link>
               </Grid>

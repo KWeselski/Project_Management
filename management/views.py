@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 @api_view(['POST'])
 def create_profile(request):
     user = get_user_from_token(request)
-    if user is None:
+    if not user:
         return Response('Cant create profile',
                         status=status.HTTP_400_BAD_REQUEST)
     request.data['user'] = user.id
@@ -25,7 +25,7 @@ def create_profile(request):
 @api_view(['POST', 'PUT'])
 def create_project(request):
     user = get_user_from_token(request)
-    if user is None:
+    if not user:
         return Response('Cant create project',
                         status=status.HTTP_400_BAD_REQUEST)
     if request.method == 'POST':
@@ -42,8 +42,7 @@ def create_project(request):
         except Project.DoesNotExist:
             return Response('Project not exist',
                             status=status.HTTP_404_NOT_FOUND)
-        creator = project.creator
-        if creator != user:
+        if project.creator != user:
             return Respone('User are not creator',
                            status=status.HTTP_401_UNAUTHORIZED)
         serializers = ProjectSerializer(project, data=request.data)
@@ -61,8 +60,7 @@ def delete_project(request):
     except Project.DoesNotExist:
         return Response('Project not exist',
                         status=status.HTTP_404_NOT_FOUND)
-    creator = project.creator
-    if creator != user:
+    if project.creator != user:
         return Response('User are not creator',
                         status=status.HTTP_401_UNAUTHORIZED)
     project.delete()

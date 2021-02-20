@@ -17,10 +17,10 @@ export default function DatesForm(props) {
         <Grid item>
           <Typography varaint="h6">Add start date</Typography>
           <KeyboardDatePicker
-            error={!validate}
-            helperText={!validate ? "Invalid date" : ""}
+            validate={validate}
             value={startDate}
             placeholder="10/10/2018"
+            name="startDate"
             onChange={(date) => handleStartDateChange(date)}
             minDate={new Date()}
             format="dd/MM/yyyy"

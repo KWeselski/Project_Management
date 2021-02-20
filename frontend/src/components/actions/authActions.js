@@ -89,7 +89,7 @@ export const loadUser = () => {
   return async (dispatch) => {
     dispatch(userLoading());
     await axios
-      .get("/api/get_user/", {
+      .get("/api/user/get", {
         headers: { Authorization: `${localStorage.getItem("token")}` },
       })
       .then((res) => {
@@ -149,7 +149,7 @@ export const createProfile = (firstName, lastName, sex, age, phone) => {
     dispatch(profileStart());
     await axios
       .post(
-        "/api/create_profile/",
+        "/api/profile/create/",
         {
           firstname: firstName,
           lastname: lastName,
@@ -191,9 +191,9 @@ export const authCheckState = () => {
   };
 };
 
-export const authResetPassword = (email) => (dispatch) => {
+export const authResetPassword = (email) => async (dispatch) => {
   dispatch(authStart());
-  axios
+  await axios
     .post("/auth/password/reset/", {
       email: email,
     })

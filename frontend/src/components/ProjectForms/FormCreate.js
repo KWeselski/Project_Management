@@ -24,6 +24,7 @@ export default class FormCreate extends Component {
       handleToogle,
       returnToOverview,
       changeUsersData,
+      checkDate
     } = this.props;
     if (values.toOverview) {
       return <Redirect to="/overview"></Redirect>;
@@ -70,6 +71,7 @@ export default class FormCreate extends Component {
                     startDate={values.startDate}
                     endDate={values.endDate}
                     validate={values.validate}
+                    checkDate={checkDate}
                     handleStartDateChange={handleStartDateChange}
                     handleEndDateChange={handleEndDateChange}
                   />

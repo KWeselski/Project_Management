@@ -9,8 +9,8 @@ const initialState = {
   step: 1,
   title: "",
   description: "",
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate:new Date(new Date().setHours(new Date().getHours() + 1)),
+  endDate: new Date(new Date().setHours(new Date().getHours() + 2)),
   users: [],
   creator: null,
   status: "",
@@ -50,12 +50,30 @@ export default class ProjectForm extends Component {
   };
 
   checkDate = () => {
-    const { startDate, endDate } = this.state;
-    if (startDate.getTime() >= endDate.getTime()) {
+    const { startDate, endDate, validate} = this.state;
+    const today = new Date();
+    console.log('malo')
+    console.log(startDate)
+    console.log(endDate)
+    if (startDate == "Invalid Date" || endDate == "Invalid Date") {
+      console.log('INV')
       this.setState({ validate: false });
-    } else {
-      this.setState({ validate: true });
+      return;
     }
+    if (startDate < today) {
+
+      this.setState({ validate: false });
+      return;
+    }
+    if (startDate != null && endDate != null) {
+      if (startDate.getTime() >= endDate.getTime()) {
+        this.setState({ validate: false });
+        return
+      }
+    } 
+    console.log('halo')
+    if(!validate){
+    this.setState({ validate: true }); }
   };
 
   handleStartDateChange = (date) => {
@@ -99,7 +117,7 @@ export default class ProjectForm extends Component {
 
   getProjectValues = async () => {
     const id = String(window.location).split("/").pop();
-    await axios.get(`/api/get_project/${id}`).then((res) => {
+    await axios.get(`/api/project/get/${id}`).then((res) => {
       const data = res.data;
       this.setState({
         title: data.title,
@@ -129,6 +147,7 @@ export default class ProjectForm extends Component {
             handleToogle={this.handleToogle}
             changeUsersData={this.changeUsersData}
             newState={this.clearStateForNewProject}
+            checkDate={this.checkDate}
             values={this.state}
           />
         );

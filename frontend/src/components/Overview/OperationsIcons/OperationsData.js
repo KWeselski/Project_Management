@@ -14,16 +14,16 @@ export const OperationsData = [
   {
     title: "Edit",
     icon: <EditSharpIcon />,
-    link: "/edit_project/",
+    link: "/project/edit/",
   },
   {
     title: "Comment",
     icon: <ChatSharpIcon />,
-    link: "/add_comment/",
+    link: "/comment/add/",
   },
   {
     title: "Delete",
     icon: <DeleteSharpIcon />,
-    link: "/delete/"
+    link: "/project/delete/"
   },
 ];

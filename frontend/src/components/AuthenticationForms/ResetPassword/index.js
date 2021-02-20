@@ -16,9 +16,9 @@ class ResetPasswordForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     const { email } = this.state;
-    this.props.reset(email);
+    await this.props.reset(email);
     this.setState({ reset: true });
   };
 
@@ -26,7 +26,7 @@ class ResetPasswordForm extends React.Component {
     const { error, email } = this.props;
     const { reset } = this.state;
     var errorMessage;
-
+    console.log(error)
     if (error == null && reset) {
       return (
         <Grid

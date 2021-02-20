@@ -58,7 +58,7 @@ class App extends Component {
               <Route exact path="/logout" component={LogoutForm} />
               <Route
                 exact
-                path="/reset_password"
+                path="/password/reset"
                 component={ResetPasswordForm}
               />
               <Route
@@ -67,13 +67,13 @@ class App extends Component {
                 component={ResetPasswordConfirmForm}
               />
               <Route exact path="/overview" component={ProjectsList} />
-              <Route exact path="/create_project" component={ProjectForm} />
-              <Route exact path="/edit_project/:id" component={ProjectForm} />
-              <Route exact path="/edit_profile" component={EditProfileForm} />
+              <Route exact path="/project/create" component={ProjectForm} />
+              <Route exact path="/project/edit/:id" component={ProjectForm} />
+              <Route exact path="/project/delete/:id" component={DeleteProject} />
               <Route exact path="/details/:id" component={DetailsPage} />
-              <Route exact path="/add_comment/:id" component={CommentForm} />
-              <Route exact path="/profile" component={ProfilePage} />
-              <Route exact path="/delete/:id" component={DeleteProject} />
+              <Route exact path="/comment/add/:id" component={CommentForm} />
+              <Route exact path="/profile" component={ProfilePage} />  
+              <Route exact path="/profile/edit" component={EditProfileForm} />       
             </Switch>
           </Grid>
         </Router>

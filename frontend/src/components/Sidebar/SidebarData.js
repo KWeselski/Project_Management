@@ -19,7 +19,7 @@ export const SidebarData = [
   {
     title: "New Project",
     icon: <AddToQueueSharpIcon />,
-    link: "/create_project",
+    link: "/project/create",
   },
   {
     title: "Logout",

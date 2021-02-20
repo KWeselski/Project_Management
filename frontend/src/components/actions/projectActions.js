@@ -85,7 +85,7 @@ export const getUsers = () => {
   return (dispatch) => {
     dispatch(profileListStart());
     axios
-      .get("/api/get_users_list/")
+      .get("/api/users/get")
       .then((res) => {
         res.data.sort((a, b) =>
           a.firstname > b.firstname ? 1 : b.firstname > a.firstname ? -1 : 0
@@ -100,7 +100,7 @@ export const getProjects = () => {
   return (dispatch) => {
     dispatch(getProjectsStart());
     axios
-      .get("/api/get_projects_list/", {
+      .get("/api/projects/get", {
         headers: { Authorization: `${localStorage.getItem("token")}` },
       })
       .then((res) => {
@@ -114,7 +114,7 @@ export const deleteProject = (id) => {
   return async (dispatch) => {
     dispatch(projectDeleteStart());
     await axios
-      .delete("/api/delete_project/",{
+      .delete("/api/project/delete",{
          headers: { Authorization: `${localStorage.getItem("token")}` },
          data: { id: id}
         })
@@ -130,7 +130,7 @@ export const createProject = (values, users) => {
     dispatch(projectAddStart());
     await axios
       .post(
-        "/api/create_project/",
+        "/api/project/create/",
         {
           title: values.title,
           description: values.description,
@@ -154,7 +154,7 @@ export const updateProject = (values, users, id) => {
     dispatch(projectAddStart());
     await axios
       .put(
-        "/api/create_project/",
+        "/api/project/create/",
         {
           id: id,
           title: values.title,

@@ -3,14 +3,14 @@ from .views import *
 
 
 urlpatterns = [
-    path('create_profile/', create_profile),
-    path('get_users_list/', get_users_list),
-    path('create_project/', create_project),
-    path('get_projects_list/', get_project_list),
-    path('delete_project/', delete_project),
-    path('create_comment/', create_comment),
-    path('get_comments/<uuid:pk>', get_project_comments),
-    path('profile_data', profile_data),
-    path('get_user/', get_user),
-    path('get_project/<uuid:pk>', get_project)
+    path('profile/create/', create_profile),
+    path('profile/data', profile_data),
+    path('user/get', get_user),
+    path('users/get', get_users_list),
+    path('project/get/<uuid:pk>', get_project),
+    path('project/create/', create_project),
+    path('project/delete', delete_project),
+    path('projects/get', get_project_list),
+    path('comment/create/', create_comment),
+    path('comments/get/<uuid:pk>', get_project_comments),
 ]

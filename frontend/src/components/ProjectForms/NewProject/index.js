@@ -6,6 +6,7 @@ import FormCreate from "../FormCreate";
 export default class CreateProjectForm extends Component {
   componentDidMount() {
     this.props.newState();
+    this.props.checkDate();
   }
 
   render() {

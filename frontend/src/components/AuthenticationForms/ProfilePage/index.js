@@ -22,7 +22,7 @@ export default class ProfilePage extends Component {
 
   getProfile = () => {
     axios
-      .get("/api/profile_data", {
+      .get("/api/profile/data", {
         headers: { Authorization: `${localStorage.getItem("token")}` },
       })
       .then((res) => {
@@ -86,7 +86,7 @@ export default class ProfilePage extends Component {
                   justify="center"
                   md={12}
                 >
-                  <Link to={{ pathname: "/edit_profile/", state: this.state }}>
+                  <Link to={{ pathname: "/profile/edit/", state: this.state }}>
                     <Button variant="contained" fullwidth color="primary">
                       Edit profile
                     </Button>
