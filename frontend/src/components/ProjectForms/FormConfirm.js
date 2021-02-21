@@ -33,7 +33,7 @@ class FormConfirm extends Component {
     } = this.props.values;
     const { create, update } = this.props;
     const values = { title, description, status, startDate, endDate, creator };
-    let users = this.props.values.users.map((a) => a.user);
+    let users = this.props.values.users.map((a) => a.id);
     if (create) {
       await this.props.createProject(values, users);
     }

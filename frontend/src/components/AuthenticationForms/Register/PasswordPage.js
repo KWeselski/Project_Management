@@ -4,18 +4,26 @@ import { Grid, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
-import { authSignup, createProfile } from "../../actions/authActions";
+import {authSignup} from "../../actions/authActions";
 import Paper from "@material-ui/core/Paper";
 import FormPassword from "../FormPassword";
 
 function PasswordPage(props) {
   const [redirectToLogin, setRedirect] = useState(false);
-  const {returnStep, values, signup, createProfile, handleChange, error } = props;
+  const {
+    returnStep,
+    values,
+    signup,
+    handleChange,
+    error,
+  } = props;
   var errorMessage;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signup(values.email, values.password1, values.password2);
-    await createProfile(
+    await signup(
+      values.email,
+      values.password1,
+      values.password2,
       values.firstName,
       values.lastName,
       values.sex,
@@ -37,7 +45,7 @@ function PasswordPage(props) {
       </Grid>
     );
   }
-  if (error==null && redirectToLogin) {
+  if (error == null && redirectToLogin) {
     return <Redirect to="/overview"></Redirect>;
   }
   return (
@@ -84,10 +92,28 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createProfile: (firstName, lastName, age, sex, phone) =>
-      dispatch(createProfile(firstName, lastName, age, sex, phone)),
-    signup: (email, password1, password2) =>
-      dispatch(authSignup(email, password1, password2)),
+    signup: (
+      email,
+      password1,
+      password2,
+      firstName,
+      lastName,
+      age,
+      sex,
+      phone
+    ) =>
+      dispatch(
+        authSignup(
+          email,
+          password1,
+          password2,
+          firstName,
+          lastName,
+          age,
+          sex,
+          phone
+        )
+      ),
   };
 };
 

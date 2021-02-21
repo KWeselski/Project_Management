@@ -6,8 +6,3 @@ export const RESET_PASS = "RESET_PASS";
 
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
-
-
-export const PROFILE_START = "PROFILE_START";
-export const PROFILE_SUCCESS = "PROFILE_SUCCESS";
-export const PROFILE_FAIL = "PROFILE_FAIL";

@@ -26,15 +26,16 @@ export default class ProfilePage extends Component {
         headers: { Authorization: `${localStorage.getItem("token")}` },
       })
       .then((res) => {
+        console.log(res.data)
         this.setState({
-          firstName: res.data.firstname,
-          lastName: res.data.lastname,
+          firstName: res.data.first_name,
+          lastName: res.data.last_name,
           avatar: res.data.avatar,
           description: res.data.description,
           age: res.data.age,
           sex: res.data.sex,
           phone: res.data.phone,
-          user_id: res.data.user,
+          user_id: res.data.id,
         });
       })
   };

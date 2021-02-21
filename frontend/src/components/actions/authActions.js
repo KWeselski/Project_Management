@@ -2,25 +2,6 @@ import axios from "axios";
 import * as actionTypes from "./action-types/auth-actions";
 
 
-export const profileStart = () => {
-  return {
-    type: actionTypes.PROFILE_START,
-  };
-};
-
-export const profileFail = (error) => {
-  return {
-    type: actionTypes.PROFILE_FAIL,
-    error: error,
-  };
-};
-
-export const profileSuccess = () => {
-  return {
-    type: actionTypes.PROFILE_SUCCESS,
-  };
-};
-
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START,
@@ -67,13 +48,11 @@ export const authLogout = () => {
 export const logout = () => {
   return async (dispatch) => {
     dispatch(authStart());
-    await axios
-      .post("/auth/logout/", {})
-      .then(() => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("expirationDate");
-        dispatch(authLogout());
-      })
+    await axios.post("/auth/logout/", {}).then(() => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("expirationDate");
+      dispatch(authLogout());
+    });
   };
 };
 
@@ -120,7 +99,16 @@ export const authLogin = (email, password) => {
   };
 };
 
-export const authSignup = (email, password1, password2) => {
+export const authSignup = (
+  email,
+  password1,
+  password2,
+  firstName,
+  lastName,
+  sex,
+  age,
+  phone
+) => {
   return async (dispatch) => {
     dispatch(authStart());
     await axios
@@ -129,6 +117,11 @@ export const authSignup = (email, password1, password2) => {
         email: email,
         password1: password1,
         password2: password2,
+        first_name: firstName,
+        last_name: lastName,
+        sex: sex,
+        age: age,
+        phone: phone,
       })
       .then((res) => {
         const token = res.data.key;
@@ -137,7 +130,6 @@ export const authSignup = (email, password1, password2) => {
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token));
         dispatch(checkAuthTimeout(3600));
-
       })
       .catch((error) => {
         dispatch(authFail(error.response.data));
@@ -145,31 +137,6 @@ export const authSignup = (email, password1, password2) => {
   };
 };
 
-export const createProfile = (firstName, lastName, sex, age, phone) => {
-  return async (dispatch) => {
-    dispatch(profileStart());
-    await axios
-      .post(
-        "/api/profile/create/",
-        {
-          firstname: firstName,
-          lastname: lastName,
-          sex: sex,
-          age: age,
-          phone: phone,
-        },
-        {
-          headers: { Authorization: `${localStorage.getItem("token")}` },
-        }
-      )
-      .then(() => {
-        dispatch(profileSuccess());
-      })
-      .catch((error) => {
-        dispatch(profileFail(error.response.data));
-      });
-  };
-};
 
 export const authCheckState = () => {
   return (dispatch) => {

@@ -4,7 +4,7 @@ from management.models import Profile, Project, Comment
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "firstname", "lastname", "sex", "age", "phone"]
+    list_display = ["email", "sex", "age", "phone"]
 
 
 @admin.register(Project)

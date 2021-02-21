@@ -103,7 +103,7 @@ export default class ProjectForm extends Component {
     if (!this.state.users.some((i) => !Number.isInteger(i))) {
       const usersInProject = [];
       this.state.users.map((user) => {
-        let index = profiles.findIndex((x) => x.user == user);
+        let index = profiles.findIndex((x) => x.id == user);
         usersInProject.push(profiles[index]);
       });
       this.setState({ users: [...usersInProject] });

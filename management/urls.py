@@ -1,12 +1,11 @@
 from django.urls import path, re_path
-from management.views import (create_profile, profile_data, get_user,
-                              get_users_list, get_project, create_project,
-                              delete_project, get_project_list, create_comment,
+from management.views import (profile_data, get_user, get_users_list,
+                              get_project, create_project, delete_project,
+                              get_project_list, create_comment,
                               get_project_comments)
 
 
 urlpatterns = [
-    path('profile/create/', create_profile),
     path('profile/data', profile_data),
     path('user/get', get_user),
     path('users/get', get_users_list),

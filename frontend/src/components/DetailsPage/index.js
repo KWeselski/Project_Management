@@ -19,7 +19,7 @@ class DetailsPage extends Component {
     const { profiles } = this.props;
     const users_in_project = [];
     data.users.map((user) => {
-      let index = profiles.findIndex((x) => x.user == user);
+      let index = profiles.findIndex((x) => x.id == user);
       users_in_project.push(profiles[index]);
     });
     data.users.length = 0;

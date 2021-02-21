@@ -9,20 +9,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
-@api_view(['POST'])
-def create_profile(request):
-    user = get_user_from_token(request)
-    if not user:
-        return Response('Cant create profile',
-                        status=status.HTTP_400_BAD_REQUEST)
-    request.data['user'] = user.id
-    serializer = ProfileSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response('Profile created', status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 @api_view(['POST', 'PUT'])
 def create_project(request):
     user = get_user_from_token(request)
@@ -30,8 +16,8 @@ def create_project(request):
         return Response('Cant create project',
                         status=status.HTTP_400_BAD_REQUEST)
     if request.method == 'POST':
-        request.data['creator'] = user.id
-        request.data['users'].append(user.id)
+        request.data['creator'] = user
+        request.data['users'].append(user)
         serializers = ProjectSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
@@ -43,9 +29,7 @@ def create_project(request):
         except Project.DoesNotExist:
             return Response('Project not exist',
                             status=status.HTTP_404_NOT_FOUND)
-        creator = get_creator_by_id(request.data['creator'])
-        if creator != user:
-            print(creator)
+        if request.data['creator'] != user:
             return Response('Cant change creator',
                             status=status.HTTP_400_BAD_REQUEST)
         serializers = ProjectSerializer(project, data=request.data)
@@ -63,6 +47,8 @@ def delete_project(request):
     except Project.DoesNotExist:
         return Response('Project not exist',
                         status=status.HTTP_404_NOT_FOUND)
+    print(project.creator)
+    print(user)
     if project.creator != user:
         return Response('User are not creator',
                         status=status.HTTP_401_UNAUTHORIZED)
@@ -73,7 +59,7 @@ def delete_project(request):
 @api_view(['POST'])
 def create_comment(request):
     user = get_user_from_token(request)
-    request.data['user'] = user.id
+    request.data['user'] = user
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -95,7 +81,7 @@ def get_project_comments(request, pk):
 @api_view()
 def get_project_list(request):
     user = get_user_from_token(request)
-    projects = Project.objects.filter(users=user.id)
+    projects = Project.objects.filter(users=user)
     serializer = ProjectSerializer(projects, context={'request': request},
                                    many=True)
     return Response(serializer.data)
@@ -113,7 +99,7 @@ def get_users_list(request):
 def profile_data(request):
     user = get_user_from_token(request)
     try:
-        profile = Profile.objects.get(user=user.id)
+        profile = Profile.objects.get(id=user)
     except Profile.DoesNotExist:
         return Response('Profile not exist',
                         status=status.HTTP_404_NOT_FOUND)
@@ -147,7 +133,7 @@ def get_user(request):
     except Token.DoesNotExist:
         return Response('User not exist')
     user_id = Token.objects.get(key=token).user_id
-    user = User.objects.get(id=user_id)
+    user = Profile.objects.get(id=user_id)
     return Response(user.id)
 
 
@@ -156,14 +142,5 @@ def get_user_from_token(request):
     try:
         user_id = Token.objects.get(key=token).user_id
     except Token.DoesNotExist:
-        return None
-    user = User.objects.get(id=user_id)
-    return user
-
-
-def get_creator_by_id(id):
-    try:
-        user_id = User.objects.get(id=id)
-    except User.DoesNotExist:
         return None
     return user_id

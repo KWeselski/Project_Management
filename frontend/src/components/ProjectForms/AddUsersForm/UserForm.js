@@ -16,7 +16,6 @@ export default function UserForm(props) {
   const open = () => {
     setOpenDialog(true);
   };
-
   if (confirmedUsers) {
     return (
       <React.Fragment>
@@ -29,7 +28,7 @@ export default function UserForm(props) {
           </ListItemAvatar>
           <ListItemText
             id={labelId}
-            primary={values.firstname + ` ` + values.lastname}
+            primary={values.first_name + ` ` + values.last_name}
           />
         </ListItem>
         <ProfileDialog
@@ -52,7 +51,7 @@ export default function UserForm(props) {
           </ListItemAvatar>
           <ListItemText
             id={labelId}
-            primary={values.firstname + ` ` + values.lastname}
+            primary={values.first_name + ` ` + values.last_name}
           />
           <ListItemSecondaryAction>
             <Checkbox

@@ -6,7 +6,7 @@ import { Status, MainTypography } from "./styles";
 
 export default function ProjectInfo(props) {
   const { data, profiles } = props;
-  const creator = profiles[profiles.findIndex((x) => x.user === data.creator)];
+  const creator = profiles[profiles.findIndex((x) => x.id === data.creator)];
   const getCurrentDate = (date) => {
     let separator = "/";
     let day = date.getDate();
@@ -34,7 +34,7 @@ export default function ProjectInfo(props) {
               style={{ backgroundColor: "green" }}
             ></Avatar>
             <Typography variant="h6" style={{ marginLeft: 10 }}>
-              {creator.firstname + " " + creator.lastname}
+              {creator.first_name + " " + creator.last_name}
             </Typography>
           </Grid>
           <Grid item xs={2} style={{ padding: 20 }}>

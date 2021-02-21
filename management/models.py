@@ -1,17 +1,14 @@
 import uuid
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 
-# Create your models here.
-class Profile(models.Model):
-    SEX_CHOICES = (("male", "Male"), ("female", "Female"))
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE)
-    firstname = models.CharField(max_length=40)
-    lastname = models.CharField(max_length=40)
+SEX_CHOICES = (("male", "Male"), ("female", "Female"))
+
+
+class Profile(AbstractUser):
     sex = models.CharField(max_length=10, choices=SEX_CHOICES)
     age = models.IntegerField(default=18, validators=[MinValueValidator(18),
                               MaxValueValidator(80)])
@@ -20,7 +17,7 @@ class Profile(models.Model):
     avatar = models.ImageField(null=True, blank=True)
 
     def __str__(self):
-        return self.firstname
+        return self.username
 
 
 class Project(models.Model):
@@ -33,9 +30,9 @@ class Project(models.Model):
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     title = models.CharField(max_length=100)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE,
+    creator = models.ForeignKey(Profile, on_delete=models.CASCADE,
                                 related_name='creator')
-    users = models.ManyToManyField(User, related_name='users')
+    users = models.ManyToManyField(Profile, related_name='users')
     description = models.TextField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
@@ -47,7 +44,7 @@ class Project(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     comment = models.TextField(max_length=350)
     date_added = models.DateTimeField(auto_now_add=True)

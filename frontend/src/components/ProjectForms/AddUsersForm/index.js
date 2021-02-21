@@ -24,7 +24,7 @@ function AddUserForm(props) {
       </Typography>
       <List dense style={{ maxHeight: "50vh", width: "100%", maxWidth: 600 }}>
         {profiles.map((user) => {
-          if (activeUser == user.user) {
+          if (activeUser == user.id) {
             return;
           }
           return (

@@ -88,7 +88,7 @@ export const getUsers = () => {
       .get("/api/users/get")
       .then((res) => {
         res.data.sort((a, b) =>
-          a.firstname > b.firstname ? 1 : b.firstname > a.firstname ? -1 : 0
+          a.first_name > b.first_name ? 1 : b.first_name > a.first_name ? -1 : 0
         );
         dispatch(profileListFinish(res.data));
       })
