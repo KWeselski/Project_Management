@@ -9,7 +9,7 @@ const initialState = {
   step: 1,
   title: "",
   description: "",
-  startDate:new Date(new Date().setHours(new Date().getHours() + 1)),
+  startDate: new Date(new Date().setHours(new Date().getHours() + 1)),
   endDate: new Date(new Date().setHours(new Date().getHours() + 2)),
   users: [],
   creator: null,
@@ -50,30 +50,25 @@ export default class ProjectForm extends Component {
   };
 
   checkDate = () => {
-    const { startDate, endDate, validate} = this.state;
+    const { startDate, endDate, validate } = this.state;
     const today = new Date();
-    console.log('malo')
-    console.log(startDate)
-    console.log(endDate)
     if (startDate == "Invalid Date" || endDate == "Invalid Date") {
-      console.log('INV')
       this.setState({ validate: false });
       return;
     }
     if (startDate < today) {
-
       this.setState({ validate: false });
       return;
     }
     if (startDate != null && endDate != null) {
       if (startDate.getTime() >= endDate.getTime()) {
         this.setState({ validate: false });
-        return
+        return;
       }
-    } 
-    console.log('halo')
-    if(!validate){
-    this.setState({ validate: true }); }
+    }
+    if (!validate) {
+      this.setState({ validate: true });
+    }
   };
 
   handleStartDateChange = (date) => {

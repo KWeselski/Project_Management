@@ -11,11 +11,10 @@ import FormPassword from "../FormPassword";
 function PasswordPage(props) {
   const [redirectToLogin, setRedirect] = useState(false);
   const {returnStep, values, signup, createProfile, handleChange, error } = props;
-  const username = values.firstName + "_" + values.lastName;
   var errorMessage;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signup(username, values.email, values.password1, values.password2);
+    await signup(values.email, values.password1, values.password2);
     await createProfile(
       values.firstName,
       values.lastName,
@@ -87,8 +86,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createProfile: (firstName, lastName, age, sex, phone) =>
       dispatch(createProfile(firstName, lastName, age, sex, phone)),
-    signup: (username, email, password1, password2) =>
-      dispatch(authSignup(username, email, password1, password2)),
+    signup: (email, password1, password2) =>
+      dispatch(authSignup(email, password1, password2)),
   };
 };
 

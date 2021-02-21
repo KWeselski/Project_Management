@@ -15,7 +15,7 @@ class Profile(models.Model):
     sex = models.CharField(max_length=10, choices=SEX_CHOICES)
     age = models.IntegerField(default=18, validators=[MinValueValidator(18),
                               MaxValueValidator(80)])
-    phone = models.CharField(max_length=9)
+    phone = models.CharField(max_length=9, blank=True)
     description = models.CharField(max_length=300, blank=True)
     avatar = models.ImageField(null=True, blank=True)
 

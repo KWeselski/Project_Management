@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import { Button, Grid, Paper} from "@material-ui/core";
 
@@ -9,12 +9,17 @@ import { logout } from "../../actions/authActions";
 import { MainGrid, MainTypography} from "../ProfilePage/styles";
 
 function LogoutForm(props) {
-  const{ token } = props;
+  const [redirectToLogin, setRedirect] = useState(false);
 
-  if (!token) {
-    return <Redirect to="" />;
+  const handleLogout = async () => {
+    await props.logout();
+    setRedirect(true)
   }
-  
+
+  if(redirectToLogin){
+    return <Redirect to=""/>;
+  }
+
   return (
     <MainGrid
       container
@@ -47,12 +52,11 @@ function LogoutForm(props) {
               </Button>
               <Button
                 type="submit"
-                to=""
                 component={Link}
                 style={{ width: "30%" }}
                 variant="contained"
                 color="primary"
-                onClick={() => props.logout()}
+                onClick={() => handleLogout()}
               >
                 Yes
               </Button>
@@ -63,16 +67,10 @@ function LogoutForm(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    token: state.auth.token,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogoutForm);
+export default connect(null, mapDispatchToProps)(LogoutForm);

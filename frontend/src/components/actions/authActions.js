@@ -120,12 +120,12 @@ export const authLogin = (email, password) => {
   };
 };
 
-export const authSignup = (username, email, password1, password2) => {
+export const authSignup = (email, password1, password2) => {
   return async (dispatch) => {
     dispatch(authStart());
     await axios
       .post("/auth/registration/", {
-        username: username,
+        username: email,
         email: email,
         password1: password1,
         password2: password2,
@@ -137,6 +137,7 @@ export const authSignup = (username, email, password1, password2) => {
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token));
         dispatch(checkAuthTimeout(3600));
+
       })
       .catch((error) => {
         dispatch(authFail(error.response.data));
@@ -189,20 +190,6 @@ export const authCheckState = () => {
       }
     }
   };
-};
-
-export const authResetPassword = (email) => async (dispatch) => {
-  dispatch(authStart());
-  await axios
-    .post("/auth/password/reset/", {
-      email: email,
-    })
-    .then(() => {
-      dispatch(resetPass());
-    })
-    .catch((error) => {
-      dispatch(authFail(error.response.data));
-    });
 };
 
 export const authResetPasswordConfirm = (uid, token, password1, password2) => {

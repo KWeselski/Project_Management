@@ -17,7 +17,7 @@ import ProfilePage from "./AuthenticationForms/ProfilePage";
 import ProjectForm from "./ProjectForms";
 import ProjectsList from "./Overview";
 import RegistrationForm from "./AuthenticationForms/Register";
-import ResetPasswordForm from "./AuthenticationForms/ResetPassword";
+import ResetPassword from "./AuthenticationForms/ResetPassword";
 import ResetPasswordConfirmForm from "./AuthenticationForms/ResetPassword/ResetPasswordConfirmForm";
 import Sidebar from "./Sidebar/Sidebar";
 import { getProjects } from "./actions/projectActions";
@@ -58,8 +58,8 @@ class App extends Component {
               <Route exact path="/logout" component={LogoutForm} />
               <Route
                 exact
-                path="/password/reset"
-                component={ResetPasswordForm}
+                path="/password/reset/"
+                component={ResetPassword}
               />
               <Route
                 exact
@@ -89,9 +89,6 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProjects: () => {
-      dispatch(getProjects());
-    },
     onTryAutoSignup: () => dispatch(authCheckState()),
     loadUser: () => {
       dispatch(loadUser());

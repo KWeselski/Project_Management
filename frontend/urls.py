@@ -13,7 +13,7 @@ urlpatterns = [
     path('comment/add/<uuid:id>', index),
     path('delete/<uuid:id>', index),
     path('logout/', index),
-    path('password/reset', index),
+    path('password/reset/', index),
     path('rest-auth/password/reset/confirm/<uidb64>/<token>/', index,
          name='password_reset_confirm'),
 ]
