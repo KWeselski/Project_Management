@@ -1,8 +1,5 @@
 from django.contrib import admin
-
-from .models import Profile, Project, Comment
-
-# Register your models here.
+from management.models import Profile, Project, Comment
 
 
 @admin.register(Profile)

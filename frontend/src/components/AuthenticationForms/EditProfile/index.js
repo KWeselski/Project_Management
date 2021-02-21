@@ -53,19 +53,16 @@ class EditProfileForm extends Component {
 
   createFormData = () => {
     var image;
-    if (this.state.selectedFile) {
-      image = this.state.selectedFile;
-    } else {
-      image = this.state.avatar;
-    }
+    
     const form_data = new FormData();
+    if (this.state.selectedFile) {
+    form_data.append("avatar", this.state.selectedFile);}
     form_data.append("firstname", this.state.firstName);
     form_data.append("lastname", this.state.lastName);
     form_data.append("sex", this.state.sex);
     form_data.append("age", this.state.age);
     form_data.append("phone", this.state.phone);
     form_data.append("description", this.state.description);
-    form_data.append("avatar", image);
     form_data.append("user", this.state.user_id);
     return form_data;
   };

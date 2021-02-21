@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-from .models import Profile, Project, Comment
-from .serializers import *
-from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
+from django.shortcuts import render
+from management.models import (Profile, Project, Comment)
+from management.serializers import (ProfileSerializer, ProjectSerializer,
+                                    CommentSerializer)
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 @api_view(['POST'])
@@ -42,9 +43,11 @@ def create_project(request):
         except Project.DoesNotExist:
             return Response('Project not exist',
                             status=status.HTTP_404_NOT_FOUND)
-        if project.creator != user:
-            return Respone('User are not creator',
-                           status=status.HTTP_401_UNAUTHORIZED)
+        creator = get_creator_by_id(request.data['creator'])
+        if creator != user:
+            print(creator)
+            return Response('Cant change creator',
+                            status=status.HTTP_400_BAD_REQUEST)
         serializers = ProjectSerializer(project, data=request.data)
         if serializers.is_valid():
             serializers.save()
@@ -156,3 +159,11 @@ def get_user_from_token(request):
         return None
     user = User.objects.get(id=user_id)
     return user
+
+
+def get_creator_by_id(id):
+    try:
+        user_id = User.objects.get(id=id)
+    except User.DoesNotExist:
+        return None
+    return user_id

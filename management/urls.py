@@ -1,5 +1,8 @@
 from django.urls import path, re_path
-from .views import *
+from management.views import (create_profile, profile_data, get_user,
+                              get_users_list, get_project, create_project,
+                              delete_project, get_project_list, create_comment,
+                              get_project_comments)
 
 
 urlpatterns = [
