@@ -4,11 +4,28 @@ import { Grid, Typography, Avatar } from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import { withStyles } from "@material-ui/core/styles";
 
-import { CreatorDiv } from "./styles";
+const styles = {
+  avatar: {
+    backgroundColor: "green",
+  },
+  creatorDiv: {
+    background: "#b8860b",
+    fontWeight: "bold",
+    borderRadius: 15,
+    boxShadow:
+      "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+    textAlign: "center",
+    width: 100,
+  },
+  comment: {
+    wordWrap: "break-word",
+  },
+};
 
-export default function CommentRow(props) {
-  const { creator, comment } = props;
+function CommentRow(props) {
+  const { classes, creator, comment } = props;
   const getCurrentDate = (com) => {
     let date = new Date(com);
     let separator = "/";
@@ -16,7 +33,7 @@ export default function CommentRow(props) {
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let hour = date.getHours();
-    let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes()
+    let minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
     return `${day}${separator}${
       month < 10 ? `0${month}` : `${month}`
     }${separator}${year} - ${hour}:${minutes}`;
@@ -28,7 +45,7 @@ export default function CommentRow(props) {
       <ListItemAvatar>
         <Avatar
           src={comment.profile.avatar}
-          style={{ backgroundColor: "green" }}
+          className={classes.avatar}
         ></Avatar>
       </ListItemAvatar>
       <ListItemText
@@ -42,7 +59,7 @@ export default function CommentRow(props) {
                 </b>
               </Typography>
               {creator == comment.user ? (
-                <CreatorDiv>Creator</CreatorDiv>
+                <div className={classes.creatorDiv}>Creator</div>
               ) : (
                 <React.Fragment></React.Fragment>
               )}
@@ -56,10 +73,13 @@ export default function CommentRow(props) {
         }
         secondary={
           <React.Fragment>
-            <Typography style={{wordWrap:'break-word'}} variant="h6">{comment.comment}</Typography>
+            <Typography className={classes.comment} variant="h6">
+              {comment.comment}
+            </Typography>
           </React.Fragment>
         }
       />
     </ListItem>
   );
 }
+export default withStyles(styles)(CommentRow)

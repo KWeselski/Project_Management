@@ -1,9 +1,41 @@
 import React from "react";
+
+import { Button, Paper, Grid, TextField, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
+
 import { authLogin } from "../../actions/authActions";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+
+const styles = {
+  mainGrid: {
+    minHeight: "70vh",
+  },
+  buttonGrid: {
+    padding: 20,
+  },
+  title: {
+    marginTop: "5vh",
+  },
+  formGrid: {
+    marginTop: "2vh",
+    padding: 20,
+    height: "100%",
+  },
+  textField: {
+    backgroundColor: "lightgray",
+  },
+  button: {
+    width: "50%",
+  },
+  linkGrid: {
+    marginTop: 20,
+  },
+  link: {
+    textDecoration: "none",
+  },
+};
 
 class LoginForm extends React.Component {
   state = {
@@ -22,7 +54,7 @@ class LoginForm extends React.Component {
   };
 
   render() {
-    const { token, error } = this.props;
+    const { classes, token, error } = this.props;
     const { email, password } = this.state;
     var errorMessage;
 
@@ -31,7 +63,7 @@ class LoginForm extends React.Component {
         <Grid container xs={12}>
           {Object.keys(error).map(function (key) {
             return (
-              <Grid item align='center' xs={12}>
+              <Grid item align="center" xs={12}>
                 <Typography variant="h7">{error[key].join(",")}</Typography>
               </Grid>
             );
@@ -48,15 +80,11 @@ class LoginForm extends React.Component {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: "70vh" }}
+        className={classes.mainGrid}
       >
         <Grid item sm={12} md={6}>
           <Paper variant="outlined" square>
-            <Typography
-              align="center"
-              style={{ marginTop: "5vh" }}
-              variant="h4"
-            >
+            <Typography align="center" className={classes.title} variant="h4">
               Sign in
             </Typography>
             <form onSubmit={this.handleSubmit}>
@@ -64,7 +92,7 @@ class LoginForm extends React.Component {
                 container
                 spacing={2}
                 justify="center"
-                style={{ marginTop: "2vh", padding: 20, height: "100%" }}
+                className={classes.formGrid}
                 verticalAlign="middle"
               >
                 <Grid item xs={12} md={10}>
@@ -78,7 +106,7 @@ class LoginForm extends React.Component {
                     label="Email"
                     autoFocus
                     value={email}
-                    style={{ backgroundColor: "lightgray" }}
+                    className={classes.textField}
                     onChange={this.handleChange}
                   />
                 </Grid>
@@ -93,14 +121,14 @@ class LoginForm extends React.Component {
                     id="password"
                     autoComplete="current-password"
                     value={password}
-                    style={{ backgroundColor: "lightgray" }}
+                    className={classes.textField}
                     onChange={this.handleChange}
                   />
                 </Grid>
                 <Grid item xs={12} md={12} align="center">
                   <Button
                     type="submit"
-                    style={{ width: "50%" }}
+                    className={classes.button}
                     variant="contained"
                     color="primary"
                   >
@@ -109,22 +137,20 @@ class LoginForm extends React.Component {
                 </Grid>
               </Grid>
               {error ? (
-                <React.Fragment>
-                  {errorMessage}
-                </React.Fragment>
+                <React.Fragment>{errorMessage}</React.Fragment>
               ) : (
                 <React.Fragment />
               )}
               <Grid item align="center">
-                <Link style={{ textDecoration: "none" }} to="/password/reset/">
+                <Link className={classes.link} to="/password/reset/">
                   You don't remember password?
                 </Link>
               </Grid>
             </form>
           </Paper>
-          <Paper variant="outlined" square style={{ marginTop: 20 }}>
-            <Grid container style={{ padding: 20 }} justify="center">
-              <Link style={{ textDecoration: "none" }} to="/register">
+          <Paper variant="outlined" square className={classes.linkGrid}>
+            <Grid container className={classes.buttonGrid} justify="center">
+              <Link className={classes.link} to="/register">
                 Create account
               </Link>
             </Grid>
@@ -148,4 +174,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles)
+)(LoginForm);

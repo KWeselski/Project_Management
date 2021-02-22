@@ -1,14 +1,33 @@
 import React, {useState} from "react";
 
-import { Button, Grid, Paper} from "@material-ui/core";
-
+import { Button, Grid, Paper, Typography} from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from 'redux'
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
 import { logout } from "../../actions/authActions";
-import { MainGrid, MainTypography} from "../ProfilePage/styles";
+
+const styles = {
+  
+  mainGrid: {
+    height: "80vh",
+  },
+  containerGrid: {
+    padding:20,
+    height: '100%'
+  },
+  button: {
+    width: '30%'
+  },
+  title: {
+    padding: 20,
+    wordWrap: 'break-word'
+  }
+}
 
 function LogoutForm(props) {
+  const {classes} = props
   const [redirectToLogin, setRedirect] = useState(false);
 
   const handleLogout = async () => {
@@ -21,30 +40,32 @@ function LogoutForm(props) {
   }
 
   return (
-    <MainGrid
+    <Grid
       container
       direction="column"
       alignItems="center"
+      className={classes.mainGrid}
     >
       <Grid item xs={12} md={6}>
         <Paper variant="outlined" square>
-          <MainTypography
+          <Typography
             align="center"
             variant="h4"
+            className={classes.title}
           >
             Are you sure you want to log out?
-          </MainTypography>
+          </Typography>
           <Grid
             container
             justify="space-evenly"
-            style={{padding: 20, height: "100%" }}
+            className={classes.containerGrid}
             verticalAlign="middle"
           >
               <Button
                 type="submit"
                 to="/overview"
                 component={Link}
-                style={{ width: "30%" }}
+                className={classes.button}
                 variant="contained"
                 color="primary"
               >
@@ -53,7 +74,7 @@ function LogoutForm(props) {
               <Button
                 type="submit"
                 component={Link}
-                style={{ width: "30%" }}
+                className={classes.button}
                 variant="contained"
                 color="primary"
                 onClick={() => handleLogout()}
@@ -63,7 +84,7 @@ function LogoutForm(props) {
           </Grid>
         </Paper>
       </Grid>
-    </MainGrid>
+    </Grid>
   );
 }
 
@@ -73,4 +94,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(LogoutForm);
+export default compose(connect(null, mapDispatchToProps),withStyles(styles),)(LogoutForm);

@@ -1,10 +1,36 @@
 import React from "react";
 
 import { Button, Grid, TextField, Paper, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { authResetPasswordConfirm } from "../../actions/authActions";
+
+const styles = {
+  mainGrid: {
+    minHeight: "70vh",
+  },
+  buttonGrid: {
+    padding: 20,
+  },
+  title: {
+    marginTop: "5vh",
+    padding: 20,
+  },
+  formGrid: {
+    marginTop: "2vh",
+    padding: 20,
+    height: "100%",
+  },
+  textField: {
+    backgroundColor: "lightgray",
+  },
+  button: {
+    width: "50%",
+  },
+};
 
 class ResetPasswordConfirmForm extends React.Component {
   state = {
@@ -26,7 +52,7 @@ class ResetPasswordConfirmForm extends React.Component {
   };
 
   render() {
-    const { error, password1, password2 } = this.props;
+    const { classes, error, password1, password2 } = this.props;
     const { reset } = this.state;
     var errorMessage;
     if (error == null && reset) {
@@ -36,19 +62,25 @@ class ResetPasswordConfirmForm extends React.Component {
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ minHeight: "70vh" }}
+          className={classes.mainGrid}
         >
           <Grid item xs={12} md={6}>
             <Paper variant="outlined" square>
               <Typography align="center" variant="h4">
                 Thank you, your password is changed
               </Typography>
-              <Grid item xs={12} md={12} align="center" style={{ padding: 20 }}>
+              <Grid
+                item
+                xs={12}
+                md={12}
+                align="center"
+                className={classes.buttonGrid}
+              >
                 <Button
                   component={Link}
                   to=""
                   type="submit"
-                  style={{ width: "50%" }}
+                  className={classes.button}
                   variant="contained"
                   color="primary"
                 >
@@ -81,15 +113,11 @@ class ResetPasswordConfirmForm extends React.Component {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: "70vh" }}
+        className={classes.mainGrid}
       >
         <Grid item xs={12} md={6}>
           <Paper variant="outlined" square>
-            <Typography
-              align="center"
-              style={{ marginTop: "5vh" }}
-              variant="h4"
-            >
+            <Typography align="center" className={classes.title} variant="h4">
               Enter your new password
             </Typography>
             <form onSubmit={this.handleSubmit}>
@@ -97,7 +125,7 @@ class ResetPasswordConfirmForm extends React.Component {
                 container
                 spacing={2}
                 justify="center"
-                style={{ marginTop: "2vh", padding: 20, height: "100%" }}
+                className={classes.formGrid}
                 verticalAlign="middle"
               >
                 <Grid item xs={12} md={10}>
@@ -111,7 +139,7 @@ class ResetPasswordConfirmForm extends React.Component {
                     label="New password"
                     autoFocus
                     value={password1}
-                    style={{ backgroundColor: "lightgray" }}
+                    className={classes.textField}
                     onChange={this.handleChange}
                   />
                 </Grid>
@@ -125,14 +153,14 @@ class ResetPasswordConfirmForm extends React.Component {
                     id="password2"
                     label="Repeat password"
                     value={password2}
-                    style={{ backgroundColor: "lightgray" }}
+                    className={classes.textField}
                     onChange={this.handleChange}
                   />
                 </Grid>
                 <Grid item xs={12} md={12} align="center">
                   <Button
                     type="submit"
-                    style={{ width: "50%" }}
+                    className={classes.button}
                     variant="contained"
                     color="primary"
                   >
@@ -162,7 +190,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles)
 )(ResetPasswordConfirmForm);

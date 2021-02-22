@@ -47,8 +47,6 @@ def delete_project(request):
     except Project.DoesNotExist:
         return Response('Project not exist',
                         status=status.HTTP_404_NOT_FOUND)
-    print(project.creator)
-    print(user)
     if project.creator != user:
         return Response('User are not creator',
                         status=status.HTTP_401_UNAUTHORIZED)

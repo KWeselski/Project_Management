@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import { Grid, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from 'redux'
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
@@ -8,9 +10,28 @@ import {authSignup} from "../../actions/authActions";
 import Paper from "@material-ui/core/Paper";
 import FormPassword from "../FormPassword";
 
+const styles = {
+  mainGrid: {
+    minHeight: "70vh"
+  },
+  title: {
+    marginTop: "5vh"
+  },
+  paper: {
+    marginTop: 20
+  },
+  linkGrid: {
+    padding: 20
+  },
+  link: {
+    textDecoration: "none"
+  }
+}
+
 function PasswordPage(props) {
   const [redirectToLogin, setRedirect] = useState(false);
   const {
+    classes,
     returnStep,
     values,
     signup,
@@ -54,11 +75,11 @@ function PasswordPage(props) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "70vh" }}
+      className={classes.mainGrid}
     >
       <Grid item sm={12} md={6} lg={3}>
         <Paper variant="outlined" square>
-          <Typography align="center" style={{ marginTop: "5vh" }} variant="h4">
+          <Typography align="center" className={classes.title} variant="h4">
             Register your account
           </Typography>
           <FormPassword
@@ -72,9 +93,9 @@ function PasswordPage(props) {
             errorMessage={errorMessage}
           />
         </Paper>
-        <Paper variant="outlined" square style={{ marginTop: 20 }}>
-          <Grid container style={{ padding: 20 }} justify="center">
-            <Link style={{ textDecoration: "none" }} to="/">
+        <Paper variant="outlined" square className={classes.paper}>
+          <Grid container className={classes.linkGrid} justify="center">
+            <Link className={classes.link} to="/">
               Already have an account?
             </Link>
           </Grid>
@@ -117,4 +138,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PasswordPage);
+export default compose(connect(mapStateToProps, mapDispatchToProps),withStyles(styles))(PasswordPage);

@@ -1,11 +1,21 @@
 import React from "react";
 
-import { Grid, Paper, Typography } from "@material-ui/core";
+import { Grid, Paper, Typography} from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
 import FormPersonalInfo from "../FormPersonalInfo";
 
-export default function FormEditProfileInfo(props) {
-  const { nextStep, values, handleChange } = props;
+const styles = {
+  mainGrid: {
+    height: "80vh",
+  },
+  title: {
+    marginTop: 15,
+  },
+};
+
+function FormEditProfileInfo(props) {
+  const {classes, nextStep, values, handleChange } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,11 +27,11 @@ export default function FormEditProfileInfo(props) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "80vh" }}
+      className={classes.mainGrid}
     >
       <Grid item xs={10} md={3}>
         <Paper variant="outlined" square>
-          <Typography align="center" style={{ marginTop: "5vh" }} variant="h4">
+          <Typography align="center" variant="h4" className={classes.title}>
             Edit your personal info
           </Typography>
           <FormPersonalInfo
@@ -38,3 +48,4 @@ export default function FormEditProfileInfo(props) {
     </Grid>
   );
 }
+export default withStyles(styles)(FormEditProfileInfo)

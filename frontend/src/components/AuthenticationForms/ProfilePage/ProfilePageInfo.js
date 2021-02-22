@@ -1,39 +1,48 @@
 import React from "react";
 
-import {Avatar, Grid } from "@material-ui/core";
+import { Avatar, Grid, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-import { MainTypography } from "./styles";
+const styles = {
+  avatar: {
+    height: 150,
+    width: 150,
+    marginTop: 20,
+  },
+  info: {
+    padding: 20,
+    wordWrap: "break-word",
+  },
+};
 
-export default function ProfilePageInfo(props) {
-  const { firstName, lastName, avatar, sex, age, phone } = props;
+function ProfilePageInfo(props) {
+  const { classes, firstName, lastName, avatar, sex, age, phone } = props;
   return (
     <React.Fragment>
       <Grid item align="center">
-        <Avatar
-          style={{ height: 150, width: 150, marginTop: 20 }}
-          src={avatar}
-        />
+        <Avatar className={classes.avatar} src={avatar} />
       </Grid>
-      <MainTypography variant="h5">
+      <Typography variant="h5" className={classes.info}>
         <b>{firstName + " " + lastName}</b>
-      </MainTypography>
+      </Typography>
       <Grid container alignItem="flex-start">
         <Grid item xs={12}>
-          <MainTypography variant="h6">
+          <Typography variant="h6" className={classes.info}>
             <b>Sex:</b> {sex}
-          </MainTypography>
+          </Typography>
         </Grid>
         <Grid item xs={12}>
-          <MainTypography variant="h6">
+          <Typography variant="h6" className={classes.info}>
             <b>Age:</b> {age}
-          </MainTypography>
+          </Typography>
         </Grid>
         <Grid item xs={12}>
-          <MainTypography variant="h6">
+          <Typography variant="h6" className={classes.info}>
             <b>Phone:</b> {phone}
-          </MainTypography>
+          </Typography>
         </Grid>
       </Grid>
     </React.Fragment>
   );
 }
+export default withStyles(styles)(ProfilePageInfo);

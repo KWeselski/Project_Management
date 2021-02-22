@@ -1,9 +1,22 @@
 import React from "react";
 
 import { Button, Grid, TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-export default function FormPassword(props) {
+const styles = {
+  formGrid: {
+    marginTop: "2vh",
+    padding: 20,
+    height: "100%",
+  },
+  textField: {
+    backgroundColor: "lightgray",
+  },
+}
+
+function FormPassword(props) {
   const {
+    classes,
     email,
     password1,
     password2,
@@ -20,7 +33,7 @@ export default function FormPassword(props) {
         container
         spacing={2}
         justify="center"
-        style={{ marginTop: "2vh", padding: 20, height: "100%" }}
+        className={classes.formGrid}
         verticalAlign="middle"
       >
         <Grid item xs={12} md={10}>
@@ -34,7 +47,7 @@ export default function FormPassword(props) {
             label="Email Address"
             autoFocus
             value={email}
-            style={{ backgroundColor: "lightgray" }}
+            className={classes.textField}
             onChange={handleChange}
           />
         </Grid>
@@ -49,7 +62,7 @@ export default function FormPassword(props) {
             id="password1"
             autoComplete="current-password"
             value={password1}
-            style={{ backgroundColor: "lightgray" }}
+            className={classes.textField}
             onChange={handleChange}
           />
         </Grid>
@@ -64,7 +77,7 @@ export default function FormPassword(props) {
             id="password2"
             autoComplete="current-password"
             value={password2}
-            style={{ backgroundColor: "lightgray" }}
+            className={classes.textField}
             onChange={handleChange}
           />
         </Grid>
@@ -96,3 +109,4 @@ export default function FormPassword(props) {
     </form>
   );
 }
+export default withStyles(styles)(FormPassword)

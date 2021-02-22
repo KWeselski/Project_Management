@@ -1,11 +1,53 @@
 import React from "react";
 
 import { Avatar, Paper, Grid, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-import { Status, MainTypography } from "./styles";
+const styles = {
+  status: {
+    background: `${(props) =>
+      (props.type === "new" && "lightblue") ||
+      (props.type === "active" && "yellow") ||
+      (props.type === "onhold" && "pink") ||
+      (props.type === "completed" && "lightgreen") ||
+      (props.type === "delayed" && "red")}`,
+    textAlign: "center",
+    borderRadius: 30,
+    width: "100%",
+    margin: "0 auto",
+    fontWeight: "bold",
+    textTransform: "capitalize",
+    boxShadow:
+      "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+  },
+  name: {
+    marginLeft: 10,
+  },
+  created: {
+    marginRight: 10,
+  },
+  avatar: {
+    backgroundColor: "green",
+  },
+  paper: {
+    width: "100%",
+    height: "100%",
+  },
+  title: {
+    padding: 20,
+    wordWrap: "break-word",
+  },
+  infoGrid: {
+    padding: 20,
+  },
+  descriptionGrid: {
+    padding: 20,
+    height: "50vh",
+  },
+};
 
-export default function ProjectInfo(props) {
-  const { data, profiles } = props;
+function ProjectInfo(props) {
+  const { classes, data, profiles } = props;
   const creator = profiles[profiles.findIndex((x) => x.id === data.creator)];
   const getCurrentDate = (date) => {
     let separator = "/";
@@ -19,39 +61,43 @@ export default function ProjectInfo(props) {
     }${separator}${year} Time: ${hour}:${minutes}`;
   };
   return (
-    <Paper variant="outlined" square style={{ width: "100%", height: "100%" }}>
+    <Paper variant="outlined" square className={classes.paper}>
       <Grid container>
         <Grid item xs={12}>
-          <MainTypography variant="h5">{data.title}</MainTypography>
+          <Typography variant="h5" className={classes.title}>
+            {data.title}
+          </Typography>
         </Grid>
         <Grid item container>
-          <Grid item container xs={10} style={{ padding: 20 }}>
-            <Typography variant="h6" style={{ marginRight: 10 }}>
+          <Grid item container xs={10} className={classes.infoGrid}>
+            <Typography variant="h6" className={classes.created}>
               Created by:
             </Typography>
             <Avatar
               src={creator.avatar}
               style={{ backgroundColor: "green" }}
             ></Avatar>
-            <Typography variant="h6" style={{ marginLeft: 10 }}>
+            <Typography variant="h6" className={classes.name}>
               {creator.first_name + " " + creator.last_name}
             </Typography>
           </Grid>
-          <Grid item xs={2} style={{ padding: 20 }}>
-            <Status type={data.status}>{data.status}</Status>
+          <Grid item xs={2} className={classes.infoGrid}>
+            <div className={classes.status} type={data.status}>{data.status}</div>
           </Grid>
         </Grid>
       </Grid>
 
-      <Grid item xs={12} md={12} style={{ padding: 20, height: "50vh" }}>
+      <Grid item xs={12} md={12} className={classes.descriptionGrid}>
         <Typography variant="h6">Project description:</Typography>
-        <MainTypography variant="body1">{data.description}</MainTypography>
+        <Typography variant="body1" className={classes.title}>
+          {data.description}
+        </Typography>
       </Grid>
       <Grid
         container
         xs={12}
         md={12}
-        style={{ padding: 20 }}
+        className={classes.infoGrid}
         justify="space-evenly"
       >
         <Grid item>
@@ -68,3 +114,4 @@ export default function ProjectInfo(props) {
     </Paper>
   );
 }
+export default withStyles(styles)(ProjectInfo);

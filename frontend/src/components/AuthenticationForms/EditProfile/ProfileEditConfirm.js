@@ -1,13 +1,41 @@
 import React from "react";
 
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
 
 import ProfilePageInfo from "../ProfilePage/ProfilePageInfo";
-import { MainGrid, MainTypography } from "../ProfilePage/styles";
 
-export default function ProfileEditConfirm(props) {
-  const { values, returnStep, returnToProfile, updateProfile } = props;
+const styles = (theme) => ({
+  mainGrid: {
+    marginTop: 70,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: 220,
+    },
+  },
+  paper: {
+    height: "100%",
+    overflow: "auto",
+  },
+  profileGrid: {
+    height: 700,
+  },
+  aboutInfoGrid: {
+    padding: 20,
+    marginTop: 30,
+  },
+  aboutGridItem: {
+    height: "80%",
+  },
+  description: {
+    padding: 20,
+    wordWrap: "break-word",
+  },
+});
+
+function ProfileEditConfirm(props) {
+  const { classes, values, returnStep, returnToProfile, updateProfile } = props;
   const confirmProfile = async () => {
     await updateProfile();
     returnToProfile();
@@ -18,13 +46,9 @@ export default function ProfileEditConfirm(props) {
   }
   return (
     <Grid container direction="column" alignItems="center">
-      <MainGrid md={4} style={{ width: "100%" }}>
-        <Paper
-          variant="outlined"
-          square
-          style={{ height: "100%", overflow: "auto" }}
-        >
-          <Grid container style={{ height: 700 }}>
+      <Grid md={4} className={classes.mainGrid}>
+        <Paper variant="outlined" square className={classes.paper}>
+          <Grid container className={classes.profileGrid}>
             <Grid item xs={4}>
               <ProfilePageInfo
                 avatar={values.avatar}
@@ -40,15 +64,15 @@ export default function ProfileEditConfirm(props) {
               container
               md={8}
               direction="row"
-              style={{ padding: 20, marginTop: 30 }}
+              className={classes.aboutInfoGrid}
             >
-              <Grid item md={12} style={{ height: "80%" }}>
+              <Grid item md={12} className={classes.aboutGridItemm}>
                 <Typography variant="h5">
                   <b>About Me:</b>
                 </Typography>
-                <MainTypography variant="h6">
+                <Typography variant="h6" className={classes.description}>
                   {values.description}
-                </MainTypography>
+                </Typography>
               </Grid>
               <Grid
                 container
@@ -80,7 +104,8 @@ export default function ProfileEditConfirm(props) {
             </Grid>
           </Grid>
         </Paper>
-      </MainGrid>
+      </Grid>
     </Grid>
   );
 }
+export default withStyles(styles)(ProfileEditConfirm);

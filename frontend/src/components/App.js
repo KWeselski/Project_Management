@@ -20,7 +20,6 @@ import RegistrationForm from "./AuthenticationForms/Register";
 import ResetPassword from "./AuthenticationForms/ResetPassword";
 import ResetPasswordConfirmForm from "./AuthenticationForms/ResetPassword/ResetPasswordConfirmForm";
 import Sidebar from "./Sidebar/Sidebar";
-import { getProjects } from "./actions/projectActions";
 import { authCheckState, loadUser } from "./actions/authActions";
 
 class App extends Component {

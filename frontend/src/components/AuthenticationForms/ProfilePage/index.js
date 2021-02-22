@@ -2,13 +2,43 @@ import React, { Component } from "react";
 
 import axios from "axios";
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
 import ProfilePageInfo from "./ProfilePageInfo";
-import { MainGrid, MainTypography } from "./styles";
 
+const styles = (theme) => ({
+  mainGrid: {
+    marginTop: 70,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: 220,
+    },
+  },
+  paper: {
+    height: "100%",
+    overflow: "auto",
+  },
+  profileGrid: {
+    height: 700,
+  },
+  profileInfoGrid: {
+    width: 200,
+  },
+  aboutInfoGrid: {
+    padding: 20,
+    marginTop: 30,
+  },
+  aboutGridItem: {
+    height: "80%",
+  },
+  description: {
+    padding: 20,
+    wordWrap: "break-word",
+  },
+});
 
-export default class ProfilePage extends Component {
+class ProfilePage extends Component {
   state = {
     firstName: "",
     lastName: "",
@@ -26,7 +56,6 @@ export default class ProfilePage extends Component {
         headers: { Authorization: `${localStorage.getItem("token")}` },
       })
       .then((res) => {
-        console.log(res.data)
         this.setState({
           firstName: res.data.first_name,
           lastName: res.data.last_name,
@@ -37,7 +66,7 @@ export default class ProfilePage extends Component {
           phone: res.data.phone,
           user_id: res.data.id,
         });
-      })
+      });
   };
 
   componentDidMount() {
@@ -46,16 +75,18 @@ export default class ProfilePage extends Component {
 
   render() {
     const { avatar, firstName, lastName, sex, age, phone } = this.state;
+    const { classes } = this.props;
     return (
-      <MainGrid container direction="column" alignItems="center">
+      <Grid
+        container
+        className={classes.mainGrid}
+        direction="column"
+        alignItems="center"
+      >
         <Grid sm={10} md={10} lg={5} xl={5}>
-          <Paper
-            variant="outlined"
-            square
-            style={{ height: "100%", overflow: "auto" }}
-          >
-            <Grid container style={{ height: 700 }}>
-              <Grid item xs={4} style={{minWidth:200}}>
+          <Paper variant="outlined" square className={classes.paper}>
+            <Grid container className={classes.profileGrid}>
+              <Grid item xs={4} className={classes.profileInfoGrid}>
                 <ProfilePageInfo
                   avatar={avatar}
                   firstName={firstName}
@@ -70,15 +101,15 @@ export default class ProfilePage extends Component {
                 container
                 md={8}
                 direction="row"
-                style={{ padding: 20, marginTop: 30 }}
+                className={classes.aboutInfoGrid}
               >
-                <Grid item sm={12} md={12} style={{ height: "80%"}}>
+                <Grid item sm={12} md={12} className={classes.aboutInfoGrid}>
                   <Typography variant="h5">
                     <b>About Me:</b>
                   </Typography>
-                  <MainTypography variant="h6">
+                  <Typography variant="h6" className={classes.description}>
                     {this.state.description}
-                  </MainTypography>
+                  </Typography>
                 </Grid>
                 <Grid
                   item
@@ -97,7 +128,8 @@ export default class ProfilePage extends Component {
             </Grid>
           </Paper>
         </Grid>
-      </MainGrid>
+      </Grid>
     );
   }
 }
+export default withStyles(styles)(ProfilePage);

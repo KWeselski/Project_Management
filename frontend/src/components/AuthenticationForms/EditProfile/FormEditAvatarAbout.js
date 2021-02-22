@@ -1,5 +1,6 @@
 import React from "react";
 
+import { withStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Button,
@@ -9,8 +10,30 @@ import {
   Paper,
 } from "@material-ui/core";
 
-export default function FormEditAvatarAbout(props) {
+const styles = {
+  avatar: {
+    height: 150,
+    width: 150,
+  },
+  avatarButton: {
+    width: "50%",
+  },
+  mainGrid: {
+    height: "80vh",
+  },
+  formGrid: {
+    marginTop: "10px",
+    padding: 20,
+    height: "100%",
+  },
+  title: {
+    marginTop: 15,
+  },
+};
+
+function FormEditAvatarAbout(props) {
   const {
+    classes,
     returnStep,
     values,
     handleChange,
@@ -29,11 +52,11 @@ export default function FormEditAvatarAbout(props) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "80vh" }}
+      className={classes.mainGrid}
     >
       <Grid item xs={10} md={3}>
         <Paper variant="outlined" square>
-          <Typography align="center" style={{ marginTop: "5vh" }} variant="h4">
+          <Typography className={classes.title} align="center" variant="h4">
             Edit your personal info
           </Typography>
           <form onSubmit={handleSubmit}>
@@ -41,8 +64,8 @@ export default function FormEditAvatarAbout(props) {
               container
               justify="center"
               spacing={2}
-              style={{ marginTop: "2vh", padding: 20, height: "100%" }}
               verticalAlign="middle"
+              className={classes.formGrid}
             >
               <Grid
                 container
@@ -52,10 +75,7 @@ export default function FormEditAvatarAbout(props) {
                 md={10}
               >
                 <Grid item>
-                  <Avatar
-                    style={{ height: 150, width: 150 }}
-                    src={values.avatar}
-                  />
+                  <Avatar src={values.avatar} className={classes.avatar} />
                 </Grid>
               </Grid>
               <Grid item xs={12} md={12} align="center">
@@ -72,9 +92,9 @@ export default function FormEditAvatarAbout(props) {
                   <Button
                     fullWidth
                     variant="contained"
-                    style={{ width: "50%" }}
                     color="primary"
                     component="span"
+                    className={classes.avatarButton}
                   >
                     Change Avatar
                   </Button>
@@ -122,3 +142,4 @@ export default function FormEditAvatarAbout(props) {
     </Grid>
   );
 }
+export default withStyles(styles)(FormEditAvatarAbout);

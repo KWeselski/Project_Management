@@ -2,12 +2,22 @@ import React, { Component } from "react";
 
 import axios from "axios";
 import { CircularProgress, Grid } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from "redux";
 import { connect } from "react-redux";
 
 import CommentsList from "./CommentsList";
 import ProjectInfo from "./ProjectInfo";
 import UsersList from "./UsersList";
-import { MainGrid } from "../styles"
+
+const styles = (theme) => ({
+  mainGrid:{
+    marginTop: 20,
+    [theme.breakpoints.up("sm")]: {
+    marginLeft: 220,
+  }},
+
+});
 
 class DetailsPage extends Component {
   state = {
@@ -40,13 +50,13 @@ class DetailsPage extends Component {
 
   render() {
     const { loaded, data } = this.state;
-    const { profiles } = this.props
+    const { classes, profiles } = this.props
 
     if (!loaded) {
       return <CircularProgress />;
     }
     return (
-      <MainGrid container xs={12} style={{marginTop:20 }}>
+      <Grid container xs={12} className={classes.mainGrid}>
         <Grid item sm={12} md={12} lg={5}>
           <ProjectInfo data={data} profiles={profiles} />
         </Grid>
@@ -56,7 +66,7 @@ class DetailsPage extends Component {
         <Grid item sm={12} md={8} lg={4}>
           <CommentsList id={data.id} creator={data.creator} />
         </Grid>
-      </MainGrid>
+      </Grid>
     );
   }
 }
@@ -64,4 +74,4 @@ const mapStateToProps = (state) => ({
   profiles: state.project.profiles,
 });
 
-export default connect(mapStateToProps)(DetailsPage);
+export default compose(connect(mapStateToProps),withStyles(styles))(DetailsPage);

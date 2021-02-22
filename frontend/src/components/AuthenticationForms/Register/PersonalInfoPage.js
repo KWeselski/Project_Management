@@ -1,12 +1,32 @@
 import React from "react";
 
 import { Grid, Paper, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
 import FormPersonalInfo from "../FormPersonalInfo";
 
-export default function PersonalInfoPage(props) {
+const styles = {
+  mainGrid: {
+    minHeight: "80vh"
+  },
+  title: {
+    marginTop: "5vh"
+  },
+  paper: {
+    marginTop: 20
+  },
+  linkGrid: {
+    padding: 20
+  },
+  link: {
+    textDecoration: "none"
+  }
+}
+
+function PersonalInfoPage(props) {
   const {
+    classes,
     firstName,
     lastName,
     sex,
@@ -25,11 +45,11 @@ export default function PersonalInfoPage(props) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "80vh" }}
+      className={classes.mainGrid}
     >
       <Grid item xs={10} sm={8} md={6} lg={3}>
         <Paper variant="outlined" square>
-          <Typography align="center" style={{ marginTop: "5vh" }} variant="h4">
+          <Typography align="center" className={classes.title} variant="h4">
             Type your personal info
           </Typography>
           <FormPersonalInfo
@@ -42,9 +62,9 @@ export default function PersonalInfoPage(props) {
             handleChange={handleChange}
           />
         </Paper>
-        <Paper variant="outlined" square style={{ marginTop: 20 }}>
-          <Grid container style={{ padding: 20 }} justify="center">
-            <Link style={{ textDecoration: "none" }} to="/">
+        <Paper variant="outlined" square className={classes.paper}>
+          <Grid container className={classes.linkGrid} justify="center">
+            <Link className={classes.link} to="/">
               Already have an account?
             </Link>
           </Grid>
@@ -53,3 +73,4 @@ export default function PersonalInfoPage(props) {
     </Grid>
   );
 }
+export default withStyles(styles)(PersonalInfoPage)

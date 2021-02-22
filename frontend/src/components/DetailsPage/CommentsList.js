@@ -2,11 +2,23 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import { List, Paper, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
 import CommentRow from "./CommentRow";
 
-export default function CommentsList(props) {
-  const { creator, id } = props;
+const styles = {
+  paper: {
+    maxHeight: "100%",
+    overflow: "auto",
+  },
+  list: {
+    maxHeight: "80vh",
+    width: "100%",
+  },
+};
+
+function CommentsList(props) {
+  const { classes, creator, id } = props;
   const [comments, setComments] = useState([]);
   useEffect(async () => {
     const result = await axios.get(`/api/comments/get/${id}`);
@@ -14,15 +26,11 @@ export default function CommentsList(props) {
   }, []);
 
   return (
-    <Paper
-      variant="outlined"
-      square
-      style={{ maxHeight: "100%", overflow: "auto" }}
-    >
+    <Paper variant="outlined" square className={classes.paper}>
       <Typography align="center" variant="h5">
         Comments
       </Typography>
-      <List dense style={{ maxHeight: "80vh", width: "100%" }}>
+      <List dense className={classes.list}>
         {comments.map((comment) => {
           return <CommentRow creator={creator} comment={comment} />;
         })}
@@ -30,3 +38,5 @@ export default function CommentsList(props) {
     </Paper>
   );
 }
+
+export default withStyles(styles)(CommentsList);
