@@ -29,6 +29,12 @@ class FormCreate extends Component {
     this.props.nextStep();
   };
 
+  componentDidMount() {
+    if(this.props.update){
+      this.props.checkDate();
+    }
+  }
+
   render() {
     const {
       classes,

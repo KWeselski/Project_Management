@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import {ThemeProvider} from 'styled-components';
 
 import App from "./components/App";
-import { getUsers } from "./components/actions/projectActions";
+import { getUsers } from "./components/actions/authActions";
 import authReducer from "./components/reducers/authReducer";
 import projectReducer from "./components/reducers/projectReducer";
 

@@ -158,6 +158,7 @@ export default class ProjectForm extends Component {
             handleToogle={this.handleToogle}
             changeUsersData={this.changeUsersData}
             getData={this.getProjectValues}
+            checkDate={this.checkDate}
             values={this.state}
           />
         );

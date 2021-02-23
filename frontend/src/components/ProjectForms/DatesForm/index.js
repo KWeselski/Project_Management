@@ -17,7 +17,6 @@ export default function DatesForm(props) {
         <Grid item>
           <Typography varaint="h6">Add start date</Typography>
           <KeyboardDatePicker
-            validate={validate}
             value={startDate}
             placeholder="10/10/2018"
             name="startDate"
@@ -43,7 +42,6 @@ export default function DatesForm(props) {
             placeholder="10/10/2018"
             name="endDate"
             onChange={(date) => handleEndDateChange(date)}
-            minDate={new Date()}
             format="dd/MM/yyyy"
           />
         </Grid>

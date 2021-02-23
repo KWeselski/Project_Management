@@ -20,6 +20,7 @@ class EditProjectForm extends Component {
       handleEndDateChange,
       handleToogle,
       changeUsersData,
+      checkDate,
       values,
       user,
     } = this.props;
@@ -37,6 +38,7 @@ class EditProjectForm extends Component {
             handleEndDateChange={handleEndDateChange}
             handleToogle={handleToogle}
             changeUsersData={changeUsersData}
+            checkDate={checkDate}
             values={values}
             update={true}
           />

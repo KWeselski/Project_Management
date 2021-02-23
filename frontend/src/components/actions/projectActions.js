@@ -2,26 +2,6 @@ import axios from "axios";
 import * as actionTypes from "./action-types/project-actions";
 
 
-export const profileListStart = () => {
-  return {
-    type: actionTypes.PROFILE_LIST_START,
-  };
-};
-
-export const profileListFail = (error) => {
-  return {
-    type: actionTypes.PROFILE_LIST_FAIL,
-    error: error,
-  };
-};
-
-export const profileListFinish = (profiles) => {
-  return {
-    type: actionTypes.PROFILE_LIST_FINISH,
-    payload: { profiles },
-  };
-};
-
 export const getProjectsStart = () => {
   return {
     type: actionTypes.GET_PROJECT_START,
@@ -81,20 +61,6 @@ export const projectAddFinish = () => {
   };
 };
 
-export const getUsers = () => {
-  return (dispatch) => {
-    dispatch(profileListStart());
-    axios
-      .get("/api/users/get")
-      .then((res) => {
-        res.data.sort((a, b) =>
-          a.first_name > b.first_name ? 1 : b.first_name > a.first_name ? -1 : 0
-        );
-        dispatch(profileListFinish(res.data));
-      })
-      .catch((error) => dispatch(profileListFail(error)));
-  };
-};
 
 export const getProjects = () => {
   return (dispatch) => {

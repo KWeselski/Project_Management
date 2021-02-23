@@ -54,7 +54,7 @@ function AddUserForm(props) {
 }
 
 const mapStateToProps = (state) => ({
-  profiles: state.project.profiles,
+  profiles: state.auth.profiles,
   activeUser: state.auth.user,
 });
 

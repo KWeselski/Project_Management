@@ -72,7 +72,7 @@ class DetailsPage extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  profiles: state.project.profiles,
+  profiles: state.auth.profiles,
 });
 
 export default compose(

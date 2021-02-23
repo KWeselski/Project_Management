@@ -45,6 +45,33 @@ export const authLogout = () => {
   return { type: actionTypes.AUTH_LOGOUT };
 };
 
+export const profileListStart = () => {
+  return {
+    type: actionTypes.PROFILE_LIST_START,
+  };
+};
+
+export const profileListFail = (error) => {
+  return {
+    type: actionTypes.PROFILE_LIST_FAIL,
+    error: error,
+  };
+};
+
+export const profileListFinish = (profiles) => {
+  return {
+    type: actionTypes.PROFILE_LIST_FINISH,
+    payload: { profiles },
+  };
+};
+
+export const addUser = (profile) => {
+  return {
+    type: actionTypes.ADD_USER,
+    payload: { profile },
+  };
+};
+
 export const logout = () => {
   return async (dispatch) => {
     dispatch(authStart());
@@ -77,6 +104,21 @@ export const loadUser = () => {
   };
 };
 
+export const getUsers = () => {
+  return (dispatch) => {
+    dispatch(profileListStart());
+    axios
+      .get("/api/users/get")
+      .then((res) => {
+        res.data.sort((a, b) =>
+          a.first_name > b.first_name ? 1 : b.first_name > a.first_name ? -1 : 0
+        );
+        dispatch(profileListFinish(res.data));
+      })
+      .catch((error) => dispatch(profileListFail(error)));
+  };
+};
+
 export const authLogin = (email, password) => {
   return (dispatch) => {
     dispatch(authStart());
@@ -92,10 +134,12 @@ export const authLogin = (email, password) => {
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token));
         dispatch(checkAuthTimeout(3600));
+        dispatch(getUsers())
       })
       .catch((err) => {
         dispatch(authFail(err.response.data));
       });
+
   };
 };
 
@@ -130,6 +174,7 @@ export const authSignup = (
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token));
         dispatch(checkAuthTimeout(3600));
+        dispatch(getUsers())
       })
       .catch((error) => {
         dispatch(authFail(error.response.data));
@@ -154,6 +199,7 @@ export const authCheckState = () => {
             (expirationDate.getTime() - new Date().getTime()) / 1000
           )
         );
+
       }
     }
   };
@@ -177,3 +223,4 @@ export const authResetPasswordConfirm = (uid, token, password1, password2) => {
       });
   };
 };
+
