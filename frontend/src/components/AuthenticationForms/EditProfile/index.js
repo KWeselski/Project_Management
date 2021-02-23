@@ -58,8 +58,8 @@ class EditProfileForm extends Component {
     if (this.state.selectedFile) {
     form_data.append("avatar", this.state.selectedFile);
     }
-    form_data.append("firstname", this.state.firstName);
-    form_data.append("lastname", this.state.lastName);
+    form_data.append("first_name", this.state.firstName);
+    form_data.append("last_name", this.state.lastName);
     form_data.append("sex", this.state.sex);
     form_data.append("age", this.state.age);
     form_data.append("phone", this.state.phone);

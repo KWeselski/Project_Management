@@ -1,11 +1,19 @@
 import React from "react";
 
 import { Grid, Typography, NativeSelect } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-export default function StatusSelect(props) {
-  const { status, handleChange } = props;
+const styles = {
+  selectGrid: {
+    width: "100%",
+    padding: 10,
+  },
+};
+
+function StatusSelect(props) {
+  const { classes, status, handleChange } = props;
   return (
-    <Grid container xs={8} style={{width:'100%', padding:10 }}>
+    <Grid container xs={8} className={classes.selectGrid}>
       <Grid item xs={3}>
         <Typography variant="h6">Status:</Typography>
       </Grid>
@@ -30,3 +38,4 @@ export default function StatusSelect(props) {
     </Grid>
   );
 }
+export default withStyles(styles)(StatusSelect);

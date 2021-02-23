@@ -30,7 +30,7 @@ def create_project(request):
             return Response('Project not exist',
                             status=status.HTTP_404_NOT_FOUND)
         if request.data['creator'] != user:
-            return Response('Cant change creator',
+            return Response('Bad request',
                             status=status.HTTP_400_BAD_REQUEST)
         serializers = ProjectSerializer(project, data=request.data)
         if serializers.is_valid():
@@ -41,7 +41,12 @@ def create_project(request):
 
 @api_view(['DELETE'])
 def delete_project(request):
-    user = get_user_from_token(request)
+    user_id = get_user_from_token(request)
+    try:
+        user = Profile.objects.get(id=user_id)
+    except Profile.DoesNotExist:
+        return Response('Profile not exist',
+                        status=status.HTTP_404_NOT_FOUND)
     try:
         project = Project.objects.get(id=request.data['id'])
     except Project.DoesNotExist:

@@ -4,13 +4,20 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import {Avatar, Checkbox} from "@material-ui/core";
+import { Avatar, Checkbox } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
 import ProfileDialog from "../ProfileDialog/index";
 
-export default function UserForm(props) {
+const styles = {
+  avatar: {
+    backgroundColor: "green",
+  },
+};
+
+function UserForm(props) {
   const [openDialog, setOpenDialog] = useState(false);
-  const { values, users, handleToogle, confirmedUsers } = props;
+  const { classes, values, users, handleToogle, confirmedUsers } = props;
   const labelId = `checkbox-list-secondary-label-${values.id}`;
 
   const open = () => {
@@ -21,10 +28,7 @@ export default function UserForm(props) {
       <React.Fragment>
         <ListItem key={values.id} button onClick={open}>
           <ListItemAvatar>
-            <Avatar
-              src={values.avatar}
-              style={{ backgroundColor: "green" }}
-            ></Avatar>
+            <Avatar src={values.avatar} className={classes.avatar}></Avatar>
           </ListItemAvatar>
           <ListItemText
             id={labelId}
@@ -77,3 +81,5 @@ export default function UserForm(props) {
     );
   }
 }
+
+export default withStyles(styles)(UserForm);

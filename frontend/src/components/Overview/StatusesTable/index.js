@@ -1,17 +1,47 @@
 import React from "react";
 
-import { Paper, Table, TableRow, TableBody } from "@material-ui/core";
-
 import {
-  StyledTableHead,
-  StyledCell,
-  StyledTableHeadCell,
-  Status,
-} from "../styles";
+  Paper,
+  Table,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableBody,
+} from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-export default function StatusesTable(props) {
+import StatusDiv from "../StatusDiv";
+
+const styles = {
+  table: {
+    minWidth: 60,
+  },
+  tableHead: {
+    "& .MuiTableCell-head": {
+      color: "white",
+      fontSize: 16,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+  },
+  cellHead: {
+    backgroundColor: "#15171c",
+    width: 130,
+  },
+  totalCell: {
+    textAlign: "center",
+  },
+  cell: {
+    textAlign: "center",
+    height: 40,
+    padding: "0px 16px",
+    minWidth: 100,
+  },
+};
+
+function StatusesTable(props) {
   const statuses = ["new", "active", "onhold", "delayed", "completed"];
-  const { projects } = props;
+  const { classes, projects } = props;
   const getTotals = (data, key) => {
     let total = 0;
     data.forEach((item) => {
@@ -23,31 +53,30 @@ export default function StatusesTable(props) {
   };
 
   return (
-    <Paper variant="outlined" square>
-      <Table style={{ minWidth: 60 }}>
-        <StyledTableHead>
+    <Table className={classes.table}>
+      <Paper variant="outlined" square>
+        <TableHead className={classes.tableHead}>
           <TableRow>
-            <StyledTableHeadCell style={{ width: 120 }}>
-              Status
-            </StyledTableHeadCell>
-            <StyledTableHeadCell>Total</StyledTableHeadCell>
+            <TableCell className={classes.cellHead}>Status</TableCell>
+            <TableCell className={classes.cellHead}>Total</TableCell>
           </TableRow>
-        </StyledTableHead>
+        </TableHead>
         <TableBody>
           {statuses.map((status) => {
             return (
               <TableRow key={status}>
-                <StyledCell component="th" scope="row">
-                  <Status type={status}>{status}</Status>
-                </StyledCell>
-                <StyledCell style={{ textAlign: "center" }}>
+                <TableCell className={classes.cell} component="th" scope="row">
+                  <StatusDiv type={status} />
+                </TableCell>
+                <TableCell className={[classes.cell, classes.totalCell]}>
                   {getTotals(projects, status)}
-                </StyledCell>
+                </TableCell>
               </TableRow>
             );
           })}
         </TableBody>
-      </Table>
-    </Paper>
+      </Paper>
+    </Table>
   );
 }
+export default withStyles(styles)(StatusesTable);

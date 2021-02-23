@@ -11,12 +11,12 @@ import ProjectInfo from "./ProjectInfo";
 import UsersList from "./UsersList";
 
 const styles = (theme) => ({
-  mainGrid:{
+  mainGrid: {
     marginTop: 20,
     [theme.breakpoints.up("sm")]: {
-    marginLeft: 220,
-  }},
-
+      marginLeft: 220,
+    },
+  },
 });
 
 class DetailsPage extends Component {
@@ -27,6 +27,7 @@ class DetailsPage extends Component {
 
   changeUsersData = (data) => {
     const { profiles } = this.props;
+    console.log(profiles)
     const users_in_project = [];
     data.users.map((user) => {
       let index = profiles.findIndex((x) => x.id == user);
@@ -37,7 +38,7 @@ class DetailsPage extends Component {
   };
 
   getProjectValues = async () => {
-    const id = String(window.location).split("/").pop();
+    const id = String(window.location).split("details/").pop();
     await axios.get(`/api/project/get/${id}`).then((res) => {
       this.changeUsersData(res.data);
       this.setState({ data: res.data, loaded: true });
@@ -50,7 +51,7 @@ class DetailsPage extends Component {
 
   render() {
     const { loaded, data } = this.state;
-    const { classes, profiles } = this.props
+    const { classes, profiles } = this.props;
 
     if (!loaded) {
       return <CircularProgress />;
@@ -74,4 +75,7 @@ const mapStateToProps = (state) => ({
   profiles: state.project.profiles,
 });
 
-export default compose(connect(mapStateToProps),withStyles(styles))(DetailsPage);
+export default compose(
+  connect(mapStateToProps),
+  withStyles(styles)
+)(DetailsPage);

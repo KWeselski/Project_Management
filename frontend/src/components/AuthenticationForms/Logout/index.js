@@ -11,7 +11,8 @@ import { logout } from "../../actions/authActions";
 const styles = {
   
   mainGrid: {
-    height: "80vh",
+    position:'absolute',
+    top:'30%'
   },
   containerGrid: {
     padding:20,

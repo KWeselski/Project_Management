@@ -3,23 +3,9 @@ import React from "react";
 import { Avatar, Paper, Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
+import StatusDiv from "../Overview/StatusDiv";
+
 const styles = {
-  status: {
-    background: `${(props) =>
-      (props.type === "new" && "lightblue") ||
-      (props.type === "active" && "yellow") ||
-      (props.type === "onhold" && "pink") ||
-      (props.type === "completed" && "lightgreen") ||
-      (props.type === "delayed" && "red")}`,
-    textAlign: "center",
-    borderRadius: 30,
-    width: "100%",
-    margin: "0 auto",
-    fontWeight: "bold",
-    textTransform: "capitalize",
-    boxShadow:
-      "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
-  },
   name: {
     marginLeft: 10,
   },
@@ -82,7 +68,7 @@ function ProjectInfo(props) {
             </Typography>
           </Grid>
           <Grid item xs={2} className={classes.infoGrid}>
-            <div className={classes.status} type={data.status}>{data.status}</div>
+            <StatusDiv type={data.status} />
           </Grid>
         </Grid>
       </Grid>

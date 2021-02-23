@@ -82,4 +82,4 @@ function CommentRow(props) {
     </ListItem>
   );
 }
-export default withStyles(styles)(CommentRow)
+export default withStyles(styles)(CommentRow);

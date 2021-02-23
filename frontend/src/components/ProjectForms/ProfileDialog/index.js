@@ -3,23 +3,47 @@ import React from "react";
 import {
   Avatar,
   Button,
+  Dialog,
+  DialogContent,
   DialogTitle,
   Grid,
   Typography,
 } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-import { StyledDialog, StyledDialogContent, MainTypography } from "./styles";
+const styles = {
+  dialog: {
+    position: "absolute",
+  },
+  dialogContnent: {
+    height: "40vh",
+    minWidth: "30vh",
+    maxWidth: "60vh",
+  },
+  title: {
+    padding: 20,
+    wordWrap: "break-word",
+  },
+  avatar: {
+    height: 100,
+    width: 100,
+  },
+  infoGrid: {
+    marginTop: 10,
+    height: 200,
+  },
+};
 
-export default function ProfileDialog(props) {
-  const { data, openDialog, setOpenDialog } = props;
+function ProfileDialog(props) {
+  const { classes, data, openDialog, setOpenDialog } = props;
   const values = data;
   return (
-    <StyledDialog open={openDialog}>
+    <Dialog open={openDialog} className={classes.dialog}>
       <DialogTitle>
         <Grid container xs={12} justify="space-between">
-          <MainTypography variant="h5">
-            {values.firstname + " " + values.lastname}
-          </MainTypography>
+          <Typography className={classes.title} variant="h5">
+            {values.first_name + " " + values.last_name}
+          </Typography>
           <Button
             type="submit"
             onClick={() => {
@@ -30,12 +54,12 @@ export default function ProfileDialog(props) {
           </Button>
         </Grid>
       </DialogTitle>
-      <StyledDialogContent dividers>
+      <DialogContent className={classes.dialogContnent} dividers>
         <Grid container xs={12} alignItems="center">
           <Grid item container xs={12} justify="center">
-            <Avatar style={{ height: 100, width: 100 }} src={values.avatar} />
+            <Avatar className={classes.avatar} src={values.avatar} />
           </Grid>
-          <Grid item container xs={12} style={{ marginTop: 10, height: 200 }}>
+          <Grid item container xs={12} className={classes.infoGrid}>
             <Grid item xs={12}>
               <Typography variant="h6">
                 <b>Sex:</b> {values.sex}
@@ -52,13 +76,14 @@ export default function ProfileDialog(props) {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <MainTypography variant="h8">
+              <Typography className={classes.title} variant="h8">
                 <b>About me:</b> {values.description}
-              </MainTypography>
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
-      </StyledDialogContent>
-    </StyledDialog>
+      </DialogContent>
+    </Dialog>
   );
 }
+export default withStyles(styles)(ProfileDialog);

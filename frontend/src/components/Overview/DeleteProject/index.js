@@ -1,12 +1,32 @@
 import React, { useState } from "react";
 
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import { Link, Redirect } from "react-router-dom";
+import { compose } from "redux";
 import { connect } from "react-redux";
 
 import { deleteProject } from "../../actions/projectActions";
 
+const styles = {
+  mainGrid: {
+    minHeight: "70vh",
+  },
+  paper: {
+    margin: "5vh 5vh 0",
+  },
+  formGrid: {
+    marginTop: "2vh",
+    padding: 20,
+    height: "100%",
+  },
+  button: {
+    width: "30%",
+  },
+};
+
 function DeleteProject(props) {
+  const { classes } = props;
   const id = String(window.location).split("/").pop();
   const [deleted, setDeleted] = useState(false);
   const confirmDelete = async () => {
@@ -23,28 +43,24 @@ function DeleteProject(props) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "70vh" }}
+      className={classes.mainGrid}
     >
       <Grid item xs={12} md={3}>
         <Paper variant="outlined" square>
-          <Typography
-            align="center"
-            style={{ marginTop: "5vh", marginLeft: "5vh", marginRight: "5vh" }}
-            variant="h4"
-          >
+          <Typography align="center" className={classes.paper} variant="h4">
             Are you sure you want to delete the project?
           </Typography>
           <Grid
             container
             spacing={2}
             justify="space-between"
-            style={{ marginTop: "2vh", padding: 20, height: "100%" }}
+            className={classes.formGrid}
           >
             <Button
               component={Link}
               to="/overview"
               type="submit"
-              style={{ width: "30%" }}
+              className={classes.button}
               variant="contained"
               color="primary"
             >
@@ -52,7 +68,7 @@ function DeleteProject(props) {
             </Button>
             <Button
               type="submit"
-              style={{ width: "30%" }}
+              className={classes.button}
               variant="contained"
               color="primary"
               onClick={() => confirmDelete()}
@@ -74,4 +90,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(DeleteProject);
+export default compose(
+  connect(null, mapDispatchToProps),
+  withStyles(styles)
+)(DeleteProject);

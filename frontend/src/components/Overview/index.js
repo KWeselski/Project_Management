@@ -3,20 +3,51 @@ import React, { Component } from "react";
 import {
   Grid,
   Table,
+  TableHead,
+  TableCell,
   TableBody,
   TableContainer,
   TablePagination,
   TableRow,
-  Paper
+  Paper,
 } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import StatusesTable from "./StatusesTable";
 import ProjectRow from "./ProjectRow";
 import { getProjects } from "../actions/projectActions";
-import { StyledTableHead, StyledTableHeadCell } from "./styles";
-import { MainGrid } from "../styles"
+
+const styles = (theme) => ({
+  mainGrid: {
+    minHeight: "600",
+    marginTop: 25,
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: 220,
+    },
+  },
+  tableHead: {
+    "& .MuiTableCell-head": {
+      color: "white",
+      fontSize: 16,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+  },
+  titleHead: {
+    backgroundColor: "#15171c",
+    width: 300,
+  },
+  cellHead: {
+    backgroundColor: "#15171c",
+    width: 130,
+  },
+  statusGrid: {
+    maxHeight: 200,
+  },
+});
 
 class ProjectsList extends Component {
   constructor(props) {
@@ -42,71 +73,58 @@ class ProjectsList extends Component {
   }
 
   render() {
-    const { projects, token } = this.props;
+    const { classes, projects, token } = this.props;
     const { page, rowsPerPage } = this.state;
     if (!token) {
       return <Redirect to="" />;
     }
 
     return (
-      <MainGrid
-        container
-        xs={12}
-        md={12}
-        style={{marginTop: 25 }}
-      >
+      <Grid container xs={12} md={12} className={classes.mainGrid}>
         <Grid item container sm={12} md={12} lg={10} xl={9}>
           <Paper variant="outlined" square>
-          <TableContainer>
-            <Table>
-              <StyledTableHead>
-                <TableRow>
-                  <StyledTableHeadCell style={{ width: 300 }}>Title</StyledTableHeadCell>
-                  <StyledTableHeadCell style={{ width: 130 }}>
-                    Start Date
-                  </StyledTableHeadCell>
-                  <StyledTableHeadCell style={{ width: 130 }}>
-                    End Date
-                  </StyledTableHeadCell>
-                  <StyledTableHeadCell style={{ width: 120 }}>
-                    Status
-                  </StyledTableHeadCell>
-                  <StyledTableHeadCell>Operations</StyledTableHeadCell>
-                </TableRow>
-              </StyledTableHead>
-              <TableBody>
-                {(rowsPerPage > 0
-                  ? projects.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                  : projects
-                ).map((project) => (
-                  <ProjectRow project={project} />
-                ))}
-              </TableBody>
-            </Table>
-            <TablePagination
-              rowsPerPageOptions={[6]}
-              component="div"
-              count={projects.length}
-              rowsPerPage={6}
-              page={page}
-              onChangePage={this.handleChangePage}
-            />
+            <TableContainer>
+              <Table>
+                <TableHead className={classes.tableHead}>
+                  <TableRow>
+                    <TableCell className={classes.titleHead}>Title</TableCell>
+                    <TableCell className={classes.cellHead}>
+                      Start Date
+                    </TableCell>
+                    <TableCell className={classes.cellHead}>End Date</TableCell>
+                    <TableCell className={classes.cellHead}>Status</TableCell>
+                    <TableCell className={classes.cellHead}>
+                      Operations
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {(rowsPerPage > 0
+                    ? projects.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                    : projects
+                  ).map((project) => (
+                    <ProjectRow project={project} />
+                  ))}
+                </TableBody>
+              </Table>
+              <TablePagination
+                rowsPerPageOptions={[6]}
+                component="div"
+                count={projects.length}
+                rowsPerPage={6}
+                page={page}
+                onChangePage={this.handleChangePage}
+              />
             </TableContainer>
-          </Paper>       
+          </Paper>
         </Grid>
-        <Grid
-          item
-          sm={4}
-          md={3}
-          lg={2}
-          style={{ width: "100%", maxHeight: 200 }}
-        >
+        <Grid item sm={4} md={3} lg={2} className={classes.statusGrid}>
           <StatusesTable projects={this.props.projects} />
         </Grid>
-      </MainGrid>
+      </Grid>
     );
   }
 }
@@ -126,4 +144,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withStyles(styles)
+)(ProjectsList);

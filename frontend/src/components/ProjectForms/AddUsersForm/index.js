@@ -1,28 +1,45 @@
 import React, { useState } from "react";
 
 import { List, Paper, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from "redux";
 import { connect } from "react-redux";
 
 import UserForm from "./UserForm";
 
+const styles = {
+  paper: {
+    maxHeight: "100%",
+    overflow: "auto",
+  },
+  list: {
+    maxHeight: "50vh",
+    width: "100%",
+    maxWidth: 600,
+  },
+};
+
 function AddUserForm(props) {
   const [loaded, setLoaded] = useState(false);
-  const { users, profiles, handleToogle, changeUsersData, activeUser } = props;
+  const {
+    classes,
+    users,
+    profiles,
+    handleToogle,
+    changeUsersData,
+    activeUser,
+  } = props;
   if (users.length > 0 && loaded == false && profiles.length > 0) {
     changeUsersData(profiles);
     setLoaded(true);
   }
 
   return (
-    <Paper
-      variant="outlined"
-      square
-      style={{ maxHeight: "100%", overflow: "auto" }}
-    >
+    <Paper variant="outlined" square className={classes.paper}>
       <Typography align="center" variant="h5">
         Add users to project
       </Typography>
-      <List dense style={{ maxHeight: "50vh", width: "100%", maxWidth: 600 }}>
+      <List dense className={classes.list}>
         {profiles.map((user) => {
           if (activeUser == user.id) {
             return;
@@ -41,4 +58,7 @@ const mapStateToProps = (state) => ({
   activeUser: state.auth.user,
 });
 
-export default connect(mapStateToProps)(AddUserForm);
+export default compose(
+  connect(mapStateToProps),
+  withStyles(styles)
+)(AddUserForm);

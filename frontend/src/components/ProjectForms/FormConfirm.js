@@ -1,12 +1,31 @@
 import React, { Component } from "react";
 
 import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import { createProject, updateProject } from "../actions/projectActions";
 import UsersList from "../DetailsPage/UsersList";
-import { MainGrid } from "../styles"
+
+const styles = (theme) => ({
+  mainGrid: {
+    minHeight: "70vh",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: 220,
+    },
+  },
+  title: {
+    padding: 40,
+  },
+  paper: {
+    width: "100%",
+  },
+  item: {
+    padding: 20,
+  },
+});
 
 class FormConfirm extends Component {
   getCurrentDate = (date) => {
@@ -15,7 +34,7 @@ class FormConfirm extends Component {
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let hour = date.getHours();
-    let minutes = date.getMinutes();
+    let minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
     return `${day}${separator}${
       month < 10 ? `0${month}` : `${month}`
     }${separator}${year} Time: ${hour}:${minutes}`;
@@ -43,28 +62,27 @@ class FormConfirm extends Component {
     this.props.returnToOverview();
   };
   render() {
-    const { values, update, returnStep, returnToOverview } = this.props;
+    const {
+      classes,
+      values,
+      update,
+      returnStep,
+      returnToOverview,
+    } = this.props;
     if (values.toOverview) {
       return <Redirect to="/overview" />;
     }
     return (
-      <MainGrid container xs={12}>
+      <Grid className={classes.mainGrid} container xs={12}>
         <Grid item xs={12}>
-          <Typography align="center" variant="h3" style={{ padding: 40 }}>
+          <Typography align="center" variant="h3" className={classes.title}>
             Confirm new project
           </Typography>
         </Grid>
         <Grid item container spacing={3} xs={12}>
-          <Grid
-            container
-            item
-            xs={12}
-            md={12}
-            lg={5}
-            textAlign="center"
-          >
-            <Paper variant="outlined" square style={{ width: "100%" }}>
-              <Grid item xs={8} md={8} style={{ padding: 20 }}>
+          <Grid container item xs={12} md={12} lg={5} textAlign="center">
+            <Paper variant="outlined" square className={classes.paper}>
+              <Grid item xs={8} md={8} className={classes.item}>
                 <TextField
                   readonly
                   fullWidth
@@ -72,7 +90,7 @@ class FormConfirm extends Component {
                   inputProps={{ style: { fontSize: "1.4rem" }, maxLength: 100 }}
                 />
               </Grid>
-              <Grid item xs={12} md={12} style={{ padding: 20 }}>
+              <Grid item xs={12} md={12} className={classes.item}>
                 <TextField
                   readonly
                   name="description"
@@ -94,7 +112,7 @@ class FormConfirm extends Component {
           </Grid>
           <Grid item sm={12} md={12} lg={3}>
             <Paper variant="outlined" square>
-              <Grid item style={{ padding: 20 }}>
+              <Grid item className={classes.item}>
                 <span>
                   <Typography variant="h6">
                     Start Date: {this.getCurrentDate(values.startDate)}
@@ -117,7 +135,7 @@ class FormConfirm extends Component {
                 justify="space-between"
                 xs={12}
                 md={12}
-                style={{ padding: 20 }}
+                className={classes.item}
               >
                 <Grid item>
                   <Button
@@ -156,7 +174,7 @@ class FormConfirm extends Component {
             </Paper>
           </Grid>
         </Grid>
-      </MainGrid>
+      </Grid>
     );
   }
 }
@@ -172,4 +190,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(FormConfirm);
+export default compose(
+  connect(null, mapDispatchToProps),
+  withStyles(styles)
+)(FormConfirm);

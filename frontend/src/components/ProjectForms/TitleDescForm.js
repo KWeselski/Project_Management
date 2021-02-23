@@ -1,17 +1,20 @@
 import React from "react";
 
 import { Grid, Paper, TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-export default function TitleDescForm(props) {
-  const { title, description, handleChange } = props;
+const styles = {
+  item: {
+    padding: 20,
+  },
+};
+
+function TitleDescForm(props) {
+  const { classes, title, description, handleChange } = props;
   return (
     <Paper variant="outlined" square>
-      <Grid
-        container
-        sm={12}
-        textAlign="center"
-      >
-        <Grid item xs={12} md={12} style={{ padding: 20 }}>
+      <Grid container sm={12} textAlign="center">
+        <Grid item xs={12} md={12} className={classes.item}>
           <TextField
             name="title"
             variant="standard"
@@ -24,7 +27,7 @@ export default function TitleDescForm(props) {
             inputProps={{ maxLength: 100, style: { fontSize: "1.4rem" } }}
           />
         </Grid>
-        <Grid item xs={12} md={12} style={{ padding: 20 }}>
+        <Grid item xs={12} md={12} className={classes.item}>
           <TextField
             name="description"
             variant="outlined"
@@ -38,9 +41,9 @@ export default function TitleDescForm(props) {
             multiline={true}
             onChange={handleChange}
           />
-        
+        </Grid>
       </Grid>
-    </Grid>
     </Paper>
   );
 }
+export default withStyles(styles)(TitleDescForm);

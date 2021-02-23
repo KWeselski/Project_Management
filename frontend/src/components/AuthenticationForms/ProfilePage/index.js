@@ -115,9 +115,14 @@ class ProfilePage extends Component {
                   item
                   container
                   alignItems="center"
-                  justify="center"
+                  justify="space-between"
                   md={12}
                 >
+                <Link to={{ pathname: "/password/reset/"}}>
+                <Button variant="contained" fullwidth color="primary">
+                  Reset Password
+                </Button>
+              </Link>
                   <Link to={{ pathname: "/profile/edit/", state: this.state }}>
                     <Button variant="contained" fullwidth color="primary">
                       Edit profile

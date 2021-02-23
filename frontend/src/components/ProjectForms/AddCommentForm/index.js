@@ -2,13 +2,35 @@ import React, { useState } from "react";
 
 import axios from "axios";
 import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
-import { Link, Redirect } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import { compose } from "redux";
 import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 
-import { MainGrid } from "../../styles";
+const styles = {
+  mainGrid: {
+    minHeight: "70vh",
+  },
+  title: {
+    padding: 10,
+    marginTop: 10,
+    textAlign: "center",
+  },
+  formGrid: {
+    marginTop: "2vh",
+    padding: 20,
+    height: "100%",
+  },
+  buttonGrid: {
+    padding: 20,
+  },
+  button: {
+    width: "30%",
+  },
+};
 
 function CommentForm(props) {
-  const { token } = props;
+  const { classes, token } = props;
   const [comment, setComment] = useState("");
   const [confirm, setConfirm] = useState(false);
   const id = String(window.location).split("/").pop();
@@ -45,28 +67,21 @@ function CommentForm(props) {
     return <Redirect to={`/details/${id}`}></Redirect>;
   }
   return (
-    <MainGrid
+    <Grid
       container
       xs={12}
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "70vh" }}
+      className={classes.mainGrid}
     >
       <Grid item xs={10}>
         <Paper variant="outlined" squar>
-          <Typography
-            style={{ padding: 10, marginTop: 10, textAlign: "center" }}
-            variant="h6"
-          >
+          <Typography className={classes.title} variant="h6">
             Comment
           </Typography>
           <form onSubmit={handleSubmit}>
-            <Grid
-              container
-              justify="center"
-              style={{ marginTop: "2vh", padding: 20, height: "100%" }}
-            >
+            <Grid container justify="center" className={classes.formGrid}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="comment"
@@ -88,14 +103,14 @@ function CommentForm(props) {
                 justify="space-between"
                 xs={12}
                 md={12}
-                style={{ padding: 20 }}
+                className={classes.buttonGrid}
               >
                 <Grid item>
                   <Button
                     component={Link}
                     to="/overview"
                     type="submit"
-                    style={{ width: "30%" }}
+                    className={classes.button}
                     variant="contained"
                     color="primary"
                   >
@@ -117,7 +132,7 @@ function CommentForm(props) {
           </form>
         </Paper>
       </Grid>
-    </MainGrid>
+    </Grid>
   );
 }
 
@@ -127,4 +142,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CommentForm);
+export default compose(
+  connect(mapStateToProps),
+  withStyles(styles)
+)(CommentForm);

@@ -5,6 +5,10 @@ import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
 const styles = {
+  mainGrid: {
+    position:'absolute',
+    top:'30%'
+  },
   buttonGrid: {
     padding: 20,
   },
@@ -17,7 +21,7 @@ const styles = {
 function SendResetConfirmForm(props) {
   const { classes } = props;
   return (
-    <Grid container direction="column" alignItems="center" justify="center">
+    <Grid container direction="column" alignItems="center" className={classes.mainGrid}>
       <Grid item xs={12} md={6}>
         <Paper variant="outlined" square>
           <Typography variant="h4">
